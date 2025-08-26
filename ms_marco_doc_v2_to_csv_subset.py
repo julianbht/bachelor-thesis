@@ -1,4 +1,6 @@
 """
+Note: I was unable to load the generated csv into postgres. That's why I abondened this script and loaded directly into postgres instead.
+
 Export a subset of the MS MARCO Document v2 TREC-DL (2019–2022) judged data to CSVs.
 The subset contains the qrels and its related queries and docs.
 
