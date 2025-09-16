@@ -16,10 +16,11 @@ class Settings:
     model: str = "deepseek-r1:14b"
     temperature: float = 0.0
     max_text_chars: Optional[int] = None
-    commit_every: int = 20
+    commit_every: int = 5
     retry_enabled: bool = True
     retry_attempts: int = 3
     retry_backoff_ms: int = 50
     limit_qrels: Optional[int] = 100
     official: bool = False
     user_notes: Optional[str] = None
+    reasoning_enabled: bool = True  # LLM should give reason for judgement

@@ -8,9 +8,10 @@ from db import (
     fetch_qrels,
     insert_prediction,
     count_available_qrels,
+    finalize_run
 )
 from llm import judge_with_ollama
-from prompts import PROMPT_TMPL, build_prompt
+from prompts import PROMPT_TMPL, PROMPT_TMPL_WITH_REASON, build_prompt
 
 
 def hms(seconds: float) -> str:
@@ -25,7 +26,17 @@ def main():
     pg = Pg()
     cfg = Settings()
 
+    # Prompt for user_notes if not set in config
+    if cfg.user_notes is None:
+        try:
+            entered = input("Enter run notes (optional, press Enter to skip): ").strip()
+            cfg = Settings(**{**cfg.__dict__, "user_notes": (entered if entered else None)})
+        except EOFError:
+            # In case input() is not available (e.g., piped run), fall back to None
+            cfg = Settings(**{**cfg.__dict__, "user_notes": None})
+
     conn = connect(pg)
+
     try:
         ensure_audit_schema(conn, cfg.audit_schema)
 
@@ -41,12 +52,15 @@ def main():
                     f"{limit_qrels} of {total_available} qrels."
                 )
 
+        # Choose prompt template based on reasoning toggle
+        prompt_template = PROMPT_TMPL_WITH_REASON if cfg.reasoning_enabled else PROMPT_TMPL
+
         # Create run record
         run_id = start_run(
             conn,
             cfg.audit_schema,
             model=cfg.model,
-            prompt_template=PROMPT_TMPL,
+            prompt_template=prompt_template,
             data_schema=cfg.data_schema,
             audit_schema_name=cfg.audit_schema,
             max_text_chars=cfg.max_text_chars if cfg.max_text_chars is not None else None,
@@ -86,9 +100,10 @@ def main():
             doc_text = (row["doc_text"] or "").strip()
             if cfg.max_text_chars is not None:
                 doc_text = doc_text[:cfg.max_text_chars]
-            prompt = build_prompt(query_text, doc_text)
 
-            pred, raw, ms_total = judge_with_ollama(
+            prompt = build_prompt(query_text, doc_text, template=prompt_template)
+
+            pred, reason, raw, ms_total = judge_with_ollama(
                 cfg.model,
                 prompt,
                 temperature=cfg.temperature,
@@ -114,7 +129,7 @@ def main():
                 f"| agreement={agree:.2f}% | ETA ~ {hms(eta)}"
             )
 
-            insert_prediction(conn, cfg.audit_schema, run_id, i, row, pred, is_correct, ms_total, raw)
+            insert_prediction(conn, cfg.audit_schema, run_id, i, row, pred, reason, is_correct, ms_total, raw)
 
             if cfg.commit_every and (i % cfg.commit_every == 0):
                 conn.commit()
@@ -123,9 +138,15 @@ def main():
 
         total_agree = (100.0 * correct / counted) if counted > 0 else 0.0
         total_time = time.time() - t_start
+
+        invalid_pct = finalize_run(conn, cfg.audit_schema, run_id)
+
         print("\nDone.")
         print(f"Run ID: {run_id}")
-        print(f"Total items judged: {n} | Agreement (on {counted} valid preds): {total_agree:.2f}% | Time: {hms(total_time)}")
+        print(
+            f"Total items judged: {n} | Agreement (on {counted} valid preds): {total_agree:.2f}% "
+            f"| Invalid preds (no score): {invalid_pct:.2f}% | Time: {hms(total_time)}"
+        )
 
     finally:
         conn.close()

@@ -15,6 +15,7 @@ def ensure_audit_schema(conn, audit_schema: str):
     with conn.cursor() as cur:
         cur.execute(f"CREATE SCHEMA IF NOT EXISTS {audit_schema};")
 
+        # Runs table
         cur.execute(f"""
             CREATE TABLE IF NOT EXISTS {audit_schema}.llm_runs (
                 run_id            BIGSERIAL PRIMARY KEY,
@@ -26,9 +27,9 @@ def ensure_audit_schema(conn, audit_schema: str):
 
                 data_schema       TEXT NOT NULL,
                 audit_schema      TEXT NOT NULL,
-                max_text_chars    INTEGER,              -- NULL = infinite
+                max_text_chars    INTEGER,
                 commit_every      INTEGER NOT NULL,
-                limit_qrels       INTEGER,              -- NULL = all
+                limit_qrels       INTEGER,
                 temperature       REAL NOT NULL,
 
                 retry_enabled     BOOLEAN NOT NULL DEFAULT FALSE,
@@ -37,7 +38,12 @@ def ensure_audit_schema(conn, audit_schema: str):
 
                 runner            TEXT NOT NULL,
                 official          BOOLEAN NOT NULL DEFAULT FALSE,
-                user_notes        TEXT
+                user_notes        TEXT,
+
+                -- NEW
+                finished          BOOLEAN NOT NULL DEFAULT FALSE,
+                finished_at       TIMESTAMPTZ,
+                invalid_pct       REAL
             );
         """)
 
@@ -45,6 +51,7 @@ def ensure_audit_schema(conn, audit_schema: str):
         cur.execute(f"CREATE INDEX IF NOT EXISTS llm_runs_model_idx      ON {audit_schema}.llm_runs(model);")
         cur.execute(f"CREATE INDEX IF NOT EXISTS llm_runs_official_idx   ON {audit_schema}.llm_runs(official);")
 
+        # Predictions table (already has pred_reason from previous change)
         cur.execute(f"""
             CREATE TABLE IF NOT EXISTS {audit_schema}.llm_predictions (
                 run_id           BIGINT NOT NULL REFERENCES {audit_schema}.llm_runs(run_id) ON DELETE CASCADE,
@@ -53,6 +60,7 @@ def ensure_audit_schema(conn, audit_schema: str):
                 doc_id           TEXT NOT NULL,
                 gold_score       INTEGER NOT NULL,
                 pred_score       INTEGER,
+                pred_reason      TEXT,
                 is_correct       BOOLEAN,
                 ms_total         INTEGER NOT NULL,
                 raw_response     JSONB NOT NULL,
@@ -60,7 +68,41 @@ def ensure_audit_schema(conn, audit_schema: str):
                 PRIMARY KEY (run_id, idx)
             );
         """)
+        cur.execute(f"ALTER TABLE {audit_schema}.llm_predictions ADD COLUMN IF NOT EXISTS pred_reason TEXT;")
+
     conn.commit()
+
+
+def finalize_run(conn, audit_schema: str, run_id: int):
+    """
+    Computes invalid percentage (pred_score IS NULL) for this run and marks it finished.
+    """
+    with conn.cursor() as cur:
+        cur.execute(
+            f"""
+            SELECT
+              COUNT(*)::float AS total,
+              COUNT(*) FILTER (WHERE pred_score IS NULL)::float AS invalid
+            FROM {audit_schema}.llm_predictions
+            WHERE run_id = %s;
+            """,
+            (run_id,)
+        )
+        total, invalid = cur.fetchone()
+        invalid_pct = (invalid / total * 100.0) if total > 0 else 0.0
+
+        cur.execute(
+            f"""
+            UPDATE {audit_schema}.llm_runs
+            SET finished = TRUE,
+                finished_at = NOW(),
+                invalid_pct = %s
+            WHERE run_id = %s;
+            """,
+            (invalid_pct, run_id)
+        )
+    conn.commit()
+    return invalid_pct
 
 def start_run(
     conn,
@@ -142,17 +184,17 @@ def fetch_qrels(conn, data_schema: str, limit: int | None):
         rows = cur.fetchall()
         return [dict(r) for r in rows]
 
-def insert_prediction(conn, audit_schema: str, run_id: int, idx: int, row, pred, is_correct, ms_total, raw):
+def insert_prediction(conn, audit_schema: str, run_id: int, idx: int, row, pred, pred_reason, is_correct, ms_total, raw):
     with conn.cursor() as cur:
         cur.execute(
             f"""
             INSERT INTO {audit_schema}.llm_predictions
-            (run_id, idx, query_id, doc_id, gold_score, pred_score, is_correct, ms_total, raw_response)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);
+            (run_id, idx, query_id, doc_id, gold_score, pred_score, pred_reason, is_correct, ms_total, raw_response)
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);
             """,
             (
                 run_id, idx, row["query_id"], row["doc_id"], int(row["gold_score"]),
-                pred, is_correct, ms_total,
+                pred, pred_reason, is_correct, ms_total,
                 json.dumps(raw)
             )
         )
