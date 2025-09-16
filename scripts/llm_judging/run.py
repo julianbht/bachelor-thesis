@@ -1,3 +1,4 @@
+# run.py
 import time
 
 from config import Pg, Settings
@@ -10,7 +11,7 @@ from db import (
     count_available_qrels,
     finalize_run
 )
-from llm import judge_with_ollama
+from llm import judge_with_ollama, ensure_model_downloaded
 from prompts import PROMPT_TMPL, PROMPT_TMPL_WITH_REASON, build_prompt
 
 
@@ -22,25 +23,26 @@ def hms(seconds: float) -> str:
     return f"{h:02d}:{m:02d}:{s:02d}"
 
 
-def main():
+def run_with_settings(cfg: Settings, *, non_interactive: bool = False) -> None:
+    """
+    Execute a single judging run using the provided Settings.
+    Set non_interactive=True to suppress any input() prompts.
+    """
     pg = Pg()
-    cfg = Settings()
-
-    # Prompt for user_notes if not set in config
-    if cfg.user_notes is None:
-        try:
-            entered = input("Enter run notes (optional, press Enter to skip): ").strip()
-            cfg = Settings(**{**cfg.__dict__, "user_notes": (entered if entered else None)})
-        except EOFError:
-            # In case input() is not available (e.g., piped run), fall back to None
-            cfg = Settings(**{**cfg.__dict__, "user_notes": None})
-
     conn = connect(pg)
 
     try:
         ensure_audit_schema(conn, cfg.audit_schema)
 
-        # Validate partial run vs. official
+        # Optionally prompt for notes only if interactive and not provided
+        if (not non_interactive) and (cfg.user_notes is None):
+            try:
+                entered = input("Enter run notes (optional, press Enter to skip): ").strip()
+                cfg = Settings(**{**cfg.__dict__, "user_notes": (entered if entered else None)})
+            except EOFError:
+                cfg = Settings(**{**cfg.__dict__, "user_notes": None})
+
+        # Validate partial vs. official
         total_available = count_available_qrels(conn, cfg.data_schema)
         limit_qrels = cfg.limit_qrels
         if limit_qrels is not None:
@@ -52,7 +54,10 @@ def main():
                     f"{limit_qrels} of {total_available} qrels."
                 )
 
-        # Choose prompt template based on reasoning toggle
+        # Pre-download model (critical for unattended runs)
+        ensure_model_downloaded(cfg.model, retries=max(1, cfg.retry_attempts), backoff_ms=cfg.retry_backoff_ms)
+
+        # Choose prompt template
         prompt_template = PROMPT_TMPL_WITH_REASON if cfg.reasoning_enabled else PROMPT_TMPL
 
         # Create run record
@@ -79,6 +84,7 @@ def main():
         n = len(items)
         if n == 0:
             print("No qrels found (check tables/schemas and/or limit).")
+            finalize_run(conn, cfg.audit_schema, run_id)
             return
 
         scope = (
@@ -150,6 +156,12 @@ def main():
 
     finally:
         conn.close()
+
+
+def main():
+    # Keep the original behavior for single interactive runs
+    cfg = Settings()
+    run_with_settings(cfg, non_interactive=False)
 
 
 if __name__ == "__main__":

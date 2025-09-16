@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, List
 
 @dataclass(frozen=True)
 class Pg:
@@ -24,3 +24,9 @@ class Settings:
     official: bool = False
     user_notes: Optional[str] = None
     reasoning_enabled: bool = True  # LLM should give reason for judgement
+
+# ---- Batch plan (edit this list for unattended sweeps) ----
+RUN_SPECS: List[Settings] = [
+    Settings(model="deepseek-r1:1.5b", user_notes="deepseek 1.5b sweep test run", limit_qrels=5),
+    Settings(model="deepseek-r1:7b",   user_notes="deepseek 7b sweep test run",   limit_qrels=100),
+]

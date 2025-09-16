@@ -2,6 +2,34 @@ import json
 import time
 import ollama
 
+def ensure_model_downloaded(model: str, *, retries: int = 3, backoff_ms: int = 500) -> None:
+    """
+    Ensure the Ollama model is present locally. If not, pull it before running.
+    """
+    # Quick existence check
+    try:
+        ollama.show(model=model)
+        return
+    except Exception:
+        pass  # Not present -> pull
+
+    last_err = None
+    for i in range(1, max(1, retries) + 1):
+        try:
+            # Pull with streaming so large models are fetched progressively
+            for _ in ollama.pull(model=model, stream=False):
+                pass
+            # Verify after pull
+            ollama.show(model=model)
+            return
+        except Exception as e:
+            last_err = e
+            if i == retries:
+                break
+            time.sleep(backoff_ms / 1000.0)
+    raise RuntimeError(f"Failed to ensure model '{model}' is available: {last_err!r}")
+
+
 def _single_call(model: str, prompt: str, temperature: float) -> tuple[int | None, str | None, dict, int]:
     t0 = time.time()
     res = ollama.generate(
