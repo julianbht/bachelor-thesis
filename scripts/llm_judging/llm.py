@@ -1,3 +1,4 @@
+# llm.py
 import json
 import time
 import ollama
@@ -17,7 +18,7 @@ def ensure_model_downloaded(model: str, *, retries: int = 3, backoff_ms: int = 5
     for i in range(1, max(1, retries) + 1):
         try:
             # Pull with streaming so large models are fetched progressively
-            for _ in ollama.pull(model=model, stream=False):
+            for _ in ollama.pull(model=model, stream=True):
                 pass
             # Verify after pull
             ollama.show(model=model)

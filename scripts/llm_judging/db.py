@@ -5,7 +5,7 @@ import psycopg2.extras
 
 from config import Pg
 
-def connect(pg: Pg):
+def connect(pg: Pg = Pg()):
     dsn = f"host={pg.host} port={pg.port} dbname={pg.dbname} user={pg.user} password={pg.password}"
     conn = psycopg2.connect(dsn)
     conn.autocommit = False
