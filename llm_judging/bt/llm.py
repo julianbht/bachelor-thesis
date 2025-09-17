@@ -1,8 +1,7 @@
-import json
 import time
 import ollama
 
-from bt.parsing import extract_json_block
+from bt.parsing import parse_score_and_reason 
 
 def ensure_model_downloaded(model: str, *, retries: int = 3, backoff_ms: int = 500) -> None:
     """
@@ -49,21 +48,8 @@ def _single_call(model: str, prompt: str, temperature: float) -> tuple[int | Non
     raw_meta.pop("response", None)
     raw = {"ollama": raw_meta, "response_text": raw_text}
 
-    try:
-        json_str = extract_json_block(raw_text)
-        if json_str is None:
-            return None, None, raw, elapsed_ms
-
-        obj = json.loads(json_str)
-        score = int(obj["score"])
-        reason = obj.get("reason")
-        if reason is not None and not isinstance(reason, str):
-            reason = str(reason)
-        if 0 <= score <= 3:
-            return score, reason, raw, elapsed_ms
-        return None, reason, raw, elapsed_ms
-    except Exception:
-        return None, None, raw, elapsed_ms
+    score, reason = parse_score_and_reason(raw_text)
+    return score, reason, raw, elapsed_ms
 
 
 def judge_with_ollama(
