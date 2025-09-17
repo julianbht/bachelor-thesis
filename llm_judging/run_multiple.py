@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import argparse, time, traceback
 from config import load_settings_file
 from pipeline import run_once
@@ -16,15 +15,6 @@ def main():
 
     for i, spec in enumerate(runs, 1):
         print("="*80)
-        print(f"[{i}/{total}] Preparing {spec.model}")
-        try:
-            ensure_model_downloaded(spec.model,
-                                    retries=max(1, spec.retry_attempts),
-                                    backoff_ms=spec.retry_backoff_ms)
-        except Exception as e:
-            print(f"Error downloading {spec.model}: {e!r}")
-            traceback.print_exc()
-            continue
 
         try:
             run_once(spec, non_interactive=True)

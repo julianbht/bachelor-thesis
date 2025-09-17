@@ -1,14 +1,12 @@
 {
-  "model": "deepseek-r1:14b",
-  "data_schema": "passagev2",
-  "audit_schema": "passagev2",
+  "model": "deepseek-r1:1.5b",
   "temperature": 0.0,
   "reasoning_enabled": true,
   "max_text_chars": null,
   "commit_every": 5,
-  "limit_qrels": 100,
+  "limit_qrels": 50,
   "official": false,
-  "user_notes": "overnight single run",
+  "user_notes": "test run",
   "retry_enabled": true,
   "retry_attempts": 3,
   "retry_backoff_ms": 50

@@ -1,42 +1,61 @@
-# llm.py
 import json
 import time
 import ollama
+import re
 
 def ensure_model_downloaded(model: str, *, retries: int = 3, backoff_ms: int = 500) -> None:
     """
     Ensure the Ollama model is present locally. If not, pull it before running.
     """
-    # Quick existence check
+    print(f"Checking for model '{model}'...")
     try:
         ollama.show(model=model)
+        print(f"Model '{model}' is available.")
         return
     except Exception:
-        pass  # Not present -> pull
+        print(f"Model '{model}' not found locally, will attempt to pull.")
 
     last_err = None
     for i in range(1, max(1, retries) + 1):
         try:
-            # Pull with streaming so large models are fetched progressively
+            print(f"Pull attempt {i}/{retries} for '{model}'...")
             for _ in ollama.pull(model=model, stream=True):
                 pass
-            # Verify after pull
             ollama.show(model=model)
+            print(f"Successfully pulled model '{model}'.")
             return
         except Exception as e:
             last_err = e
+            print(f"Pull attempt {i} failed: {e}")
             if i == retries:
                 break
+            print(f"Retrying in {backoff_ms}ms...")
             time.sleep(backoff_ms / 1000.0)
     raise RuntimeError(f"Failed to ensure model '{model}' is available: {last_err!r}")
 
+
+def extract_json_block(text: str) -> str | None:
+    """
+    Try to find the first valid JSON object in the text.
+    This allows for cases where the LLM prepends <think> or other junk.
+    """
+    # Find a {...} block using regex
+    match = re.search(r'\{.*\}', text, re.DOTALL)
+    if not match:
+        return None
+    candidate = match.group(0)
+    try:
+        json.loads(candidate)
+        return candidate
+    except Exception:
+        return None
+    
 
 def _single_call(model: str, prompt: str, temperature: float) -> tuple[int | None, str | None, dict, int]:
     t0 = time.time()
     res = ollama.generate(
         model=model,
         prompt=prompt,
-        format="json",
         options={"temperature": float(temperature)},
     )
     elapsed_ms = int((time.time() - t0) * 1000)
@@ -47,7 +66,11 @@ def _single_call(model: str, prompt: str, temperature: float) -> tuple[int | Non
     raw = {"ollama": raw_meta, "response_text": raw_text}
 
     try:
-        obj = json.loads(raw_text)
+        json_str = extract_json_block(raw_text)
+        if json_str is None:
+            return None, None, raw, elapsed_ms
+
+        obj = json.loads(json_str)
         score = int(obj["score"])
         reason = obj.get("reason")
         if reason is not None and not isinstance(reason, str):

@@ -3,7 +3,8 @@
     "model": "deepseek-r1:1.5b",
     "limit_qrels": null,
     "official": true,
-    "user_notes": "DeepSeek R1 1.5B full run"
+    "user_notes": "DeepSeek R1 1.5B full run",
+    "reasoning_enabled": false
   },
   {
     "model": "deepseek-r1:7b",
