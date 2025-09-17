@@ -1,9 +1,9 @@
 from __future__ import annotations
 import time
 
-from config import Settings
+from bt.config import Settings
 
-from db import (
+from bt.db import (
     connect,
     ensure_audit_schema,
     start_run,
@@ -12,8 +12,8 @@ from db import (
     count_available_qrels,
     finalize_run,
 )
-from llm import judge_with_ollama, ensure_model_downloaded
-from prompts import PROMPT_TMPL, PROMPT_TMPL_WITH_REASON, build_prompt
+from bt.llm import judge_with_ollama, ensure_model_downloaded
+from bt.prompts import PROMPT_TMPL, PROMPT_TMPL_WITH_REASON, build_prompt
 
 
 def _hms(seconds: float) -> str:

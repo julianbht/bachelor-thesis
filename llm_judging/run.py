@@ -1,6 +1,6 @@
 import argparse
-from config import load_settings_file
-from pipeline import run_once
+from bt.config import load_settings_file
+from bt.pipeline import run_once
 
 def main():
     ap = argparse.ArgumentParser()

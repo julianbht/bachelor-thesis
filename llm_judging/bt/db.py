@@ -3,7 +3,7 @@ import hashlib
 import psycopg2
 import psycopg2.extras
 
-from config import Pg
+from bt.config import Pg
 
 def connect(pg: Pg = Pg()):
     dsn = f"host={pg.host} port={pg.port} dbname={pg.dbname} user={pg.user} password={pg.password}"

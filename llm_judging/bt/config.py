@@ -39,10 +39,14 @@ class Settings:
 
 def load_settings_file(path: str | pathlib.Path) -> List[Settings]:
     """
-    Load a JSON file that is either:
+    Load a JSON config file from the 'run_configs' folder.
+
+    Accepts either:
       - a single settings object (dict) -> returns [Settings]
       - a list of settings objects      -> returns [Settings, Settings, ...]
     """
+    path = pathlib.Path("run_configs") / pathlib.Path(path).name
+
     with open(path, "r", encoding="utf-8") as f:
         obj = json.load(f)
 
@@ -52,6 +56,7 @@ def load_settings_file(path: str | pathlib.Path) -> List[Settings]:
         return [_from_dict(x) for x in obj]
 
     raise ValueError("Config JSON must be either an object or an array of objects.")
+
 
 
 def _from_dict(d: Dict[str, Any]) -> Settings:
