@@ -1,7 +1,9 @@
 from __future__ import annotations
+import logging
 import time
 
 from bt.config import Settings
+from bt.logging_utils import setup_run_logger
 
 from bt.db import (
     connect,
@@ -24,15 +26,23 @@ def _hms(seconds: float) -> str:
     return f"{h:02d}:{m:02d}:{s:02d}"
 
 
+def _truncate(text: str, limit: int | None) -> str:
+    if limit is None or len(text) <= limit:
+        return text
+    return text[:limit]
+
+
 def run_once(cfg: Settings, *, non_interactive: bool = True) -> None:
     """
-    Orchestrates exactly one run end-to-end. No user prompts when non_interactive=True.
+    Orchestrates the run.
     """
-    conn = connect()  # keep your db.connect() default behavior (host/port/etc inside)
+    root = logging.getLogger("bt")
+    root.info("Connecting to database…")
+    conn = connect()
+
     try:
         ensure_audit_schema(conn, cfg.audit_schema)
 
-        # Validate subset vs official
         total_available = count_available_qrels(conn, cfg.data_schema)
         if cfg.limit_qrels is not None:
             if cfg.limit_qrels <= 0:
@@ -40,7 +50,7 @@ def run_once(cfg: Settings, *, non_interactive: bool = True) -> None:
             if cfg.official and cfg.limit_qrels < total_available:
                 raise ValueError("Cannot mark run 'official' when processing only a subset of qrels.")
 
-        # Make sure model is available (download if needed)
+        root.info("Ensuring model is available: %s", cfg.model)
         ensure_model_downloaded(
             cfg.model,
             retries=max(1, cfg.retry_attempts),
@@ -49,7 +59,7 @@ def run_once(cfg: Settings, *, non_interactive: bool = True) -> None:
 
         prompt_template = PROMPT_TMPL_WITH_REASON if cfg.reasoning_enabled else PROMPT_TMPL
 
-        run_id = start_run(
+        run_key = start_run(
             conn,
             cfg.audit_schema,
             model=cfg.model,
@@ -66,24 +76,28 @@ def run_once(cfg: Settings, *, non_interactive: bool = True) -> None:
             runner="pipeline.run_once",
             official=cfg.official,
             user_notes=cfg.user_notes,
+)
+
+        # Per-run logger: console INFO, file DEBUG
+        log, log_path = setup_run_logger(run_key)
+        scope = (
+            f"first subset={cfg.limit_qrels}/{total_available}"
+            if (cfg.limit_qrels is not None and cfg.limit_qrels < total_available)
+            else f"all={total_available}"
+        )
+        log.info(
+            "Run started | run_key=%s | model=%s | data=%s | audit=%s | items=%s | temp=%.2f | retries=%s x %d (%dms) | log=%s",
+            run_key, cfg.model, cfg.data_schema, cfg.audit_schema, scope, cfg.temperature,
+            "on" if cfg.retry_enabled else "off", cfg.retry_attempts, cfg.retry_backoff_ms, log_path
         )
 
         items = fetch_qrels(conn, cfg.data_schema, limit=cfg.limit_qrels)
         n = len(items)
         if n == 0:
-            print("No qrels found. Finalizing empty run.")
-            finalize_run(conn, cfg.audit_schema, run_id)
+            log.warning("No qrels found. Finalizing empty run.")
+            finalize_run(conn, cfg.audit_schema, run_key)
+            log.info("Run %s finished (empty). Detailed log at: %s", run_key, log_path)
             return
-
-        scope = (
-            f"first {n} of {total_available}"
-            if (cfg.limit_qrels is not None and cfg.limit_qrels < total_available)
-            else f"all {total_available}"
-        )
-        print(
-            f"Run ID: {run_id} | Model: {cfg.model} | Items: {n} ({scope}) | "
-            f"official={cfg.official} | data={cfg.data_schema} audit={cfg.audit_schema} | commit_every={cfg.commit_every}"
-        )
 
         correct = 0
         counted = 0
@@ -91,21 +105,30 @@ def run_once(cfg: Settings, *, non_interactive: bool = True) -> None:
 
         for i, row in enumerate(items, start=1):
             query_text = (row["query_text"] or "").strip()
-            doc_text = (row["doc_text"] or "").strip()
-            if cfg.max_text_chars is not None:
-                doc_text = doc_text[: cfg.max_text_chars]
+            doc_text_full = (row["doc_text"] or "").strip()
+            doc_text = _truncate(doc_text_full, cfg.max_text_chars)
 
             prompt = build_prompt(query_text, doc_text, template=prompt_template)
 
-            pred, reason, raw, ms_total = judge_with_ollama(
-                cfg.model,
-                prompt,
-                temperature=cfg.temperature,
-                attempts=cfg.retry_attempts if cfg.retry_enabled else 1,
-                enabled=cfg.retry_enabled,
-                backoff_ms=cfg.retry_backoff_ms,
+            # per-item request details
+            log.info(
+                "Processing item %d/%d | qid=%s doc=%s",i, n, row["query_id"], row["doc_id"],
             )
 
+            try:
+                pred, reason, raw, ms_total = judge_with_ollama(
+                    cfg.model,
+                    prompt,
+                    temperature=cfg.temperature,
+                    attempts=cfg.retry_attempts if cfg.retry_enabled else 1,
+                    enabled=cfg.retry_enabled,
+                    backoff_ms=cfg.retry_backoff_ms,
+                )
+            except Exception:
+                log.exception("LLM call failed for qid=%s doc=%s", row["query_id"], row["doc_id"])
+                pred, reason, raw, ms_total = None, None, {"error": "exception during LLM call"}, 0
+
+            # Evaluate agreement (for end summary)
             is_correct = None
             if pred is not None:
                 is_correct = (pred == int(row["gold_score"]))
@@ -113,33 +136,33 @@ def run_once(cfg: Settings, *, non_interactive: bool = True) -> None:
                 if is_correct:
                     correct += 1
 
-            agree = (100.0 * correct / counted) if counted > 0 else 0.0
-            elapsed = time.time() - t_start
-            avg_per = elapsed / i
-            eta = avg_per * (n - i)
-            print(
-                f"[{i:4d}/{n}] qid={row['query_id']} doc={row['doc_id']} "
-                f"gold={row['gold_score']} pred={pred} "
-                f"| agreement={agree:.2f}% | ETA ~ {_hms(eta)}"
-            )
+            # parsed outcome & raw snippet
+            status = "OK" if is_correct else ("MISS" if pred is not None else "N/A")
+            log.info(
+                "Item %d/%d | qid=%s doc=%s | gold=%s → pred=%s | %s | ms=%s",
+                i, n, row["query_id"], row["doc_id"], row["gold_score"], pred, status, ms_total
+            )   
 
-            insert_prediction(conn, cfg.audit_schema, run_id, i, row, pred, reason, is_correct, ms_total, raw)
+            insert_prediction(conn, cfg.audit_schema, run_key, i, row, pred, reason, is_correct, ms_total, raw)
 
             if cfg.commit_every and (i % cfg.commit_every == 0):
                 conn.commit()
+                log.debug("Committed batch at item %d", i)
 
         conn.commit()
 
         total_agree = (100.0 * correct / counted) if counted > 0 else 0.0
         total_time = time.time() - t_start
+        invalid_pct = finalize_run(conn, cfg.audit_schema, run_key)
 
-        invalid_pct = finalize_run(conn, cfg.audit_schema, run_id)
-
-        print("\nDone.")
-        print(f"Run ID: {run_id}")
-        print(
-            f"Total items judged: {n} | Agreement (on {counted} valid preds): {total_agree:.2f}% "
-            f"| Invalid preds (no score): {invalid_pct:.2f}% | Time: {_hms(total_time)}"
+        log.info(
+            "Done | items=%d | valid_preds=%d | agreement=%.2f%% | invalid_preds=%.2f%% | time=%s",
+            n, counted, total_agree, invalid_pct, _hms(total_time)
         )
+        log.info("Run %s finished. Detailed log at: %s", run_key, log_path)
+
     finally:
-        conn.close()
+        try:
+            conn.close()
+        except Exception:
+            logging.getLogger("bt").exception("Failed to close DB connection")

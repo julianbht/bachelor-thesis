@@ -1,36 +1,42 @@
+# bt/db.py
+from __future__ import annotations
 import time
+import logging
 import ollama
 
-from bt.parsing import parse_score_and_reason 
+from bt.parsing import parse_score_and_reason
+
+log = logging.getLogger("bt")
+
 
 def ensure_model_downloaded(model: str, *, retries: int = 3, backoff_ms: int = 500) -> None:
     """
     Ensure the Ollama model is present locally. If not, pull it before running.
     """
-    print(f"Checking for model '{model}'...")
+    log.info("Checking model availability: %s", model)
     try:
         ollama.show(model=model)
-        print(f"Model '{model}' is available.")
+        log.debug("Model '%s' is already available.", model)
         return
     except Exception:
-        print(f"Model '{model}' not found locally, will attempt to pull.")
+        log.info("Model '%s' not found locally, attempting to pull…", model)
 
     last_err = None
     for i in range(1, max(1, retries) + 1):
         try:
-            print(f"Pull attempt {i}/{retries} for '{model}'...")
+            log.debug("Pull attempt %d/%d for '%s'", i, retries, model)
             for _ in ollama.pull(model=model, stream=True):
                 pass
             ollama.show(model=model)
-            print(f"Successfully pulled model '{model}'.")
+            log.info("Successfully pulled model '%s'.", model)
             return
         except Exception as e:
             last_err = e
-            print(f"Pull attempt {i} failed: {e}")
-            if i == retries:
-                break
-            print(f"Retrying in {backoff_ms}ms...")
-            time.sleep(backoff_ms / 1000.0)
+            log.warning("Pull attempt %d failed: %s", i, e)
+            if i < retries:
+                log.debug("Retrying in %d ms…", backoff_ms)
+                time.sleep(backoff_ms / 1000.0)
+
     raise RuntimeError(f"Failed to ensure model '{model}' is available: {last_err!r}")
 
 
@@ -69,6 +75,7 @@ def judge_with_ollama(
     total_ms = 0
     last_raw: dict | None = None
     last_reason: str | None = None
+
     for i in range(1, attempts + 1):
         try:
             pred, reason, raw, ms = _single_call(model, prompt, temperature)
@@ -78,8 +85,8 @@ def judge_with_ollama(
             if pred is not None:
                 return pred, reason, raw, total_ms
         except Exception as e:
-            total_ms += 0
             last_raw = {"error": repr(e)}
+            log.exception("LLM call attempt %d/%d failed", i, attempts)
 
         if not enabled or i == attempts:
             break
