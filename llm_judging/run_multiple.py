@@ -1,7 +1,6 @@
 import argparse, time, traceback
-from config import load_settings_file
-from pipeline import run_once
-from llm import ensure_model_downloaded
+from llm_judging.bt.config import load_settings_file
+from llm_judging.bt.pipeline import run_once
 
 def main():
     ap = argparse.ArgumentParser()

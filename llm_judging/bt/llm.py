@@ -1,7 +1,8 @@
 import json
 import time
 import ollama
-import re
+
+from bt.parsing import extract_json_block
 
 def ensure_model_downloaded(model: str, *, retries: int = 3, backoff_ms: int = 500) -> None:
     """
@@ -33,23 +34,6 @@ def ensure_model_downloaded(model: str, *, retries: int = 3, backoff_ms: int = 5
             time.sleep(backoff_ms / 1000.0)
     raise RuntimeError(f"Failed to ensure model '{model}' is available: {last_err!r}")
 
-
-def extract_json_block(text: str) -> str | None:
-    """
-    Try to find the first valid JSON object in the text.
-    This allows for cases where the LLM prepends <think> or other junk.
-    """
-    # Find a {...} block using regex
-    match = re.search(r'\{.*\}', text, re.DOTALL)
-    if not match:
-        return None
-    candidate = match.group(0)
-    try:
-        json.loads(candidate)
-        return candidate
-    except Exception:
-        return None
-    
 
 def _single_call(model: str, prompt: str, temperature: float) -> tuple[int | None, str | None, dict, int]:
     t0 = time.time()
