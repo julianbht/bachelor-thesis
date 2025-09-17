@@ -1,0 +1,26 @@
+[
+  {
+    "model": "deepseek-r1:1.5b",
+    "limit_qrels": null,
+    "official": true,
+    "user_notes": "DeepSeek R1 1.5B full run"
+  },
+  {
+    "model": "deepseek-r1:7b",
+    "limit_qrels": null,
+    "official": true,
+    "user_notes": "DeepSeek R1 7B full run"
+  },
+  {
+    "model": "deepseek-r1:14b",
+    "limit_qrels": null,
+    "official": true,
+    "user_notes": "DeepSeek R1 14B full run"
+  },
+  {
+    "model": "deepseek-r1:32b",
+    "limit_qrels": null,
+    "official": true,
+    "user_notes": "DeepSeek R1 32B full run"
+  }
+]
