@@ -11,6 +11,31 @@ from bt.db import (
 )
 from bt.llm import judge_with_ollama, ensure_model_downloaded
 from bt.prompts import PROMPT_TMPL, PROMPT_TMPL_WITH_REASON, build_prompt
+import subprocess
+from typing import NamedTuple, Optional
+
+class GitInfo(NamedTuple):
+    commit: str
+    branch: str
+    dirty: bool
+
+def _get_git_info() -> Optional[GitInfo]:
+    try:
+        commit = subprocess.check_output(
+            ["git", "rev-parse", "--short", "HEAD"],
+            stderr=subprocess.DEVNULL
+        ).decode().strip()
+        branch = subprocess.check_output(
+            ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+            stderr=subprocess.DEVNULL
+        ).decode().strip()
+        dirty = bool(subprocess.check_output(
+            ["git", "status", "--porcelain"],
+            stderr=subprocess.DEVNULL
+        ).strip())
+        return GitInfo(commit, branch, dirty)
+    except Exception:
+        return None
 
 def _hms(seconds: float) -> str:
     seconds = int(max(0, seconds))
@@ -53,6 +78,11 @@ def run_once(cfg: Settings, *, run_key: str, non_interactive: bool = True) -> No
 
         prompt_template = PROMPT_TMPL_WITH_REASON if cfg.reasoning_enabled else PROMPT_TMPL
 
+        git = _get_git_info()
+        if git:
+            log.info("Code version: %s (%s)%s",
+                    git.commit, git.branch, " +dirty" if git.dirty else "")
+
         start_run(
             conn,
             cfg.audit_schema,
@@ -71,6 +101,9 @@ def run_once(cfg: Settings, *, run_key: str, non_interactive: bool = True) -> No
             runner="pipeline.run_once",
             official=cfg.official,
             user_notes=cfg.user_notes,
+            git_commit=(git.commit if git else None),
+            git_branch=(git.branch if git else None),
+            git_dirty=(git.dirty if git else False),
         )
 
         items = fetch_qrels(conn, cfg.data_schema, limit=cfg.limit_qrels)
@@ -116,9 +149,12 @@ def run_once(cfg: Settings, *, run_key: str, non_interactive: bool = True) -> No
                     correct += 1
 
             status = "HIT" if is_correct else ("MISS" if pred is not None else "N/A")
+            
+            agree_pct = (100.0 * correct / counted) if counted else 0.0
             log.info(
-                "Item %d/%d | qid=%s doc=%s | gold=%s → pred=%s | %s | ms=%s",
-                i, n, row["query_id"], row["doc_id"], row["gold_score"], pred, status, ms_total
+                "Item %d/%d | qid=%s doc=%s | gold=%s → pred=%s | %s | ms=%s | agree-so-far=%d/%d (%.2f%%)",
+                i, n, row["query_id"], row["doc_id"], row["gold_score"], pred, status, ms_total,
+                correct, counted, agree_pct,
             )
 
             insert_prediction(conn, cfg.audit_schema, run_key, i, row, pred, reason, is_correct, ms_total, raw)

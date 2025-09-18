@@ -36,45 +36,47 @@ def ensure_audit_schema(conn, audit_schema: str):
     with conn.cursor() as cur:
         cur.execute(f"CREATE SCHEMA IF NOT EXISTS {audit_schema};")
 
-        # Runs (PRIMARY KEY = run_key)
+        # Runs
         cur.execute(f"""
             CREATE TABLE IF NOT EXISTS {audit_schema}.llm_runs (
-                run_key          TEXT PRIMARY KEY,
-                created_at       TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+                run_key           TEXT PRIMARY KEY,
+                created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
-                model            TEXT NOT NULL,
-                prompt_hash      TEXT NOT NULL,
-                prompt_template  TEXT NOT NULL,
+                -- metadata about how the run was executed
+                model             TEXT NOT NULL,
+                prompt_template   TEXT,
+                data_schema       TEXT NOT NULL,
+                audit_schema_name TEXT NOT NULL,
+                max_text_chars    INTEGER,
+                commit_every      INTEGER,
+                limit_qrels       INTEGER,
+                temperature       DOUBLE PRECISION,
+                retry_enabled     BOOLEAN,
+                retry_attempts    INTEGER,
+                retry_backoff_ms  INTEGER,
+                runner            TEXT,
+                official          BOOLEAN DEFAULT FALSE,
+                user_notes        TEXT,
 
-                data_schema      TEXT NOT NULL,
-                audit_schema     TEXT NOT NULL,
-                max_text_chars   INTEGER,
-                commit_every     INTEGER NOT NULL,
-                limit_qrels      INTEGER,
-                temperature      REAL NOT NULL,
+                -- NEW: structured git metadata
+                git_commit        TEXT,     -- e.g. 'a1b2c3d'
+                git_branch        TEXT,     -- e.g. 'main'
+                git_dirty         BOOLEAN NOT NULL DEFAULT FALSE,
 
-                retry_enabled    BOOLEAN NOT NULL DEFAULT FALSE,
-                retry_attempts   INTEGER NOT NULL DEFAULT 1,
-                retry_backoff_ms INTEGER NOT NULL DEFAULT 500,
-
-                runner           TEXT NOT NULL,
-                official         BOOLEAN NOT NULL DEFAULT FALSE,
-                user_notes       TEXT,
-
-                finished         BOOLEAN NOT NULL DEFAULT FALSE,
-                finished_at      TIMESTAMPTZ,
-                invalid_pct      REAL,
-
-                -- keep the key format tight (12 chars base32 alphabet)
-                CONSTRAINT llm_runs_run_key_chk CHECK (run_key ~ '^[A-Z2-9]{{12}}$')
+                -- run results
+                total_items       INTEGER DEFAULT 0,
+                valid_predictions INTEGER DEFAULT 0,
+                agreement_pct     DOUBLE PRECISION,
+                invalid_pct       DOUBLE PRECISION,
+                finished_at       TIMESTAMPTZ
             );
-        """)
+            """)
 
         cur.execute(f"CREATE INDEX IF NOT EXISTS llm_runs_created_at_idx ON {audit_schema}.llm_runs(created_at DESC);")
         cur.execute(f"CREATE INDEX IF NOT EXISTS llm_runs_model_idx      ON {audit_schema}.llm_runs(model);")
         cur.execute(f"CREATE INDEX IF NOT EXISTS llm_runs_official_idx   ON {audit_schema}.llm_runs(official);")
 
-        # Predictions (FK references run_key)
+        # Predictions
         cur.execute(f"""
             CREATE TABLE IF NOT EXISTS {audit_schema}.llm_predictions (
                 run_key          TEXT NOT NULL REFERENCES {audit_schema}.llm_runs(run_key) ON DELETE CASCADE,
@@ -129,51 +131,50 @@ def finalize_run(conn, audit_schema: str, run_key: str):
     return invalid_pct
 
 
-# signature change
 def start_run(
     conn,
     audit_schema: str,
     *,
-    run_key: str,                 
+    run_key: str,
     model: str,
-    prompt_template: str,
+    prompt_template: str | None,
     data_schema: str,
     audit_schema_name: str,
     max_text_chars: int | None,
-    commit_every: int,
+    commit_every: int | None,
     limit_qrels: int | None,
-    temperature: float,
-    retry_enabled: bool,
-    retry_attempts: int,
-    retry_backoff_ms: int,
+    temperature: float | None,
+    retry_enabled: bool | None,
+    retry_attempts: int | None,
+    retry_backoff_ms: int | None,
     runner: str,
-    official: bool,
+    official: bool | None,
     user_notes: str | None,
-) -> str:
-    prompt_hash = hashlib.sha256(prompt_template.encode("utf-8")).hexdigest()
+    # NEW:
+    git_commit: str | None = None,
+    git_branch: str | None = None,
+    git_dirty: bool = False,
+):
     with conn.cursor() as cur:
         cur.execute(
             f"""
             INSERT INTO {audit_schema}.llm_runs
-            (run_key,
-             model, prompt_hash, prompt_template,
-             data_schema, audit_schema, max_text_chars, commit_every, limit_qrels, temperature,
-             retry_enabled, retry_attempts, retry_backoff_ms,
-             runner, official, user_notes)
+            (run_key, model, prompt_template, data_schema, audit_schema_name,
+             max_text_chars, commit_every, limit_qrels, temperature,
+             retry_enabled, retry_attempts, retry_backoff_ms, runner, official, user_notes,
+             git_commit, git_branch, git_dirty)
             VALUES
-            (%s,
-             %s,%s,%s,
+            (%s,%s,%s,%s,%s,
+             %s,%s,%s,%s,
              %s,%s,%s,%s,%s,%s,
-             %s,%s,%s,
-             %s,%s,%s)
+             %s,%s,%s);
             """,
             (
-                run_key,
-                model, prompt_hash, prompt_template,
-                data_schema, audit_schema_name, max_text_chars, commit_every, limit_qrels, float(temperature),
-                bool(retry_enabled), int(retry_attempts), int(retry_backoff_ms),
-                runner, bool(official), user_notes,
-            )
+                run_key, model, prompt_template, data_schema, audit_schema_name,
+                max_text_chars, commit_every, limit_qrels, temperature,
+                retry_enabled, retry_attempts, retry_backoff_ms, runner, official, user_notes,
+                git_commit, git_branch, git_dirty,
+            ),
         )
     conn.commit()
     log.info("Run started: key=%s | model=%s data=%s audit=%s", run_key, model, data_schema, audit_schema)
