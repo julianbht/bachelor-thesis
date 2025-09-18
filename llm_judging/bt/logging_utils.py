@@ -1,3 +1,4 @@
+# logging_utils.py
 from __future__ import annotations
 import logging, os, datetime
 from typing import Tuple
@@ -17,20 +18,21 @@ def setup_run_logger(
     log_dir: str = "logs",
     console_level: int = logging.INFO,
     file_level: int = logging.DEBUG,
-    logger_name: str = "bt.run",
+    logger_name: str = "bt.run",  # kept for signature compatibility; no longer used for hierarchy
 ) -> Tuple[logging.LoggerAdapter, str]:
     os.makedirs(log_dir, exist_ok=True)
     ts = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    log_path = os.path.join(log_dir, f"run_{run_key}_{ts}.log")
+    log_path = os.path.join(log_dir, f"{ts}_run_{run_key}.log")
 
-    logger = logging.getLogger(f"{logger_name}.{run_key}")
+    # Configure the *root of your package*
+    logger = logging.getLogger("bt")
     logger.setLevel(logging.DEBUG)
     logger.handlers.clear()
     logger.propagate = False
 
     inject = _InjectRunKey(run_key)
 
-    # Console: include run key
+    # Console handler (shows run key)
     ch = logging.StreamHandler()
     ch.setLevel(console_level)
     ch.addFilter(inject)
@@ -40,10 +42,10 @@ def setup_run_logger(
     ))
     logger.addHandler(ch)
 
-    # File: no run key, no logger name
+    # File handler (full detail)
     fh = logging.FileHandler(log_path, encoding="utf-8")
     fh.setLevel(file_level)
-    fh.addFilter(inject)  # harmless; formatter doesn't use it
+    fh.addFilter(inject)
     fh.setFormatter(logging.Formatter(
         fmt="%(asctime)s %(levelname)s :: %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",

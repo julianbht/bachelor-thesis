@@ -14,7 +14,7 @@ log = logging.getLogger("bt.db")
 # Crockford Base32 (no I, L, O, U, 0, 1)
 ALPHABET = "ABCDEFGHJKMNPQRSTVWXYZ23456789"
 
-def _gen_run_key(n: int = 12) -> str:
+def gen_run_key(n: int = 12) -> str:
     return "".join(secrets.choice(ALPHABET) for _ in range(n))
 
 
@@ -129,10 +129,12 @@ def finalize_run(conn, audit_schema: str, run_key: str):
     return invalid_pct
 
 
+# signature change
 def start_run(
     conn,
     audit_schema: str,
     *,
+    run_key: str,                 
     model: str,
     prompt_template: str,
     data_schema: str,
@@ -148,55 +150,34 @@ def start_run(
     official: bool,
     user_notes: str | None,
 ) -> str:
-    """
-    Inserts a new run and returns its run_key (12-char Crockford base32).
-    """
     prompt_hash = hashlib.sha256(prompt_template.encode("utf-8")).hexdigest()
-
-    # allocate a unique run_key (retry only on extremely unlikely collision)
-    for _ in range(5):
-        run_key = _gen_run_key()
-        try:
-            with conn.cursor() as cur:
-                cur.execute(
-                    f"""
-                    INSERT INTO {audit_schema}.llm_runs
-                    (run_key,
-                     model, prompt_hash, prompt_template,
-                     data_schema, audit_schema, max_text_chars, commit_every, limit_qrels, temperature,
-                     retry_enabled, retry_attempts, retry_backoff_ms,
-                     runner, official, user_notes)
-                    VALUES
-                    (%s,
-                     %s,%s,%s,
-                     %s,%s,%s,%s,%s,%s,
-                     %s,%s,%s,
-                     %s,%s,%s)
-                    """,
-                    (
-                        run_key,
-                        model, prompt_hash, prompt_template,
-                        data_schema, audit_schema_name, max_text_chars, commit_every, limit_qrels, float(temperature),
-                        bool(retry_enabled), int(retry_attempts), int(retry_backoff_ms),
-                        runner, bool(official), user_notes,
-                    )
-                )
-            conn.commit()
-            log.info(
-                "Run started: key=%s | model=%s data=%s audit=%s limit_qrels=%s temp=%.2f official=%s",
-                run_key, model, data_schema, audit_schema, limit_qrels, temperature, official
+    with conn.cursor() as cur:
+        cur.execute(
+            f"""
+            INSERT INTO {audit_schema}.llm_runs
+            (run_key,
+             model, prompt_hash, prompt_template,
+             data_schema, audit_schema, max_text_chars, commit_every, limit_qrels, temperature,
+             retry_enabled, retry_attempts, retry_backoff_ms,
+             runner, official, user_notes)
+            VALUES
+            (%s,
+             %s,%s,%s,
+             %s,%s,%s,%s,%s,%s,
+             %s,%s,%s,
+             %s,%s,%s)
+            """,
+            (
+                run_key,
+                model, prompt_hash, prompt_template,
+                data_schema, audit_schema_name, max_text_chars, commit_every, limit_qrels, float(temperature),
+                bool(retry_enabled), int(retry_attempts), int(retry_backoff_ms),
+                runner, bool(official), user_notes,
             )
-            log.debug("Prompt hash: %s", prompt_hash[:16])
-            return run_key
-        except Exception as e:
-            # unique violation → try again
-            if getattr(e, "pgcode", None) == "23505":
-                conn.rollback()
-                continue
-            conn.rollback()
-            raise
-
-    raise RuntimeError("Failed to allocate a unique run_key after several attempts")
+        )
+    conn.commit()
+    log.info("Run started: key=%s | model=%s data=%s audit=%s", run_key, model, data_schema, audit_schema)
+    return run_key
 
 
 def count_available_qrels(conn, data_schema: str) -> int:
@@ -242,8 +223,8 @@ def fetch_qrels(conn, data_schema: str, limit: int | None):
 
 def insert_prediction(conn, audit_schema: str, run_key: str, idx: int, row, pred, pred_reason, is_correct, ms_total, raw):
     log.debug(
-        "Insert prediction | key=%s idx=%s qid=%s doc=%s gold=%s pred=%s correct=%s ms=%s",
-        run_key, idx, row["query_id"], row["doc_id"], int(row["gold_score"]), pred, is_correct, ms_total
+        "Insert prediction | idx=%s qid=%s doc=%s gold=%s pred=%s correct=%s ms=%s",
+        idx, row["query_id"], row["doc_id"], int(row["gold_score"]), pred, is_correct, ms_total
     )
     with conn.cursor() as cur:
         cur.execute(

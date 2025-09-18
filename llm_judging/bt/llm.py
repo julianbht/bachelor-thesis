@@ -6,7 +6,7 @@ import ollama
 
 from bt.parsing import parse_score_and_reason
 
-log = logging.getLogger("bt")
+log = logging.getLogger("bt.llm")
 
 
 def ensure_model_downloaded(model: str, *, retries: int = 3, backoff_ms: int = 500) -> None:
@@ -77,19 +77,35 @@ def judge_with_ollama(
     last_reason: str | None = None
 
     for i in range(1, attempts + 1):
+        log.debug(
+            "LLM call attempt %d/%d",
+            i, attempts
+        )
         try:
             pred, reason, raw, ms = _single_call(model, prompt, temperature)
             total_ms += ms
             last_raw = raw
             last_reason = reason
+
             if pred is not None:
+                log.debug("LLM call attempt %d/%d succeeded.",i, attempts)
                 return pred, reason, raw, total_ms
+            else:
+                log.warning("LLM call returned no prediction on attempt %d/%d",i, attempts)
         except Exception as e:
             last_raw = {"error": repr(e)}
             log.exception("LLM call attempt %d/%d failed", i, attempts)
 
+        # if retries disabled or last attempt, stop here
         if not enabled or i == attempts:
             break
+
+        log.debug("Retrying in %d ms...", backoff_ms)
         time.sleep(backoff_ms / 1000.0)
 
+    log.error(
+        "LLM call failed after %d attempt(s) | returning None",
+        attempts
+    )
     return None, last_reason, (last_raw or {}), total_ms
+

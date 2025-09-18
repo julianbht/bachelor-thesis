@@ -1,22 +1,16 @@
+# pipeline.py
 from __future__ import annotations
 import logging
 import time
 
 from bt.config import Settings
 from bt.logging_utils import setup_run_logger
-
 from bt.db import (
-    connect,
-    ensure_audit_schema,
-    start_run,
-    fetch_qrels,
-    insert_prediction,
-    count_available_qrels,
-    finalize_run,
+    connect, ensure_audit_schema, start_run, fetch_qrels,
+    insert_prediction, count_available_qrels, finalize_run,
 )
 from bt.llm import judge_with_ollama, ensure_model_downloaded
 from bt.prompts import PROMPT_TMPL, PROMPT_TMPL_WITH_REASON, build_prompt
-
 
 def _hms(seconds: float) -> str:
     seconds = int(max(0, seconds))
@@ -25,18 +19,19 @@ def _hms(seconds: float) -> str:
     s = seconds % 60
     return f"{h:02d}:{m:02d}:{s:02d}"
 
-
 def _truncate(text: str, limit: int | None) -> str:
     if limit is None or len(text) <= limit:
         return text
     return text[:limit]
 
-
-def run_once(cfg: Settings, *, non_interactive: bool = True) -> None:
+def run_once(cfg: Settings, *, run_key: str, non_interactive: bool = True) -> None:
     """
     Orchestrates the run.
     """
+    # ---- Set up per-run logging FIRST so all subsequent logs (incl. bt.db) show up
+    log, log_path = setup_run_logger(run_key)
     root = logging.getLogger("bt")
+
     root.info("Connecting to database…")
     conn = connect()
 
@@ -50,7 +45,6 @@ def run_once(cfg: Settings, *, non_interactive: bool = True) -> None:
             if cfg.official and cfg.limit_qrels < total_available:
                 raise ValueError("Cannot mark run 'official' when processing only a subset of qrels.")
 
-        root.info("Ensuring model is available: %s", cfg.model)
         ensure_model_downloaded(
             cfg.model,
             retries=max(1, cfg.retry_attempts),
@@ -59,9 +53,10 @@ def run_once(cfg: Settings, *, non_interactive: bool = True) -> None:
 
         prompt_template = PROMPT_TMPL_WITH_REASON if cfg.reasoning_enabled else PROMPT_TMPL
 
-        run_key = start_run(
+        start_run(
             conn,
             cfg.audit_schema,
+            run_key=run_key,
             model=cfg.model,
             prompt_template=prompt_template,
             data_schema=cfg.data_schema,
@@ -76,19 +71,12 @@ def run_once(cfg: Settings, *, non_interactive: bool = True) -> None:
             runner="pipeline.run_once",
             official=cfg.official,
             user_notes=cfg.user_notes,
-)
+        )
 
-        # Per-run logger: console INFO, file DEBUG
-        log, log_path = setup_run_logger(run_key)
         scope = (
             f"first subset={cfg.limit_qrels}/{total_available}"
             if (cfg.limit_qrels is not None and cfg.limit_qrels < total_available)
             else f"all={total_available}"
-        )
-        log.info(
-            "Run started | run_key=%s | model=%s | data=%s | audit=%s | items=%s | temp=%.2f | retries=%s x %d (%dms) | log=%s",
-            run_key, cfg.model, cfg.data_schema, cfg.audit_schema, scope, cfg.temperature,
-            "on" if cfg.retry_enabled else "off", cfg.retry_attempts, cfg.retry_backoff_ms, log_path
         )
 
         items = fetch_qrels(conn, cfg.data_schema, limit=cfg.limit_qrels)
@@ -110,10 +98,7 @@ def run_once(cfg: Settings, *, non_interactive: bool = True) -> None:
 
             prompt = build_prompt(query_text, doc_text, template=prompt_template)
 
-            # per-item request details
-            log.info(
-                "Processing item %d/%d | qid=%s doc=%s",i, n, row["query_id"], row["doc_id"],
-            )
+            log.info("Processing item %d/%d | qid=%s doc=%s", i, n, row["query_id"], row["doc_id"])
 
             try:
                 pred, reason, raw, ms_total = judge_with_ollama(
@@ -128,7 +113,6 @@ def run_once(cfg: Settings, *, non_interactive: bool = True) -> None:
                 log.exception("LLM call failed for qid=%s doc=%s", row["query_id"], row["doc_id"])
                 pred, reason, raw, ms_total = None, None, {"error": "exception during LLM call"}, 0
 
-            # Evaluate agreement (for end summary)
             is_correct = None
             if pred is not None:
                 is_correct = (pred == int(row["gold_score"]))
@@ -136,12 +120,11 @@ def run_once(cfg: Settings, *, non_interactive: bool = True) -> None:
                 if is_correct:
                     correct += 1
 
-            # parsed outcome & raw snippet
             status = "OK" if is_correct else ("MISS" if pred is not None else "N/A")
             log.info(
                 "Item %d/%d | qid=%s doc=%s | gold=%s → pred=%s | %s | ms=%s",
                 i, n, row["query_id"], row["doc_id"], row["gold_score"], pred, status, ms_total
-            )   
+            )
 
             insert_prediction(conn, cfg.audit_schema, run_key, i, row, pred, reason, is_correct, ms_total, raw)
 
