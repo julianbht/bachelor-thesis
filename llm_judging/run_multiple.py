@@ -2,10 +2,9 @@ import argparse
 import time
 import traceback
 
-from llm_judging.bt.config import load_settings_file
-from llm_judging.bt.pipeline import run_once
-from llm_judging.bt.db import gen_run_key
-
+from bt.config import load_settings_file
+from bt.pipeline import run_once
+from bt.db import gen_run_key
 
 def main():
     ap = argparse.ArgumentParser()

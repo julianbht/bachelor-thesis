@@ -1,0 +1,947 @@
+2025-09-17 23:22:16 INFO :: Logging initialized. File: logs\20250917-232216_run_H48ABF33X8RJ.log
+2025-09-17 23:22:16 INFO :: Connecting to database…
+2025-09-17 23:22:16 INFO :: Connecting to Postgres (host=localhost port=5432 db=bachelor-thesis user=postgres)
+2025-09-17 23:22:16 DEBUG :: Connection established; autocommit=False
+2025-09-17 23:22:16 INFO :: Ensuring audit schema exists: passagev2
+2025-09-17 23:22:16 DEBUG :: Audit schema ensured and committed: passagev2
+2025-09-17 23:22:16 DEBUG :: Counting available qrels in schema=passagev2…
+2025-09-17 23:22:16 INFO :: Available qrels: 1000 (schema=passagev2)
+2025-09-17 23:22:16 INFO :: Checking model availability: deepseek-r1:14b
+2025-09-17 23:22:16 INFO :: Model 'deepseek-r1:14b' not found locally, attempting to pull…
+2025-09-17 23:22:16 DEBUG :: Pull attempt 1/3 for 'deepseek-r1:14b'
+2025-09-18 00:18:54 INFO :: Successfully pulled model 'deepseek-r1:14b'.
+2025-09-18 00:18:54 INFO :: Code version: bdacc54 (main) +dirty
+2025-09-18 00:18:54 INFO :: Run started: key=H48ABF33X8RJ | model=deepseek-r1:14b data=passagev2 audit=passagev2
+2025-09-18 00:18:54 INFO :: Fetching qrels (schema=passagev2, limit=None)…
+2025-09-18 00:18:54 INFO :: Fetched 1000 qrels.
+2025-09-18 00:18:54 INFO :: Processing item 1/1000 | qid=2082 doc=msmarco_passage_05_398000222
+2025-09-18 00:18:54 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:19:24 WARNING :: LLM call timed out on attempt 1/3 after 30015 ms
+2025-09-18 00:19:24 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:19:24 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:19:54 WARNING :: LLM call timed out on attempt 2/3 after 30000 ms
+2025-09-18 00:19:54 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:19:54 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:20:24 WARNING :: LLM call timed out on attempt 3/3 after 30005 ms
+2025-09-18 00:20:24 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:20:24 INFO :: Item 1/1000 | qid=2082 doc=msmarco_passage_05_398000222 | gold=3 → pred=None | N/A | ms=90020 | agree-so-far=0/0 (0.00%)
+2025-09-18 00:20:24 DEBUG :: Insert prediction | idx=1 qid=2082 doc=msmarco_passage_05_398000222 gold=3 pred=None correct=None ms=90020
+2025-09-18 00:20:24 INFO :: Processing item 2/1000 | qid=2082 doc=msmarco_passage_17_209244396
+2025-09-18 00:20:24 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:20:54 WARNING :: LLM call timed out on attempt 1/3 after 30045 ms
+2025-09-18 00:20:54 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:20:54 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:21:24 WARNING :: LLM call timed out on attempt 2/3 after 30016 ms
+2025-09-18 00:21:24 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:21:24 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:21:54 WARNING :: LLM call timed out on attempt 3/3 after 30009 ms
+2025-09-18 00:21:54 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:21:54 INFO :: Item 2/1000 | qid=2082 doc=msmarco_passage_17_209244396 | gold=2 → pred=None | N/A | ms=90070 | agree-so-far=0/0 (0.00%)
+2025-09-18 00:21:54 DEBUG :: Insert prediction | idx=2 qid=2082 doc=msmarco_passage_17_209244396 gold=2 pred=None correct=None ms=90070
+2025-09-18 00:21:54 INFO :: Processing item 3/1000 | qid=2082 doc=msmarco_passage_24_115356547
+2025-09-18 00:21:54 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:22:24 WARNING :: LLM call timed out on attempt 1/3 after 30014 ms
+2025-09-18 00:22:24 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:22:24 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:22:54 WARNING :: LLM call timed out on attempt 2/3 after 30024 ms
+2025-09-18 00:22:54 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:22:54 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:23:24 WARNING :: LLM call timed out on attempt 3/3 after 30015 ms
+2025-09-18 00:23:24 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:23:24 INFO :: Item 3/1000 | qid=2082 doc=msmarco_passage_24_115356547 | gold=3 → pred=None | N/A | ms=90053 | agree-so-far=0/0 (0.00%)
+2025-09-18 00:23:24 DEBUG :: Insert prediction | idx=3 qid=2082 doc=msmarco_passage_24_115356547 gold=3 pred=None correct=None ms=90053
+2025-09-18 00:23:24 INFO :: Processing item 4/1000 | qid=2082 doc=msmarco_passage_27_868618164
+2025-09-18 00:23:24 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:23:50 DEBUG :: LLM call attempt 1/3 succeeded.
+2025-09-18 00:23:50 INFO :: Item 4/1000 | qid=2082 doc=msmarco_passage_27_868618164 | gold=3 → pred=3 | HIT | ms=25540 | agree-so-far=1/1 (100.00%)
+2025-09-18 00:23:50 DEBUG :: Insert prediction | idx=4 qid=2082 doc=msmarco_passage_27_868618164 gold=3 pred=3 correct=True ms=25540
+2025-09-18 00:23:50 INFO :: Processing item 5/1000 | qid=2082 doc=msmarco_passage_27_95413114
+2025-09-18 00:23:50 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:24:20 WARNING :: LLM call timed out on attempt 1/3 after 30014 ms
+2025-09-18 00:24:20 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:24:20 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:24:50 WARNING :: LLM call timed out on attempt 2/3 after 30028 ms
+2025-09-18 00:24:50 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:24:50 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:25:20 WARNING :: LLM call timed out on attempt 3/3 after 30018 ms
+2025-09-18 00:25:20 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:25:20 INFO :: Item 5/1000 | qid=2082 doc=msmarco_passage_27_95413114 | gold=3 → pred=None | N/A | ms=90060 | agree-so-far=1/1 (100.00%)
+2025-09-18 00:25:20 DEBUG :: Insert prediction | idx=5 qid=2082 doc=msmarco_passage_27_95413114 gold=3 pred=None correct=None ms=90060
+2025-09-18 00:25:20 DEBUG :: Committed batch at item 5
+2025-09-18 00:25:20 INFO :: Processing item 6/1000 | qid=2082 doc=msmarco_passage_31_104810189
+2025-09-18 00:25:20 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:25:46 DEBUG :: LLM call attempt 1/3 succeeded.
+2025-09-18 00:25:46 INFO :: Item 6/1000 | qid=2082 doc=msmarco_passage_31_104810189 | gold=3 → pred=3 | HIT | ms=26198 | agree-so-far=2/2 (100.00%)
+2025-09-18 00:25:46 DEBUG :: Insert prediction | idx=6 qid=2082 doc=msmarco_passage_31_104810189 gold=3 pred=3 correct=True ms=26198
+2025-09-18 00:25:46 INFO :: Processing item 7/1000 | qid=2082 doc=msmarco_passage_40_394990314
+2025-09-18 00:25:46 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:26:16 WARNING :: LLM call timed out on attempt 1/3 after 30027 ms
+2025-09-18 00:26:16 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:26:16 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:26:46 WARNING :: LLM call timed out on attempt 2/3 after 30016 ms
+2025-09-18 00:26:46 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:26:47 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:27:17 WARNING :: LLM call timed out on attempt 3/3 after 30020 ms
+2025-09-18 00:27:17 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:27:17 INFO :: Item 7/1000 | qid=2082 doc=msmarco_passage_40_394990314 | gold=3 → pred=None | N/A | ms=90063 | agree-so-far=2/2 (100.00%)
+2025-09-18 00:27:17 DEBUG :: Insert prediction | idx=7 qid=2082 doc=msmarco_passage_40_394990314 gold=3 pred=None correct=None ms=90063
+2025-09-18 00:27:17 INFO :: Processing item 8/1000 | qid=2082 doc=msmarco_passage_45_623200260
+2025-09-18 00:27:17 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:27:47 WARNING :: LLM call timed out on attempt 1/3 after 30029 ms
+2025-09-18 00:27:47 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:27:47 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:28:17 WARNING :: LLM call timed out on attempt 2/3 after 30028 ms
+2025-09-18 00:28:17 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:28:17 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:28:47 WARNING :: LLM call timed out on attempt 3/3 after 30014 ms
+2025-09-18 00:28:47 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:28:47 INFO :: Item 8/1000 | qid=2082 doc=msmarco_passage_45_623200260 | gold=3 → pred=None | N/A | ms=90071 | agree-so-far=2/2 (100.00%)
+2025-09-18 00:28:47 DEBUG :: Insert prediction | idx=8 qid=2082 doc=msmarco_passage_45_623200260 gold=3 pred=None correct=None ms=90071
+2025-09-18 00:28:47 INFO :: Processing item 9/1000 | qid=2082 doc=msmarco_passage_55_217686589
+2025-09-18 00:28:47 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:29:17 WARNING :: LLM call timed out on attempt 1/3 after 30008 ms
+2025-09-18 00:29:17 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:29:17 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:29:43 DEBUG :: LLM call attempt 2/3 succeeded.
+2025-09-18 00:29:43 INFO :: Item 9/1000 | qid=2082 doc=msmarco_passage_55_217686589 | gold=3 → pred=3 | HIT | ms=56635 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:29:43 DEBUG :: Insert prediction | idx=9 qid=2082 doc=msmarco_passage_55_217686589 gold=3 pred=3 correct=True ms=56635
+2025-09-18 00:29:43 INFO :: Processing item 10/1000 | qid=2082 doc=msmarco_passage_65_397444052
+2025-09-18 00:29:43 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:30:13 WARNING :: LLM call timed out on attempt 1/3 after 30006 ms
+2025-09-18 00:30:13 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:30:13 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:30:43 WARNING :: LLM call timed out on attempt 2/3 after 30011 ms
+2025-09-18 00:30:43 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:30:44 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:31:14 WARNING :: LLM call timed out on attempt 3/3 after 30025 ms
+2025-09-18 00:31:14 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:31:14 INFO :: Item 10/1000 | qid=2082 doc=msmarco_passage_65_397444052 | gold=3 → pred=None | N/A | ms=90042 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:31:14 DEBUG :: Insert prediction | idx=10 qid=2082 doc=msmarco_passage_65_397444052 gold=3 pred=None correct=None ms=90042
+2025-09-18 00:31:14 DEBUG :: Committed batch at item 10
+2025-09-18 00:31:14 INFO :: Processing item 11/1000 | qid=30611 doc=msmarco_passage_04_287901958
+2025-09-18 00:31:14 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:31:44 WARNING :: LLM call timed out on attempt 1/3 after 30013 ms
+2025-09-18 00:31:44 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:31:44 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:32:14 WARNING :: LLM call timed out on attempt 2/3 after 30030 ms
+2025-09-18 00:32:14 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:32:14 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:32:44 WARNING :: LLM call timed out on attempt 3/3 after 30029 ms
+2025-09-18 00:32:44 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:32:44 INFO :: Item 11/1000 | qid=30611 doc=msmarco_passage_04_287901958 | gold=3 → pred=None | N/A | ms=90072 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:32:44 DEBUG :: Insert prediction | idx=11 qid=30611 doc=msmarco_passage_04_287901958 gold=3 pred=None correct=None ms=90072
+2025-09-18 00:32:44 INFO :: Processing item 12/1000 | qid=30611 doc=msmarco_passage_41_263863504
+2025-09-18 00:32:44 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:33:14 WARNING :: LLM call timed out on attempt 1/3 after 30013 ms
+2025-09-18 00:33:14 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:33:14 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:33:44 WARNING :: LLM call timed out on attempt 2/3 after 30032 ms
+2025-09-18 00:33:44 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:33:44 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:34:14 WARNING :: LLM call timed out on attempt 3/3 after 30011 ms
+2025-09-18 00:34:14 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:34:14 INFO :: Item 12/1000 | qid=30611 doc=msmarco_passage_41_263863504 | gold=3 → pred=None | N/A | ms=90056 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:34:14 DEBUG :: Insert prediction | idx=12 qid=30611 doc=msmarco_passage_41_263863504 gold=3 pred=None correct=None ms=90056
+2025-09-18 00:34:14 INFO :: Processing item 13/1000 | qid=30611 doc=msmarco_passage_41_263916437
+2025-09-18 00:34:14 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:34:44 WARNING :: LLM call timed out on attempt 1/3 after 30014 ms
+2025-09-18 00:34:44 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:34:44 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:35:14 WARNING :: LLM call timed out on attempt 2/3 after 30012 ms
+2025-09-18 00:35:14 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:35:14 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:35:44 WARNING :: LLM call timed out on attempt 3/3 after 30008 ms
+2025-09-18 00:35:44 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:35:44 INFO :: Item 13/1000 | qid=30611 doc=msmarco_passage_41_263916437 | gold=3 → pred=None | N/A | ms=90034 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:35:44 DEBUG :: Insert prediction | idx=13 qid=30611 doc=msmarco_passage_41_263916437 gold=3 pred=None correct=None ms=90034
+2025-09-18 00:35:44 INFO :: Processing item 14/1000 | qid=30611 doc=msmarco_passage_43_96209725
+2025-09-18 00:35:44 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:36:14 WARNING :: LLM call timed out on attempt 1/3 after 30019 ms
+2025-09-18 00:36:14 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:36:14 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:36:44 WARNING :: LLM call timed out on attempt 2/3 after 30007 ms
+2025-09-18 00:36:44 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:36:44 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:37:14 WARNING :: LLM call timed out on attempt 3/3 after 30003 ms
+2025-09-18 00:37:14 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:37:14 INFO :: Item 14/1000 | qid=30611 doc=msmarco_passage_43_96209725 | gold=3 → pred=None | N/A | ms=90029 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:37:14 DEBUG :: Insert prediction | idx=14 qid=30611 doc=msmarco_passage_43_96209725 gold=3 pred=None correct=None ms=90029
+2025-09-18 00:37:14 INFO :: Processing item 15/1000 | qid=112700 doc=msmarco_passage_01_33071611
+2025-09-18 00:37:14 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:37:44 WARNING :: LLM call timed out on attempt 1/3 after 30017 ms
+2025-09-18 00:37:44 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:37:44 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:38:14 WARNING :: LLM call timed out on attempt 2/3 after 30015 ms
+2025-09-18 00:38:14 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:38:14 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:38:44 WARNING :: LLM call timed out on attempt 3/3 after 30009 ms
+2025-09-18 00:38:44 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:38:44 INFO :: Item 15/1000 | qid=112700 doc=msmarco_passage_01_33071611 | gold=0 → pred=None | N/A | ms=90041 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:38:44 DEBUG :: Insert prediction | idx=15 qid=112700 doc=msmarco_passage_01_33071611 gold=0 pred=None correct=None ms=90041
+2025-09-18 00:38:44 DEBUG :: Committed batch at item 15
+2025-09-18 00:38:44 INFO :: Processing item 16/1000 | qid=112700 doc=msmarco_passage_18_757019055
+2025-09-18 00:38:44 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:39:14 WARNING :: LLM call timed out on attempt 1/3 after 30018 ms
+2025-09-18 00:39:14 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:39:14 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:39:44 WARNING :: LLM call timed out on attempt 2/3 after 30026 ms
+2025-09-18 00:39:44 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:39:44 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:40:15 WARNING :: LLM call timed out on attempt 3/3 after 30037 ms
+2025-09-18 00:40:15 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:40:15 INFO :: Item 16/1000 | qid=112700 doc=msmarco_passage_18_757019055 | gold=1 → pred=None | N/A | ms=90081 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:40:15 DEBUG :: Insert prediction | idx=16 qid=112700 doc=msmarco_passage_18_757019055 gold=1 pred=None correct=None ms=90081
+2025-09-18 00:40:15 INFO :: Processing item 17/1000 | qid=168329 doc=msmarco_passage_16_243080257
+2025-09-18 00:40:15 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:40:45 WARNING :: LLM call timed out on attempt 1/3 after 30014 ms
+2025-09-18 00:40:45 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:40:45 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:41:15 WARNING :: LLM call timed out on attempt 2/3 after 30021 ms
+2025-09-18 00:41:15 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:41:15 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:41:45 WARNING :: LLM call timed out on attempt 3/3 after 30014 ms
+2025-09-18 00:41:45 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:41:45 INFO :: Item 17/1000 | qid=168329 doc=msmarco_passage_16_243080257 | gold=3 → pred=None | N/A | ms=90049 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:41:45 DEBUG :: Insert prediction | idx=17 qid=168329 doc=msmarco_passage_16_243080257 gold=3 pred=None correct=None ms=90049
+2025-09-18 00:41:45 INFO :: Processing item 18/1000 | qid=168329 doc=msmarco_passage_58_519406230
+2025-09-18 00:41:45 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:42:15 WARNING :: LLM call timed out on attempt 1/3 after 30029 ms
+2025-09-18 00:42:15 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:42:15 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:42:45 WARNING :: LLM call timed out on attempt 2/3 after 30030 ms
+2025-09-18 00:42:45 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:42:45 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:43:15 WARNING :: LLM call timed out on attempt 3/3 after 30026 ms
+2025-09-18 00:43:15 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:43:15 INFO :: Item 18/1000 | qid=168329 doc=msmarco_passage_58_519406230 | gold=1 → pred=None | N/A | ms=90085 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:43:15 DEBUG :: Insert prediction | idx=18 qid=168329 doc=msmarco_passage_58_519406230 gold=1 pred=None correct=None ms=90085
+2025-09-18 00:43:15 INFO :: Processing item 19/1000 | qid=300025 doc=msmarco_passage_04_561349553
+2025-09-18 00:43:15 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:43:45 WARNING :: LLM call timed out on attempt 1/3 after 30028 ms
+2025-09-18 00:43:45 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:43:45 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:44:15 WARNING :: LLM call timed out on attempt 2/3 after 30026 ms
+2025-09-18 00:44:15 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:44:15 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:44:45 WARNING :: LLM call timed out on attempt 3/3 after 30025 ms
+2025-09-18 00:44:45 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:44:45 INFO :: Item 19/1000 | qid=300025 doc=msmarco_passage_04_561349553 | gold=3 → pred=None | N/A | ms=90079 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:44:45 DEBUG :: Insert prediction | idx=19 qid=300025 doc=msmarco_passage_04_561349553 gold=3 pred=None correct=None ms=90079
+2025-09-18 00:44:45 INFO :: Processing item 20/1000 | qid=300986 doc=msmarco_passage_28_817645953
+2025-09-18 00:44:45 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:45:15 WARNING :: LLM call timed out on attempt 1/3 after 30015 ms
+2025-09-18 00:45:15 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:45:15 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:45:45 WARNING :: LLM call timed out on attempt 2/3 after 30018 ms
+2025-09-18 00:45:45 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:45:45 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:46:15 WARNING :: LLM call timed out on attempt 3/3 after 30034 ms
+2025-09-18 00:46:15 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:46:15 INFO :: Item 20/1000 | qid=300986 doc=msmarco_passage_28_817645953 | gold=3 → pred=None | N/A | ms=90067 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:46:15 DEBUG :: Insert prediction | idx=20 qid=300986 doc=msmarco_passage_28_817645953 gold=3 pred=None correct=None ms=90067
+2025-09-18 00:46:15 DEBUG :: Committed batch at item 20
+2025-09-18 00:46:15 INFO :: Processing item 21/1000 | qid=300986 doc=msmarco_passage_60_597359053
+2025-09-18 00:46:15 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:46:45 WARNING :: LLM call timed out on attempt 1/3 after 30002 ms
+2025-09-18 00:46:45 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:46:45 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:47:15 WARNING :: LLM call timed out on attempt 2/3 after 30020 ms
+2025-09-18 00:47:15 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:47:15 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:47:45 WARNING :: LLM call timed out on attempt 3/3 after 30011 ms
+2025-09-18 00:47:45 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:47:45 INFO :: Item 21/1000 | qid=300986 doc=msmarco_passage_60_597359053 | gold=2 → pred=None | N/A | ms=90033 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:47:45 DEBUG :: Insert prediction | idx=21 qid=300986 doc=msmarco_passage_60_597359053 gold=2 pred=None correct=None ms=90033
+2025-09-18 00:47:45 INFO :: Processing item 22/1000 | qid=337656 doc=msmarco_passage_10_733659281
+2025-09-18 00:47:45 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:48:15 WARNING :: LLM call timed out on attempt 1/3 after 30029 ms
+2025-09-18 00:48:15 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:48:15 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:48:45 WARNING :: LLM call timed out on attempt 2/3 after 30010 ms
+2025-09-18 00:48:45 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:48:46 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:49:16 WARNING :: LLM call timed out on attempt 3/3 after 30027 ms
+2025-09-18 00:49:16 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:49:16 INFO :: Item 22/1000 | qid=337656 doc=msmarco_passage_10_733659281 | gold=3 → pred=None | N/A | ms=90066 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:49:16 DEBUG :: Insert prediction | idx=22 qid=337656 doc=msmarco_passage_10_733659281 gold=3 pred=None correct=None ms=90066
+2025-09-18 00:49:16 INFO :: Processing item 23/1000 | qid=337656 doc=msmarco_passage_43_18568436
+2025-09-18 00:49:16 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:49:46 WARNING :: LLM call timed out on attempt 1/3 after 30024 ms
+2025-09-18 00:49:46 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:49:46 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:50:16 WARNING :: LLM call timed out on attempt 2/3 after 30034 ms
+2025-09-18 00:50:16 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:50:16 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:50:46 WARNING :: LLM call timed out on attempt 3/3 after 30010 ms
+2025-09-18 00:50:46 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:50:46 INFO :: Item 23/1000 | qid=337656 doc=msmarco_passage_43_18568436 | gold=0 → pred=None | N/A | ms=90068 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:50:46 DEBUG :: Insert prediction | idx=23 qid=337656 doc=msmarco_passage_43_18568436 gold=0 pred=None correct=None ms=90068
+2025-09-18 00:50:46 INFO :: Processing item 24/1000 | qid=364210 doc=msmarco_passage_11_3170636
+2025-09-18 00:50:46 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:51:16 WARNING :: LLM call timed out on attempt 1/3 after 30029 ms
+2025-09-18 00:51:16 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:51:16 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:51:46 WARNING :: LLM call timed out on attempt 2/3 after 30026 ms
+2025-09-18 00:51:46 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:51:46 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:52:16 WARNING :: LLM call timed out on attempt 3/3 after 30003 ms
+2025-09-18 00:52:16 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:52:16 INFO :: Item 24/1000 | qid=364210 doc=msmarco_passage_11_3170636 | gold=2 → pred=None | N/A | ms=90058 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:52:16 DEBUG :: Insert prediction | idx=24 qid=364210 doc=msmarco_passage_11_3170636 gold=2 pred=None correct=None ms=90058
+2025-09-18 00:52:16 INFO :: Processing item 25/1000 | qid=364210 doc=msmarco_passage_12_190422397
+2025-09-18 00:52:16 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:52:46 WARNING :: LLM call timed out on attempt 1/3 after 30013 ms
+2025-09-18 00:52:46 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:52:46 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:53:16 WARNING :: LLM call timed out on attempt 2/3 after 30022 ms
+2025-09-18 00:53:16 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:53:16 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:53:46 WARNING :: LLM call timed out on attempt 3/3 after 30001 ms
+2025-09-18 00:53:46 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:53:46 INFO :: Item 25/1000 | qid=364210 doc=msmarco_passage_12_190422397 | gold=1 → pred=None | N/A | ms=90036 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:53:46 DEBUG :: Insert prediction | idx=25 qid=364210 doc=msmarco_passage_12_190422397 gold=1 pred=None correct=None ms=90036
+2025-09-18 00:53:46 DEBUG :: Committed batch at item 25
+2025-09-18 00:53:46 INFO :: Processing item 26/1000 | qid=395948 doc=msmarco_passage_21_795210288
+2025-09-18 00:53:46 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:54:16 WARNING :: LLM call timed out on attempt 1/3 after 30011 ms
+2025-09-18 00:54:16 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:54:16 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:54:46 WARNING :: LLM call timed out on attempt 2/3 after 30015 ms
+2025-09-18 00:54:46 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:54:46 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:55:16 WARNING :: LLM call timed out on attempt 3/3 after 30015 ms
+2025-09-18 00:55:16 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:55:16 INFO :: Item 26/1000 | qid=395948 doc=msmarco_passage_21_795210288 | gold=1 → pred=None | N/A | ms=90041 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:55:16 DEBUG :: Insert prediction | idx=26 qid=395948 doc=msmarco_passage_21_795210288 gold=1 pred=None correct=None ms=90041
+2025-09-18 00:55:16 INFO :: Processing item 27/1000 | qid=395948 doc=msmarco_passage_30_251604525
+2025-09-18 00:55:16 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:55:46 WARNING :: LLM call timed out on attempt 1/3 after 30019 ms
+2025-09-18 00:55:46 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:55:46 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:56:16 WARNING :: LLM call timed out on attempt 2/3 after 30006 ms
+2025-09-18 00:56:16 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:56:16 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:56:46 WARNING :: LLM call timed out on attempt 3/3 after 30027 ms
+2025-09-18 00:56:46 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:56:46 INFO :: Item 27/1000 | qid=395948 doc=msmarco_passage_30_251604525 | gold=1 → pred=None | N/A | ms=90052 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:56:46 DEBUG :: Insert prediction | idx=27 qid=395948 doc=msmarco_passage_30_251604525 gold=1 pred=None correct=None ms=90052
+2025-09-18 00:56:46 INFO :: Processing item 28/1000 | qid=421946 doc=msmarco_passage_41_297169600
+2025-09-18 00:56:46 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:57:16 WARNING :: LLM call timed out on attempt 1/3 after 30033 ms
+2025-09-18 00:57:16 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:57:16 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:57:46 WARNING :: LLM call timed out on attempt 2/3 after 30010 ms
+2025-09-18 00:57:46 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:57:46 DEBUG :: LLM call attempt 3/3
+2025-09-18 00:58:16 WARNING :: LLM call timed out on attempt 3/3 after 30007 ms
+2025-09-18 00:58:16 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 00:58:16 INFO :: Item 28/1000 | qid=421946 doc=msmarco_passage_41_297169600 | gold=3 → pred=None | N/A | ms=90050 | agree-so-far=3/3 (100.00%)
+2025-09-18 00:58:16 DEBUG :: Insert prediction | idx=28 qid=421946 doc=msmarco_passage_41_297169600 gold=3 pred=None correct=None ms=90050
+2025-09-18 00:58:16 INFO :: Processing item 29/1000 | qid=421946 doc=msmarco_passage_48_124892275
+2025-09-18 00:58:16 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:58:43 DEBUG :: LLM call attempt 1/3 succeeded.
+2025-09-18 00:58:43 INFO :: Item 29/1000 | qid=421946 doc=msmarco_passage_48_124892275 | gold=3 → pred=3 | HIT | ms=26116 | agree-so-far=4/4 (100.00%)
+2025-09-18 00:58:43 DEBUG :: Insert prediction | idx=29 qid=421946 doc=msmarco_passage_48_124892275 gold=3 pred=3 correct=True ms=26116
+2025-09-18 00:58:43 INFO :: Processing item 30/1000 | qid=493490 doc=msmarco_passage_09_336664227
+2025-09-18 00:58:43 DEBUG :: LLM call attempt 1/3
+2025-09-18 00:59:13 WARNING :: LLM call timed out on attempt 1/3 after 30006 ms
+2025-09-18 00:59:13 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:59:13 DEBUG :: LLM call attempt 2/3
+2025-09-18 00:59:43 WARNING :: LLM call timed out on attempt 2/3 after 30015 ms
+2025-09-18 00:59:43 DEBUG :: Retrying in 50 ms...
+2025-09-18 00:59:43 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:00:13 WARNING :: LLM call timed out on attempt 3/3 after 30026 ms
+2025-09-18 01:00:13 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:00:13 INFO :: Item 30/1000 | qid=493490 doc=msmarco_passage_09_336664227 | gold=3 → pred=None | N/A | ms=90047 | agree-so-far=4/4 (100.00%)
+2025-09-18 01:00:13 DEBUG :: Insert prediction | idx=30 qid=493490 doc=msmarco_passage_09_336664227 gold=3 pred=None correct=None ms=90047
+2025-09-18 01:00:13 DEBUG :: Committed batch at item 30
+2025-09-18 01:00:13 INFO :: Processing item 31/1000 | qid=493490 doc=msmarco_passage_13_626475411
+2025-09-18 01:00:13 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:00:43 WARNING :: LLM call timed out on attempt 1/3 after 30026 ms
+2025-09-18 01:00:43 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:00:43 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:01:13 WARNING :: LLM call timed out on attempt 2/3 after 30026 ms
+2025-09-18 01:01:13 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:01:13 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:01:43 WARNING :: LLM call timed out on attempt 3/3 after 30011 ms
+2025-09-18 01:01:43 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:01:43 INFO :: Item 31/1000 | qid=493490 doc=msmarco_passage_13_626475411 | gold=3 → pred=None | N/A | ms=90063 | agree-so-far=4/4 (100.00%)
+2025-09-18 01:01:43 DEBUG :: Insert prediction | idx=31 qid=493490 doc=msmarco_passage_13_626475411 gold=3 pred=None correct=None ms=90063
+2025-09-18 01:01:43 INFO :: Processing item 32/1000 | qid=493490 doc=msmarco_passage_16_295748139
+2025-09-18 01:01:43 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:02:13 WARNING :: LLM call timed out on attempt 1/3 after 30022 ms
+2025-09-18 01:02:13 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:02:13 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:02:43 WARNING :: LLM call timed out on attempt 2/3 after 30024 ms
+2025-09-18 01:02:43 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:02:43 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:03:13 WARNING :: LLM call timed out on attempt 3/3 after 30024 ms
+2025-09-18 01:03:13 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:03:13 INFO :: Item 32/1000 | qid=493490 doc=msmarco_passage_16_295748139 | gold=3 → pred=None | N/A | ms=90070 | agree-so-far=4/4 (100.00%)
+2025-09-18 01:03:13 DEBUG :: Insert prediction | idx=32 qid=493490 doc=msmarco_passage_16_295748139 gold=3 pred=None correct=None ms=90070
+2025-09-18 01:03:13 INFO :: Processing item 33/1000 | qid=493490 doc=msmarco_passage_16_830050141
+2025-09-18 01:03:13 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:03:43 WARNING :: LLM call timed out on attempt 1/3 after 30024 ms
+2025-09-18 01:03:43 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:03:43 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:04:13 WARNING :: LLM call timed out on attempt 2/3 after 30013 ms
+2025-09-18 01:04:13 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:04:13 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:04:43 WARNING :: LLM call timed out on attempt 3/3 after 30011 ms
+2025-09-18 01:04:43 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:04:43 INFO :: Item 33/1000 | qid=493490 doc=msmarco_passage_16_830050141 | gold=3 → pred=None | N/A | ms=90048 | agree-so-far=4/4 (100.00%)
+2025-09-18 01:04:43 DEBUG :: Insert prediction | idx=33 qid=493490 doc=msmarco_passage_16_830050141 gold=3 pred=None correct=None ms=90048
+2025-09-18 01:04:43 INFO :: Processing item 34/1000 | qid=493490 doc=msmarco_passage_24_283300304
+2025-09-18 01:04:43 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:05:13 WARNING :: LLM call timed out on attempt 1/3 after 30027 ms
+2025-09-18 01:05:13 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:05:13 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:05:43 WARNING :: LLM call timed out on attempt 2/3 after 30012 ms
+2025-09-18 01:05:43 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:05:43 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:06:13 WARNING :: LLM call timed out on attempt 3/3 after 30006 ms
+2025-09-18 01:06:13 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:06:13 INFO :: Item 34/1000 | qid=493490 doc=msmarco_passage_24_283300304 | gold=3 → pred=None | N/A | ms=90045 | agree-so-far=4/4 (100.00%)
+2025-09-18 01:06:13 DEBUG :: Insert prediction | idx=34 qid=493490 doc=msmarco_passage_24_283300304 gold=3 pred=None correct=None ms=90045
+2025-09-18 01:06:13 INFO :: Processing item 35/1000 | qid=493490 doc=msmarco_passage_24_647296964
+2025-09-18 01:06:13 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:06:43 WARNING :: LLM call timed out on attempt 1/3 after 30014 ms
+2025-09-18 01:06:43 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:06:43 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:07:13 WARNING :: LLM call timed out on attempt 2/3 after 30012 ms
+2025-09-18 01:07:13 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:07:14 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:07:44 WARNING :: LLM call timed out on attempt 3/3 after 30036 ms
+2025-09-18 01:07:44 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:07:44 INFO :: Item 35/1000 | qid=493490 doc=msmarco_passage_24_647296964 | gold=3 → pred=None | N/A | ms=90062 | agree-so-far=4/4 (100.00%)
+2025-09-18 01:07:44 DEBUG :: Insert prediction | idx=35 qid=493490 doc=msmarco_passage_24_647296964 gold=3 pred=None correct=None ms=90062
+2025-09-18 01:07:44 DEBUG :: Committed batch at item 35
+2025-09-18 01:07:44 INFO :: Processing item 36/1000 | qid=493490 doc=msmarco_passage_27_65380312
+2025-09-18 01:07:44 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:08:14 WARNING :: LLM call timed out on attempt 1/3 after 30002 ms
+2025-09-18 01:08:14 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:08:14 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:08:44 WARNING :: LLM call timed out on attempt 2/3 after 30037 ms
+2025-09-18 01:08:44 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:08:44 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:09:14 WARNING :: LLM call timed out on attempt 3/3 after 30001 ms
+2025-09-18 01:09:14 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:09:14 INFO :: Item 36/1000 | qid=493490 doc=msmarco_passage_27_65380312 | gold=3 → pred=None | N/A | ms=90040 | agree-so-far=4/4 (100.00%)
+2025-09-18 01:09:14 DEBUG :: Insert prediction | idx=36 qid=493490 doc=msmarco_passage_27_65380312 gold=3 pred=None correct=None ms=90040
+2025-09-18 01:09:14 INFO :: Processing item 37/1000 | qid=493490 doc=msmarco_passage_39_306373753
+2025-09-18 01:09:14 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:09:44 WARNING :: LLM call timed out on attempt 1/3 after 30011 ms
+2025-09-18 01:09:44 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:09:44 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:10:14 WARNING :: LLM call timed out on attempt 2/3 after 30027 ms
+2025-09-18 01:10:14 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:10:14 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:10:44 WARNING :: LLM call timed out on attempt 3/3 after 30010 ms
+2025-09-18 01:10:44 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:10:44 INFO :: Item 37/1000 | qid=493490 doc=msmarco_passage_39_306373753 | gold=3 → pred=None | N/A | ms=90048 | agree-so-far=4/4 (100.00%)
+2025-09-18 01:10:44 DEBUG :: Insert prediction | idx=37 qid=493490 doc=msmarco_passage_39_306373753 gold=3 pred=None correct=None ms=90048
+2025-09-18 01:10:44 INFO :: Processing item 38/1000 | qid=493490 doc=msmarco_passage_44_368105912
+2025-09-18 01:10:44 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:11:14 WARNING :: LLM call timed out on attempt 1/3 after 30011 ms
+2025-09-18 01:11:14 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:11:14 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:11:44 WARNING :: LLM call timed out on attempt 2/3 after 30015 ms
+2025-09-18 01:11:44 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:11:44 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:12:14 WARNING :: LLM call timed out on attempt 3/3 after 30025 ms
+2025-09-18 01:12:14 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:12:14 INFO :: Item 38/1000 | qid=493490 doc=msmarco_passage_44_368105912 | gold=3 → pred=None | N/A | ms=90051 | agree-so-far=4/4 (100.00%)
+2025-09-18 01:12:14 DEBUG :: Insert prediction | idx=38 qid=493490 doc=msmarco_passage_44_368105912 gold=3 pred=None correct=None ms=90051
+2025-09-18 01:12:14 INFO :: Processing item 39/1000 | qid=493490 doc=msmarco_passage_61_776625227
+2025-09-18 01:12:14 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:12:44 WARNING :: LLM call timed out on attempt 1/3 after 30029 ms
+2025-09-18 01:12:44 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:12:44 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:13:14 WARNING :: LLM call timed out on attempt 2/3 after 30013 ms
+2025-09-18 01:13:14 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:13:14 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:13:44 WARNING :: LLM call timed out on attempt 3/3 after 30001 ms
+2025-09-18 01:13:44 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:13:44 INFO :: Item 39/1000 | qid=493490 doc=msmarco_passage_61_776625227 | gold=3 → pred=None | N/A | ms=90043 | agree-so-far=4/4 (100.00%)
+2025-09-18 01:13:44 DEBUG :: Insert prediction | idx=39 qid=493490 doc=msmarco_passage_61_776625227 gold=3 pred=None correct=None ms=90043
+2025-09-18 01:13:44 INFO :: Processing item 40/1000 | qid=493490 doc=msmarco_passage_61_777208594
+2025-09-18 01:13:44 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:14:14 WARNING :: LLM call timed out on attempt 1/3 after 30013 ms
+2025-09-18 01:14:14 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:14:14 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:14:44 WARNING :: LLM call timed out on attempt 2/3 after 30003 ms
+2025-09-18 01:14:44 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:14:44 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:15:14 WARNING :: LLM call timed out on attempt 3/3 after 30011 ms
+2025-09-18 01:15:14 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:15:14 INFO :: Item 40/1000 | qid=493490 doc=msmarco_passage_61_777208594 | gold=3 → pred=None | N/A | ms=90027 | agree-so-far=4/4 (100.00%)
+2025-09-18 01:15:14 DEBUG :: Insert prediction | idx=40 qid=493490 doc=msmarco_passage_61_777208594 gold=3 pred=None correct=None ms=90027
+2025-09-18 01:15:14 DEBUG :: Committed batch at item 40
+2025-09-18 01:15:14 INFO :: Processing item 41/1000 | qid=493490 doc=msmarco_passage_61_777215608
+2025-09-18 01:15:14 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:15:44 WARNING :: LLM call timed out on attempt 1/3 after 30028 ms
+2025-09-18 01:15:44 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:15:44 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:16:14 WARNING :: LLM call timed out on attempt 2/3 after 30005 ms
+2025-09-18 01:16:14 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:16:14 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:16:44 WARNING :: LLM call timed out on attempt 3/3 after 30019 ms
+2025-09-18 01:16:44 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:16:44 INFO :: Item 41/1000 | qid=493490 doc=msmarco_passage_61_777215608 | gold=3 → pred=None | N/A | ms=90052 | agree-so-far=4/4 (100.00%)
+2025-09-18 01:16:44 DEBUG :: Insert prediction | idx=41 qid=493490 doc=msmarco_passage_61_777215608 gold=3 pred=None correct=None ms=90052
+2025-09-18 01:16:44 INFO :: Processing item 42/1000 | qid=540006 doc=msmarco_passage_13_345754350
+2025-09-18 01:16:44 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:17:14 WARNING :: LLM call timed out on attempt 1/3 after 30029 ms
+2025-09-18 01:17:14 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:17:15 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:17:45 WARNING :: LLM call timed out on attempt 2/3 after 30014 ms
+2025-09-18 01:17:45 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:17:45 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:18:15 WARNING :: LLM call timed out on attempt 3/3 after 30017 ms
+2025-09-18 01:18:15 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:18:15 INFO :: Item 42/1000 | qid=540006 doc=msmarco_passage_13_345754350 | gold=3 → pred=None | N/A | ms=90060 | agree-so-far=4/4 (100.00%)
+2025-09-18 01:18:15 DEBUG :: Insert prediction | idx=42 qid=540006 doc=msmarco_passage_13_345754350 gold=3 pred=None correct=None ms=90060
+2025-09-18 01:18:15 INFO :: Processing item 43/1000 | qid=540006 doc=msmarco_passage_57_49061407
+2025-09-18 01:18:15 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:18:45 WARNING :: LLM call timed out on attempt 1/3 after 30015 ms
+2025-09-18 01:18:45 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:18:45 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:19:15 WARNING :: LLM call timed out on attempt 2/3 after 30026 ms
+2025-09-18 01:19:15 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:19:15 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:19:45 WARNING :: LLM call timed out on attempt 3/3 after 30000 ms
+2025-09-18 01:19:45 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:19:45 INFO :: Item 43/1000 | qid=540006 doc=msmarco_passage_57_49061407 | gold=3 → pred=None | N/A | ms=90041 | agree-so-far=4/4 (100.00%)
+2025-09-18 01:19:45 DEBUG :: Insert prediction | idx=43 qid=540006 doc=msmarco_passage_57_49061407 gold=3 pred=None correct=None ms=90041
+2025-09-18 01:19:45 INFO :: Processing item 44/1000 | qid=596569 doc=msmarco_passage_06_80405582
+2025-09-18 01:19:45 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:20:15 WARNING :: LLM call timed out on attempt 1/3 after 30014 ms
+2025-09-18 01:20:15 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:20:15 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:20:45 WARNING :: LLM call timed out on attempt 2/3 after 30026 ms
+2025-09-18 01:20:45 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:20:45 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:21:15 WARNING :: LLM call timed out on attempt 3/3 after 30026 ms
+2025-09-18 01:21:15 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:21:15 INFO :: Item 44/1000 | qid=596569 doc=msmarco_passage_06_80405582 | gold=3 → pred=None | N/A | ms=90066 | agree-so-far=4/4 (100.00%)
+2025-09-18 01:21:15 DEBUG :: Insert prediction | idx=44 qid=596569 doc=msmarco_passage_06_80405582 gold=3 pred=None correct=None ms=90066
+2025-09-18 01:21:15 INFO :: Processing item 45/1000 | qid=596569 doc=msmarco_passage_09_769269682
+2025-09-18 01:21:15 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:21:45 WARNING :: LLM call timed out on attempt 1/3 after 30016 ms
+2025-09-18 01:21:45 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:21:45 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:22:15 WARNING :: LLM call timed out on attempt 2/3 after 30024 ms
+2025-09-18 01:22:15 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:22:15 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:22:45 WARNING :: LLM call timed out on attempt 3/3 after 30024 ms
+2025-09-18 01:22:45 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:22:45 INFO :: Item 45/1000 | qid=596569 doc=msmarco_passage_09_769269682 | gold=3 → pred=None | N/A | ms=90064 | agree-so-far=4/4 (100.00%)
+2025-09-18 01:22:45 DEBUG :: Insert prediction | idx=45 qid=596569 doc=msmarco_passage_09_769269682 gold=3 pred=None correct=None ms=90064
+2025-09-18 01:22:45 DEBUG :: Committed batch at item 45
+2025-09-18 01:22:45 INFO :: Processing item 46/1000 | qid=596569 doc=msmarco_passage_13_448240451
+2025-09-18 01:22:45 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:23:15 WARNING :: LLM call timed out on attempt 1/3 after 30014 ms
+2025-09-18 01:23:15 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:23:15 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:23:45 WARNING :: LLM call timed out on attempt 2/3 after 30013 ms
+2025-09-18 01:23:45 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:23:45 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:24:15 WARNING :: LLM call timed out on attempt 3/3 after 30011 ms
+2025-09-18 01:24:15 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:24:15 INFO :: Item 46/1000 | qid=596569 doc=msmarco_passage_13_448240451 | gold=3 → pred=None | N/A | ms=90038 | agree-so-far=4/4 (100.00%)
+2025-09-18 01:24:15 DEBUG :: Insert prediction | idx=46 qid=596569 doc=msmarco_passage_13_448240451 gold=3 pred=None correct=None ms=90038
+2025-09-18 01:24:15 INFO :: Processing item 47/1000 | qid=596569 doc=msmarco_passage_13_472919920
+2025-09-18 01:24:15 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:24:45 WARNING :: LLM call timed out on attempt 1/3 after 30014 ms
+2025-09-18 01:24:45 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:24:45 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:25:15 DEBUG :: LLM call attempt 2/3 succeeded.
+2025-09-18 01:25:15 INFO :: Item 47/1000 | qid=596569 doc=msmarco_passage_13_472919920 | gold=3 → pred=3 | HIT | ms=59214 | agree-so-far=5/5 (100.00%)
+2025-09-18 01:25:15 DEBUG :: Insert prediction | idx=47 qid=596569 doc=msmarco_passage_13_472919920 gold=3 pred=3 correct=True ms=59214
+2025-09-18 01:25:15 INFO :: Processing item 48/1000 | qid=596569 doc=msmarco_passage_26_505136105
+2025-09-18 01:25:15 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:25:45 WARNING :: LLM call timed out on attempt 1/3 after 30012 ms
+2025-09-18 01:25:45 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:25:45 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:26:15 WARNING :: LLM call timed out on attempt 2/3 after 30044 ms
+2025-09-18 01:26:15 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:26:15 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:26:45 WARNING :: LLM call timed out on attempt 3/3 after 30025 ms
+2025-09-18 01:26:45 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:26:45 INFO :: Item 48/1000 | qid=596569 doc=msmarco_passage_26_505136105 | gold=3 → pred=None | N/A | ms=90081 | agree-so-far=5/5 (100.00%)
+2025-09-18 01:26:45 DEBUG :: Insert prediction | idx=48 qid=596569 doc=msmarco_passage_26_505136105 gold=3 pred=None correct=None ms=90081
+2025-09-18 01:26:45 INFO :: Processing item 49/1000 | qid=596569 doc=msmarco_passage_62_810494397
+2025-09-18 01:26:45 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:27:10 DEBUG :: LLM call attempt 1/3 succeeded.
+2025-09-18 01:27:10 INFO :: Item 49/1000 | qid=596569 doc=msmarco_passage_62_810494397 | gold=3 → pred=3 | HIT | ms=25402 | agree-so-far=6/6 (100.00%)
+2025-09-18 01:27:10 DEBUG :: Insert prediction | idx=49 qid=596569 doc=msmarco_passage_62_810494397 gold=3 pred=3 correct=True ms=25402
+2025-09-18 01:27:10 INFO :: Processing item 50/1000 | qid=596569 doc=msmarco_passage_65_648881773
+2025-09-18 01:27:10 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:27:40 WARNING :: LLM call timed out on attempt 1/3 after 30001 ms
+2025-09-18 01:27:40 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:27:40 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:28:10 WARNING :: LLM call timed out on attempt 2/3 after 30026 ms
+2025-09-18 01:28:10 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:28:10 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:28:40 WARNING :: LLM call timed out on attempt 3/3 after 30027 ms
+2025-09-18 01:28:40 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:28:40 INFO :: Item 50/1000 | qid=596569 doc=msmarco_passage_65_648881773 | gold=3 → pred=None | N/A | ms=90054 | agree-so-far=6/6 (100.00%)
+2025-09-18 01:28:40 DEBUG :: Insert prediction | idx=50 qid=596569 doc=msmarco_passage_65_648881773 gold=3 pred=None correct=None ms=90054
+2025-09-18 01:28:40 DEBUG :: Committed batch at item 50
+2025-09-18 01:28:40 INFO :: Processing item 51/1000 | qid=629937 doc=msmarco_passage_39_119423024
+2025-09-18 01:28:40 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:29:10 WARNING :: LLM call timed out on attempt 1/3 after 30024 ms
+2025-09-18 01:29:10 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:29:10 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:29:40 WARNING :: LLM call timed out on attempt 2/3 after 30012 ms
+2025-09-18 01:29:40 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:29:40 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:30:10 WARNING :: LLM call timed out on attempt 3/3 after 30011 ms
+2025-09-18 01:30:10 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:30:10 INFO :: Item 51/1000 | qid=629937 doc=msmarco_passage_39_119423024 | gold=3 → pred=None | N/A | ms=90047 | agree-so-far=6/6 (100.00%)
+2025-09-18 01:30:10 DEBUG :: Insert prediction | idx=51 qid=629937 doc=msmarco_passage_39_119423024 gold=3 pred=None correct=None ms=90047
+2025-09-18 01:30:10 INFO :: Processing item 52/1000 | qid=629937 doc=msmarco_passage_53_430854121
+2025-09-18 01:30:10 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:30:40 WARNING :: LLM call timed out on attempt 1/3 after 30006 ms
+2025-09-18 01:30:40 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:30:40 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:31:11 WARNING :: LLM call timed out on attempt 2/3 after 30018 ms
+2025-09-18 01:31:11 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:31:11 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:31:41 WARNING :: LLM call timed out on attempt 3/3 after 30034 ms
+2025-09-18 01:31:41 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:31:41 INFO :: Item 52/1000 | qid=629937 doc=msmarco_passage_53_430854121 | gold=3 → pred=None | N/A | ms=90058 | agree-so-far=6/6 (100.00%)
+2025-09-18 01:31:41 DEBUG :: Insert prediction | idx=52 qid=629937 doc=msmarco_passage_53_430854121 gold=3 pred=None correct=None ms=90058
+2025-09-18 01:31:41 INFO :: Processing item 53/1000 | qid=629937 doc=msmarco_passage_64_656969348
+2025-09-18 01:31:41 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:32:11 WARNING :: LLM call timed out on attempt 1/3 after 30015 ms
+2025-09-18 01:32:11 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:32:11 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:32:41 WARNING :: LLM call timed out on attempt 2/3 after 30016 ms
+2025-09-18 01:32:41 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:32:41 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:33:11 WARNING :: LLM call timed out on attempt 3/3 after 30043 ms
+2025-09-18 01:33:11 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:33:11 INFO :: Item 53/1000 | qid=629937 doc=msmarco_passage_64_656969348 | gold=0 → pred=None | N/A | ms=90074 | agree-so-far=6/6 (100.00%)
+2025-09-18 01:33:11 DEBUG :: Insert prediction | idx=53 qid=629937 doc=msmarco_passage_64_656969348 gold=0 pred=None correct=None ms=90074
+2025-09-18 01:33:11 INFO :: Processing item 54/1000 | qid=646091 doc=msmarco_passage_01_117683522
+2025-09-18 01:33:11 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:33:41 WARNING :: LLM call timed out on attempt 1/3 after 30021 ms
+2025-09-18 01:33:41 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:33:41 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:34:11 WARNING :: LLM call timed out on attempt 2/3 after 30016 ms
+2025-09-18 01:34:11 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:34:11 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:34:41 WARNING :: LLM call timed out on attempt 3/3 after 30005 ms
+2025-09-18 01:34:41 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:34:41 INFO :: Item 54/1000 | qid=646091 doc=msmarco_passage_01_117683522 | gold=3 → pred=None | N/A | ms=90042 | agree-so-far=6/6 (100.00%)
+2025-09-18 01:34:41 DEBUG :: Insert prediction | idx=54 qid=646091 doc=msmarco_passage_01_117683522 gold=3 pred=None correct=None ms=90042
+2025-09-18 01:34:41 INFO :: Processing item 55/1000 | qid=646091 doc=msmarco_passage_05_548448771
+2025-09-18 01:34:41 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:35:11 WARNING :: LLM call timed out on attempt 1/3 after 30015 ms
+2025-09-18 01:35:11 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:35:11 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:35:41 WARNING :: LLM call timed out on attempt 2/3 after 30039 ms
+2025-09-18 01:35:41 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:35:41 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:36:11 WARNING :: LLM call timed out on attempt 3/3 after 30032 ms
+2025-09-18 01:36:11 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:36:11 INFO :: Item 55/1000 | qid=646091 doc=msmarco_passage_05_548448771 | gold=3 → pred=None | N/A | ms=90086 | agree-so-far=6/6 (100.00%)
+2025-09-18 01:36:11 DEBUG :: Insert prediction | idx=55 qid=646091 doc=msmarco_passage_05_548448771 gold=3 pred=None correct=None ms=90086
+2025-09-18 01:36:11 DEBUG :: Committed batch at item 55
+2025-09-18 01:36:11 INFO :: Processing item 56/1000 | qid=688007 doc=msmarco_passage_33_766603220
+2025-09-18 01:36:11 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:36:41 WARNING :: LLM call timed out on attempt 1/3 after 30015 ms
+2025-09-18 01:36:41 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:36:41 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:37:11 WARNING :: LLM call timed out on attempt 2/3 after 30018 ms
+2025-09-18 01:37:11 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:37:11 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:37:41 WARNING :: LLM call timed out on attempt 3/3 after 30013 ms
+2025-09-18 01:37:41 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:37:41 INFO :: Item 56/1000 | qid=688007 doc=msmarco_passage_33_766603220 | gold=3 → pred=None | N/A | ms=90046 | agree-so-far=6/6 (100.00%)
+2025-09-18 01:37:41 DEBUG :: Insert prediction | idx=56 qid=688007 doc=msmarco_passage_33_766603220 gold=3 pred=None correct=None ms=90046
+2025-09-18 01:37:41 INFO :: Processing item 57/1000 | qid=764738 doc=msmarco_passage_14_421130213
+2025-09-18 01:37:41 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:38:10 DEBUG :: LLM call attempt 1/3 succeeded.
+2025-09-18 01:38:10 INFO :: Item 57/1000 | qid=764738 doc=msmarco_passage_14_421130213 | gold=3 → pred=3 | HIT | ms=28701 | agree-so-far=7/7 (100.00%)
+2025-09-18 01:38:10 DEBUG :: Insert prediction | idx=57 qid=764738 doc=msmarco_passage_14_421130213 gold=3 pred=3 correct=True ms=28701
+2025-09-18 01:38:10 INFO :: Processing item 58/1000 | qid=764738 doc=msmarco_passage_17_501555126
+2025-09-18 01:38:10 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:38:40 WARNING :: LLM call timed out on attempt 1/3 after 30012 ms
+2025-09-18 01:38:40 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:38:40 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:39:10 WARNING :: LLM call timed out on attempt 2/3 after 30026 ms
+2025-09-18 01:39:10 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:39:10 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:39:40 WARNING :: LLM call timed out on attempt 3/3 after 30012 ms
+2025-09-18 01:39:40 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:39:40 INFO :: Item 58/1000 | qid=764738 doc=msmarco_passage_17_501555126 | gold=3 → pred=None | N/A | ms=90050 | agree-so-far=7/7 (100.00%)
+2025-09-18 01:39:40 DEBUG :: Insert prediction | idx=58 qid=764738 doc=msmarco_passage_17_501555126 gold=3 pred=None correct=None ms=90050
+2025-09-18 01:39:40 INFO :: Processing item 59/1000 | qid=764738 doc=msmarco_passage_60_483171928
+2025-09-18 01:39:40 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:40:10 WARNING :: LLM call timed out on attempt 1/3 after 30024 ms
+2025-09-18 01:40:10 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:40:10 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:40:40 WARNING :: LLM call timed out on attempt 2/3 after 30030 ms
+2025-09-18 01:40:40 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:40:40 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:41:10 WARNING :: LLM call timed out on attempt 3/3 after 30042 ms
+2025-09-18 01:41:10 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:41:10 INFO :: Item 59/1000 | qid=764738 doc=msmarco_passage_60_483171928 | gold=1 → pred=None | N/A | ms=90096 | agree-so-far=7/7 (100.00%)
+2025-09-18 01:41:10 DEBUG :: Insert prediction | idx=59 qid=764738 doc=msmarco_passage_60_483171928 gold=1 pred=None correct=None ms=90096
+2025-09-18 01:41:10 INFO :: Processing item 60/1000 | qid=806694 doc=msmarco_passage_61_123797376
+2025-09-18 01:41:10 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:41:40 DEBUG :: LLM call attempt 1/3 succeeded.
+2025-09-18 01:41:40 INFO :: Item 60/1000 | qid=806694 doc=msmarco_passage_61_123797376 | gold=1 → pred=1 | HIT | ms=29862 | agree-so-far=8/8 (100.00%)
+2025-09-18 01:41:40 DEBUG :: Insert prediction | idx=60 qid=806694 doc=msmarco_passage_61_123797376 gold=1 pred=1 correct=True ms=29862
+2025-09-18 01:41:40 DEBUG :: Committed batch at item 60
+2025-09-18 01:41:40 INFO :: Processing item 61/1000 | qid=832573 doc=msmarco_passage_26_372735585
+2025-09-18 01:41:40 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:42:10 WARNING :: LLM call timed out on attempt 1/3 after 30007 ms
+2025-09-18 01:42:10 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:42:10 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:42:40 WARNING :: LLM call timed out on attempt 2/3 after 30027 ms
+2025-09-18 01:42:40 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:42:40 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:43:10 WARNING :: LLM call timed out on attempt 3/3 after 30007 ms
+2025-09-18 01:43:10 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:43:10 INFO :: Item 61/1000 | qid=832573 doc=msmarco_passage_26_372735585 | gold=2 → pred=None | N/A | ms=90041 | agree-so-far=8/8 (100.00%)
+2025-09-18 01:43:10 DEBUG :: Insert prediction | idx=61 qid=832573 doc=msmarco_passage_26_372735585 gold=2 pred=None correct=None ms=90041
+2025-09-18 01:43:10 INFO :: Processing item 62/1000 | qid=832573 doc=msmarco_passage_26_385073075
+2025-09-18 01:43:10 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:43:40 WARNING :: LLM call timed out on attempt 1/3 after 30017 ms
+2025-09-18 01:43:40 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:43:40 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:44:10 WARNING :: LLM call timed out on attempt 2/3 after 30021 ms
+2025-09-18 01:44:10 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:44:10 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:44:41 WARNING :: LLM call timed out on attempt 3/3 after 30017 ms
+2025-09-18 01:44:41 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:44:41 INFO :: Item 62/1000 | qid=832573 doc=msmarco_passage_26_385073075 | gold=2 → pred=None | N/A | ms=90055 | agree-so-far=8/8 (100.00%)
+2025-09-18 01:44:41 DEBUG :: Insert prediction | idx=62 qid=832573 doc=msmarco_passage_26_385073075 gold=2 pred=None correct=None ms=90055
+2025-09-18 01:44:41 INFO :: Processing item 63/1000 | qid=835760 doc=msmarco_passage_08_787082193
+2025-09-18 01:44:41 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:45:11 WARNING :: LLM call timed out on attempt 1/3 after 30015 ms
+2025-09-18 01:45:11 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:45:11 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:45:41 WARNING :: LLM call timed out on attempt 2/3 after 30024 ms
+2025-09-18 01:45:41 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:45:41 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:46:11 WARNING :: LLM call timed out on attempt 3/3 after 30026 ms
+2025-09-18 01:46:11 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:46:11 INFO :: Item 63/1000 | qid=835760 doc=msmarco_passage_08_787082193 | gold=2 → pred=None | N/A | ms=90065 | agree-so-far=8/8 (100.00%)
+2025-09-18 01:46:11 DEBUG :: Insert prediction | idx=63 qid=835760 doc=msmarco_passage_08_787082193 gold=2 pred=None correct=None ms=90065
+2025-09-18 01:46:11 INFO :: Processing item 64/1000 | qid=845121 doc=msmarco_passage_03_739047042
+2025-09-18 01:46:11 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:46:41 WARNING :: LLM call timed out on attempt 1/3 after 30030 ms
+2025-09-18 01:46:41 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:46:41 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:47:11 WARNING :: LLM call timed out on attempt 2/3 after 30024 ms
+2025-09-18 01:47:11 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:47:11 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:47:41 WARNING :: LLM call timed out on attempt 3/3 after 30014 ms
+2025-09-18 01:47:41 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:47:41 INFO :: Item 64/1000 | qid=845121 doc=msmarco_passage_03_739047042 | gold=1 → pred=None | N/A | ms=90068 | agree-so-far=8/8 (100.00%)
+2025-09-18 01:47:41 DEBUG :: Insert prediction | idx=64 qid=845121 doc=msmarco_passage_03_739047042 gold=1 pred=None correct=None ms=90068
+2025-09-18 01:47:41 INFO :: Processing item 65/1000 | qid=845121 doc=msmarco_passage_68_87209129
+2025-09-18 01:47:41 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:48:11 WARNING :: LLM call timed out on attempt 1/3 after 30014 ms
+2025-09-18 01:48:11 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:48:11 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:48:41 WARNING :: LLM call timed out on attempt 2/3 after 30027 ms
+2025-09-18 01:48:41 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:48:41 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:49:11 WARNING :: LLM call timed out on attempt 3/3 after 30010 ms
+2025-09-18 01:49:11 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:49:11 INFO :: Item 65/1000 | qid=845121 doc=msmarco_passage_68_87209129 | gold=3 → pred=None | N/A | ms=90051 | agree-so-far=8/8 (100.00%)
+2025-09-18 01:49:11 DEBUG :: Insert prediction | idx=65 qid=845121 doc=msmarco_passage_68_87209129 gold=3 pred=None correct=None ms=90051
+2025-09-18 01:49:11 DEBUG :: Committed batch at item 65
+2025-09-18 01:49:11 INFO :: Processing item 66/1000 | qid=935964 doc=msmarco_passage_64_226882001
+2025-09-18 01:49:11 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:49:41 WARNING :: LLM call timed out on attempt 1/3 after 30006 ms
+2025-09-18 01:49:41 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:49:41 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:50:11 WARNING :: LLM call timed out on attempt 2/3 after 30002 ms
+2025-09-18 01:50:11 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:50:11 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:50:41 WARNING :: LLM call timed out on attempt 3/3 after 30009 ms
+2025-09-18 01:50:41 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:50:41 INFO :: Item 66/1000 | qid=935964 doc=msmarco_passage_64_226882001 | gold=3 → pred=None | N/A | ms=90017 | agree-so-far=8/8 (100.00%)
+2025-09-18 01:50:41 DEBUG :: Insert prediction | idx=66 qid=935964 doc=msmarco_passage_64_226882001 gold=3 pred=None correct=None ms=90017
+2025-09-18 01:50:41 INFO :: Processing item 67/1000 | qid=935964 doc=msmarco_passage_64_812650549
+2025-09-18 01:50:41 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:51:11 WARNING :: LLM call timed out on attempt 1/3 after 30002 ms
+2025-09-18 01:51:11 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:51:11 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:51:38 DEBUG :: LLM call attempt 2/3 succeeded.
+2025-09-18 01:51:38 INFO :: Item 67/1000 | qid=935964 doc=msmarco_passage_64_812650549 | gold=3 → pred=3 | HIT | ms=56456 | agree-so-far=9/9 (100.00%)
+2025-09-18 01:51:38 DEBUG :: Insert prediction | idx=67 qid=935964 doc=msmarco_passage_64_812650549 gold=3 pred=3 correct=True ms=56456
+2025-09-18 01:51:38 INFO :: Processing item 68/1000 | qid=952262 doc=msmarco_passage_02_641464678
+2025-09-18 01:51:38 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:52:07 DEBUG :: LLM call attempt 1/3 succeeded.
+2025-09-18 01:52:07 INFO :: Item 68/1000 | qid=952262 doc=msmarco_passage_02_641464678 | gold=3 → pred=3 | HIT | ms=29221 | agree-so-far=10/10 (100.00%)
+2025-09-18 01:52:07 DEBUG :: Insert prediction | idx=68 qid=952262 doc=msmarco_passage_02_641464678 gold=3 pred=3 correct=True ms=29221
+2025-09-18 01:52:07 INFO :: Processing item 69/1000 | qid=952262 doc=msmarco_passage_04_374534646
+2025-09-18 01:52:07 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:52:33 DEBUG :: LLM call attempt 1/3 succeeded.
+2025-09-18 01:52:33 INFO :: Item 69/1000 | qid=952262 doc=msmarco_passage_04_374534646 | gold=3 → pred=3 | HIT | ms=26593 | agree-so-far=11/11 (100.00%)
+2025-09-18 01:52:33 DEBUG :: Insert prediction | idx=69 qid=952262 doc=msmarco_passage_04_374534646 gold=3 pred=3 correct=True ms=26593
+2025-09-18 01:52:33 INFO :: Processing item 70/1000 | qid=952262 doc=msmarco_passage_10_886522396
+2025-09-18 01:52:33 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:53:03 WARNING :: LLM call timed out on attempt 1/3 after 30008 ms
+2025-09-18 01:53:03 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:53:04 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:53:34 WARNING :: LLM call timed out on attempt 2/3 after 30016 ms
+2025-09-18 01:53:34 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:53:34 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:54:04 WARNING :: LLM call timed out on attempt 3/3 after 30010 ms
+2025-09-18 01:54:04 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:54:04 INFO :: Item 70/1000 | qid=952262 doc=msmarco_passage_10_886522396 | gold=3 → pred=None | N/A | ms=90034 | agree-so-far=11/11 (100.00%)
+2025-09-18 01:54:04 DEBUG :: Insert prediction | idx=70 qid=952262 doc=msmarco_passage_10_886522396 gold=3 pred=None correct=None ms=90034
+2025-09-18 01:54:04 DEBUG :: Committed batch at item 70
+2025-09-18 01:54:04 INFO :: Processing item 71/1000 | qid=952262 doc=msmarco_passage_11_823089134
+2025-09-18 01:54:04 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:54:34 WARNING :: LLM call timed out on attempt 1/3 after 30017 ms
+2025-09-18 01:54:34 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:54:34 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:55:04 WARNING :: LLM call timed out on attempt 2/3 after 30011 ms
+2025-09-18 01:55:04 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:55:04 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:55:34 WARNING :: LLM call timed out on attempt 3/3 after 30052 ms
+2025-09-18 01:55:34 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:55:34 INFO :: Item 71/1000 | qid=952262 doc=msmarco_passage_11_823089134 | gold=3 → pred=None | N/A | ms=90080 | agree-so-far=11/11 (100.00%)
+2025-09-18 01:55:34 DEBUG :: Insert prediction | idx=71 qid=952262 doc=msmarco_passage_11_823089134 gold=3 pred=None correct=None ms=90080
+2025-09-18 01:55:34 INFO :: Processing item 72/1000 | qid=952262 doc=msmarco_passage_46_197909458
+2025-09-18 01:55:34 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:56:02 DEBUG :: LLM call attempt 1/3 succeeded.
+2025-09-18 01:56:02 INFO :: Item 72/1000 | qid=952262 doc=msmarco_passage_46_197909458 | gold=3 → pred=3 | HIT | ms=27897 | agree-so-far=12/12 (100.00%)
+2025-09-18 01:56:02 DEBUG :: Insert prediction | idx=72 qid=952262 doc=msmarco_passage_46_197909458 gold=3 pred=3 correct=True ms=27897
+2025-09-18 01:56:02 INFO :: Processing item 73/1000 | qid=952262 doc=msmarco_passage_57_447973988
+2025-09-18 01:56:02 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:56:32 WARNING :: LLM call timed out on attempt 1/3 after 30015 ms
+2025-09-18 01:56:32 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:56:32 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:57:02 WARNING :: LLM call timed out on attempt 2/3 after 30032 ms
+2025-09-18 01:57:02 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:57:02 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:57:32 WARNING :: LLM call timed out on attempt 3/3 after 30012 ms
+2025-09-18 01:57:32 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:57:32 INFO :: Item 73/1000 | qid=952262 doc=msmarco_passage_57_447973988 | gold=3 → pred=None | N/A | ms=90059 | agree-so-far=12/12 (100.00%)
+2025-09-18 01:57:32 DEBUG :: Insert prediction | idx=73 qid=952262 doc=msmarco_passage_57_447973988 gold=3 pred=None correct=None ms=90059
+2025-09-18 01:57:32 INFO :: Processing item 74/1000 | qid=952262 doc=msmarco_passage_60_322275192
+2025-09-18 01:57:32 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:58:02 WARNING :: LLM call timed out on attempt 1/3 after 30022 ms
+2025-09-18 01:58:02 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:58:02 DEBUG :: LLM call attempt 2/3
+2025-09-18 01:58:32 WARNING :: LLM call timed out on attempt 2/3 after 30003 ms
+2025-09-18 01:58:32 DEBUG :: Retrying in 50 ms...
+2025-09-18 01:58:32 DEBUG :: LLM call attempt 3/3
+2025-09-18 01:59:02 WARNING :: LLM call timed out on attempt 3/3 after 30027 ms
+2025-09-18 01:59:02 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 01:59:02 INFO :: Item 74/1000 | qid=952262 doc=msmarco_passage_60_322275192 | gold=3 → pred=None | N/A | ms=90052 | agree-so-far=12/12 (100.00%)
+2025-09-18 01:59:02 DEBUG :: Insert prediction | idx=74 qid=952262 doc=msmarco_passage_60_322275192 gold=3 pred=None correct=None ms=90052
+2025-09-18 01:59:02 INFO :: Processing item 75/1000 | qid=952262 doc=msmarco_passage_65_849043823
+2025-09-18 01:59:02 DEBUG :: LLM call attempt 1/3
+2025-09-18 01:59:30 DEBUG :: LLM call attempt 1/3 succeeded.
+2025-09-18 01:59:30 INFO :: Item 75/1000 | qid=952262 doc=msmarco_passage_65_849043823 | gold=3 → pred=3 | HIT | ms=28328 | agree-so-far=13/13 (100.00%)
+2025-09-18 01:59:30 DEBUG :: Insert prediction | idx=75 qid=952262 doc=msmarco_passage_65_849043823 gold=3 pred=3 correct=True ms=28328
+2025-09-18 01:59:30 DEBUG :: Committed batch at item 75
+2025-09-18 01:59:30 INFO :: Processing item 76/1000 | qid=1006728 doc=msmarco_passage_65_851178736
+2025-09-18 01:59:30 DEBUG :: LLM call attempt 1/3
+2025-09-18 02:00:00 WARNING :: LLM call timed out on attempt 1/3 after 30009 ms
+2025-09-18 02:00:00 DEBUG :: Retrying in 50 ms...
+2025-09-18 02:00:00 DEBUG :: LLM call attempt 2/3
+2025-09-18 02:00:30 WARNING :: LLM call timed out on attempt 2/3 after 30026 ms
+2025-09-18 02:00:30 DEBUG :: Retrying in 50 ms...
+2025-09-18 02:00:30 DEBUG :: LLM call attempt 3/3
+2025-09-18 02:01:00 WARNING :: LLM call timed out on attempt 3/3 after 30009 ms
+2025-09-18 02:01:00 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 02:01:00 INFO :: Item 76/1000 | qid=1006728 doc=msmarco_passage_65_851178736 | gold=0 → pred=None | N/A | ms=90044 | agree-so-far=13/13 (100.00%)
+2025-09-18 02:01:00 DEBUG :: Insert prediction | idx=76 qid=1006728 doc=msmarco_passage_65_851178736 gold=0 pred=None correct=None ms=90044
+2025-09-18 02:01:00 INFO :: Processing item 77/1000 | qid=1040198 doc=msmarco_passage_21_72930767
+2025-09-18 02:01:00 DEBUG :: LLM call attempt 1/3
+2025-09-18 02:01:30 WARNING :: LLM call timed out on attempt 1/3 after 30015 ms
+2025-09-18 02:01:30 DEBUG :: Retrying in 50 ms...
+2025-09-18 02:01:31 DEBUG :: LLM call attempt 2/3
+2025-09-18 02:02:01 WARNING :: LLM call timed out on attempt 2/3 after 30030 ms
+2025-09-18 02:02:01 DEBUG :: Retrying in 50 ms...
+2025-09-18 02:02:01 DEBUG :: LLM call attempt 3/3
+2025-09-18 02:02:31 WARNING :: LLM call timed out on attempt 3/3 after 30020 ms
+2025-09-18 02:02:31 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 02:02:31 INFO :: Item 77/1000 | qid=1040198 doc=msmarco_passage_21_72930767 | gold=3 → pred=None | N/A | ms=90065 | agree-so-far=13/13 (100.00%)
+2025-09-18 02:02:31 DEBUG :: Insert prediction | idx=77 qid=1040198 doc=msmarco_passage_21_72930767 gold=3 pred=None correct=None ms=90065
+2025-09-18 02:02:31 INFO :: Processing item 78/1000 | qid=1104300 doc=msmarco_passage_04_42132715
+2025-09-18 02:02:31 DEBUG :: LLM call attempt 1/3
+2025-09-18 02:03:01 WARNING :: LLM call timed out on attempt 1/3 after 30014 ms
+2025-09-18 02:03:01 DEBUG :: Retrying in 50 ms...
+2025-09-18 02:03:01 DEBUG :: LLM call attempt 2/3
+2025-09-18 02:03:31 WARNING :: LLM call timed out on attempt 2/3 after 30035 ms
+2025-09-18 02:03:31 DEBUG :: Retrying in 50 ms...
+2025-09-18 02:03:31 DEBUG :: LLM call attempt 3/3
+2025-09-18 02:04:01 WARNING :: LLM call timed out on attempt 3/3 after 30018 ms
+2025-09-18 02:04:01 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 02:04:01 INFO :: Item 78/1000 | qid=1104300 doc=msmarco_passage_04_42132715 | gold=3 → pred=None | N/A | ms=90067 | agree-so-far=13/13 (100.00%)
+2025-09-18 02:04:01 DEBUG :: Insert prediction | idx=78 qid=1104300 doc=msmarco_passage_04_42132715 gold=3 pred=None correct=None ms=90067
+2025-09-18 02:04:01 INFO :: Processing item 79/1000 | qid=1104300 doc=msmarco_passage_09_610195333
+2025-09-18 02:04:01 DEBUG :: LLM call attempt 1/3
+2025-09-18 02:04:31 WARNING :: LLM call timed out on attempt 1/3 after 30013 ms
+2025-09-18 02:04:31 DEBUG :: Retrying in 50 ms...
+2025-09-18 02:04:31 DEBUG :: LLM call attempt 2/3
+2025-09-18 02:05:01 WARNING :: LLM call timed out on attempt 2/3 after 30013 ms
+2025-09-18 02:05:01 DEBUG :: Retrying in 50 ms...
+2025-09-18 02:05:01 DEBUG :: LLM call attempt 3/3
+2025-09-18 02:05:31 WARNING :: LLM call timed out on attempt 3/3 after 30013 ms
+2025-09-18 02:05:31 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 02:05:31 INFO :: Item 79/1000 | qid=1104300 doc=msmarco_passage_09_610195333 | gold=3 → pred=None | N/A | ms=90039 | agree-so-far=13/13 (100.00%)
+2025-09-18 02:05:31 DEBUG :: Insert prediction | idx=79 qid=1104300 doc=msmarco_passage_09_610195333 gold=3 pred=None correct=None ms=90039
+2025-09-18 02:05:31 INFO :: Processing item 80/1000 | qid=1104300 doc=msmarco_passage_09_610202422
+2025-09-18 02:05:31 DEBUG :: LLM call attempt 1/3
+2025-09-18 02:05:52 DEBUG :: LLM call attempt 1/3 succeeded.
+2025-09-18 02:05:52 INFO :: Item 80/1000 | qid=1104300 doc=msmarco_passage_09_610202422 | gold=3 → pred=3 | HIT | ms=20950 | agree-so-far=14/14 (100.00%)
+2025-09-18 02:05:52 DEBUG :: Insert prediction | idx=80 qid=1104300 doc=msmarco_passage_09_610202422 gold=3 pred=3 correct=True ms=20950
+2025-09-18 02:05:52 DEBUG :: Committed batch at item 80
+2025-09-18 02:05:52 INFO :: Processing item 81/1000 | qid=1104300 doc=msmarco_passage_35_731101458
+2025-09-18 02:05:52 DEBUG :: LLM call attempt 1/3
+2025-09-18 02:06:22 WARNING :: LLM call timed out on attempt 1/3 after 30011 ms
+2025-09-18 02:06:22 DEBUG :: Retrying in 50 ms...
+2025-09-18 02:06:22 DEBUG :: LLM call attempt 2/3
+2025-09-18 02:06:52 WARNING :: LLM call timed out on attempt 2/3 after 30025 ms
+2025-09-18 02:06:52 DEBUG :: Retrying in 50 ms...
+2025-09-18 02:06:52 DEBUG :: LLM call attempt 3/3
+2025-09-18 02:07:22 WARNING :: LLM call timed out on attempt 3/3 after 30004 ms
+2025-09-18 02:07:22 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 02:07:22 INFO :: Item 81/1000 | qid=1104300 doc=msmarco_passage_35_731101458 | gold=3 → pred=None | N/A | ms=90040 | agree-so-far=14/14 (100.00%)
+2025-09-18 02:07:22 DEBUG :: Insert prediction | idx=81 qid=1104300 doc=msmarco_passage_35_731101458 gold=3 pred=None correct=None ms=90040
+2025-09-18 02:07:22 INFO :: Processing item 82/1000 | qid=1104300 doc=msmarco_passage_35_731103287
+2025-09-18 02:07:22 DEBUG :: LLM call attempt 1/3
+2025-09-18 02:07:52 WARNING :: LLM call timed out on attempt 1/3 after 30022 ms
+2025-09-18 02:07:52 DEBUG :: Retrying in 50 ms...
+2025-09-18 02:07:52 DEBUG :: LLM call attempt 2/3
+2025-09-18 02:08:22 WARNING :: LLM call timed out on attempt 2/3 after 30024 ms
+2025-09-18 02:08:22 DEBUG :: Retrying in 50 ms...
+2025-09-18 02:08:22 DEBUG :: LLM call attempt 3/3
+2025-09-18 02:08:52 WARNING :: LLM call timed out on attempt 3/3 after 30010 ms
+2025-09-18 02:08:52 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 02:08:52 INFO :: Item 82/1000 | qid=1104300 doc=msmarco_passage_35_731103287 | gold=3 → pred=None | N/A | ms=90056 | agree-so-far=14/14 (100.00%)
+2025-09-18 02:08:52 DEBUG :: Insert prediction | idx=82 qid=1104300 doc=msmarco_passage_35_731103287 gold=3 pred=None correct=None ms=90056
+2025-09-18 02:08:52 INFO :: Processing item 83/1000 | qid=1104300 doc=msmarco_passage_39_832891254
+2025-09-18 02:08:52 DEBUG :: LLM call attempt 1/3
+2025-09-18 02:09:22 WARNING :: LLM call timed out on attempt 1/3 after 30030 ms
+2025-09-18 02:09:22 DEBUG :: Retrying in 50 ms...
+2025-09-18 02:09:22 DEBUG :: LLM call attempt 2/3
+2025-09-18 02:09:52 WARNING :: LLM call timed out on attempt 2/3 after 30029 ms
+2025-09-18 02:09:52 DEBUG :: Retrying in 50 ms...
+2025-09-18 02:09:52 DEBUG :: LLM call attempt 3/3
+2025-09-18 02:10:22 WARNING :: LLM call timed out on attempt 3/3 after 30009 ms
+2025-09-18 02:10:22 WARNING :: LLM call failed after 3 attempts; returning None
+2025-09-18 02:10:22 INFO :: Item 83/1000 | qid=1104300 doc=msmarco_passage_39_832891254 | gold=3 → pred=None | N/A | ms=90068 | agree-so-far=14/14 (100.00%)
+2025-09-18 02:10:22 DEBUG :: Insert prediction | idx=83 qid=1104300 doc=msmarco_passage_39_832891254 gold=3 pred=None correct=None ms=90068
+2025-09-18 02:10:22 INFO :: Processing item 84/1000 | qid=1104300 doc=msmarco_passage_43_515881263
+2025-09-18 02:10:22 DEBUG :: LLM call attempt 1/3
+2025-09-18 02:10:52 WARNING :: LLM call timed out on attempt 1/3 after 30014 ms
+2025-09-18 02:10:52 DEBUG :: Retrying in 50 ms...
+2025-09-18 02:10:52 DEBUG :: LLM call attempt 2/3
+2025-09-18 02:11:22 WARNING :: LLM call timed out on attempt 2/3 after 30028 ms
+2025-09-18 02:11:22 DEBUG :: Retrying in 50 ms...
+2025-09-18 02:11:23 DEBUG :: LLM call attempt 3/3

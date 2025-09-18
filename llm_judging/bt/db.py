@@ -150,7 +150,6 @@ def start_run(
     runner: str,
     official: bool | None,
     user_notes: str | None,
-    # NEW:
     git_commit: str | None = None,
     git_branch: str | None = None,
     git_dirty: bool = False,
