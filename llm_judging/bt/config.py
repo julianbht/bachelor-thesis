@@ -23,6 +23,7 @@ class Settings:
     model: str = "deepseek-r1:14b"
     temperature: float = 0.0
     reasoning_enabled: bool = True
+    llm_timeout_ms: Optional[int] = 30000
 
     # Run behavior
     max_text_chars: Optional[int] = None

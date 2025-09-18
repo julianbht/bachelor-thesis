@@ -7,7 +7,7 @@
   "limit_qrels": 50,
   "official": false,
   "user_notes": "test run",
-  "retry_enabled": false,
+  "retry_enabled": true,
   "retry_attempts": 3,
   "retry_backoff_ms": 50
 }

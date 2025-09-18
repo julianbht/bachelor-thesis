@@ -73,12 +73,6 @@ def run_once(cfg: Settings, *, run_key: str, non_interactive: bool = True) -> No
             user_notes=cfg.user_notes,
         )
 
-        scope = (
-            f"first subset={cfg.limit_qrels}/{total_available}"
-            if (cfg.limit_qrels is not None and cfg.limit_qrels < total_available)
-            else f"all={total_available}"
-        )
-
         items = fetch_qrels(conn, cfg.data_schema, limit=cfg.limit_qrels)
         n = len(items)
         if n == 0:
@@ -108,6 +102,7 @@ def run_once(cfg: Settings, *, run_key: str, non_interactive: bool = True) -> No
                     attempts=cfg.retry_attempts if cfg.retry_enabled else 1,
                     enabled=cfg.retry_enabled,
                     backoff_ms=cfg.retry_backoff_ms,
+                    llm_timeout_ms=cfg.llm_timeout_ms,
                 )
             except Exception:
                 log.exception("LLM call failed for qid=%s doc=%s", row["query_id"], row["doc_id"])
@@ -120,7 +115,7 @@ def run_once(cfg: Settings, *, run_key: str, non_interactive: bool = True) -> No
                 if is_correct:
                     correct += 1
 
-            status = "OK" if is_correct else ("MISS" if pred is not None else "N/A")
+            status = "HIT" if is_correct else ("MISS" if pred is not None else "N/A")
             log.info(
                 "Item %d/%d | qid=%s doc=%s | gold=%s → pred=%s | %s | ms=%s",
                 i, n, row["query_id"], row["doc_id"], row["gold_score"], pred, status, ms_total
