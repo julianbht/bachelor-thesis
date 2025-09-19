@@ -4,38 +4,15 @@ import logging
 import time
 
 from bt.config import Settings
-from bt.logging_utils import setup_run_logger
+from bt.util.logging_utils import setup_run_logger
 from bt.db import (
     connect, ensure_audit_schema, start_run, fetch_qrels,
     insert_prediction, count_available_qrels, finalize_run,
 )
-from bt.llm import judge_with_ollama, ensure_model_downloaded
 from bt.prompts import PROMPT_TMPL, PROMPT_TMPL_WITH_REASON, build_prompt
-import subprocess
-from typing import NamedTuple, Optional
+from bt.llm.factory import build_llm_client  
+from bt.util.git import get_git_info
 
-class GitInfo(NamedTuple):
-    commit: str
-    branch: str
-    dirty: bool
-
-def _get_git_info() -> Optional[GitInfo]:
-    try:
-        commit = subprocess.check_output(
-            ["git", "rev-parse", "--short", "HEAD"],
-            stderr=subprocess.DEVNULL
-        ).decode().strip()
-        branch = subprocess.check_output(
-            ["git", "rev-parse", "--abbrev-ref", "HEAD"],
-            stderr=subprocess.DEVNULL
-        ).decode().strip()
-        dirty = bool(subprocess.check_output(
-            ["git", "status", "--porcelain"],
-            stderr=subprocess.DEVNULL
-        ).strip())
-        return GitInfo(commit, branch, dirty)
-    except Exception:
-        return None
 
 def _hms(seconds: float) -> str:
     seconds = int(max(0, seconds))
@@ -44,21 +21,26 @@ def _hms(seconds: float) -> str:
     s = seconds % 60
     return f"{h:02d}:{m:02d}:{s:02d}"
 
+
 def _truncate(text: str, limit: int | None) -> str:
     if limit is None or len(text) <= limit:
         return text
     return text[:limit]
 
+
 def run_once(cfg: Settings, *, run_key: str, non_interactive: bool = True) -> None:
     """
-    Orchestrates the run.
+    Orchestrates a single run using a provider-agnostic LLM client.
     """
-    # ---- Set up per-run logging FIRST so all subsequent logs (incl. bt.db) show up
+    # ---- Per-run logging FIRST so all subsequent logs (incl. bt.db) show up
     log, log_path = setup_run_logger(run_key)
     root = logging.getLogger("bt")
 
     root.info("Connecting to database…")
     conn = connect()
+
+    # Build the LLM client (Ollama or HF endpoint) from cfg
+    client = build_llm_client(cfg)
 
     try:
         ensure_audit_schema(conn, cfg.audit_schema)
@@ -70,24 +52,18 @@ def run_once(cfg: Settings, *, run_key: str, non_interactive: bool = True) -> No
             if cfg.official and cfg.limit_qrels < total_available:
                 raise ValueError("Cannot mark run 'official' when processing only a subset of qrels.")
 
-        ensure_model_downloaded(
-            cfg.model,
-            retries=max(1, cfg.retry_attempts),
-            backoff_ms=cfg.retry_backoff_ms,
-        )
-
         prompt_template = PROMPT_TMPL_WITH_REASON if cfg.reasoning_enabled else PROMPT_TMPL
 
-        git = _get_git_info()
+        git = get_git_info()
         if git:
             log.info("Code version: %s (%s)%s",
-                    git.commit, git.branch, " +dirty" if git.dirty else "")
+                     git.commit, git.branch, " +dirty" if git.dirty else "")
 
         start_run(
             conn,
             cfg.audit_schema,
             run_key=run_key,
-            model=cfg.model,
+            model=client.model_label,  
             prompt_template=prompt_template,
             data_schema=cfg.data_schema,
             audit_schema_name=cfg.audit_schema,
@@ -128,15 +104,7 @@ def run_once(cfg: Settings, *, run_key: str, non_interactive: bool = True) -> No
             log.info("Processing item %d/%d | qid=%s doc=%s", i, n, row["query_id"], row["doc_id"])
 
             try:
-                pred, reason, raw, ms_total = judge_with_ollama(
-                    cfg.model,
-                    prompt,
-                    temperature=cfg.temperature,
-                    attempts=cfg.retry_attempts if cfg.retry_enabled else 1,
-                    enabled=cfg.retry_enabled,
-                    backoff_ms=cfg.retry_backoff_ms,
-                    llm_timeout_ms=cfg.llm_timeout_ms,
-                )
+                pred, reason, raw, ms_total = client.judge(prompt)  # <— single, unified call
             except Exception:
                 log.exception("LLM call failed for qid=%s doc=%s", row["query_id"], row["doc_id"])
                 pred, reason, raw, ms_total = None, None, {"error": "exception during LLM call"}, 0
@@ -149,7 +117,6 @@ def run_once(cfg: Settings, *, run_key: str, non_interactive: bool = True) -> No
                     correct += 1
 
             status = "HIT" if is_correct else ("MISS" if pred is not None else "N/A")
-            
             agree_pct = (100.0 * correct / counted) if counted else 0.0
             log.info(
                 "Item %d/%d | qid=%s doc=%s | gold=%s → pred=%s | %s | ms=%s | agree-so-far=%d/%d (%.2f%%)",
@@ -176,6 +143,11 @@ def run_once(cfg: Settings, *, run_key: str, non_interactive: bool = True) -> No
         log.info("Run %s finished. Detailed log at: %s", run_key, log_path)
 
     finally:
+        # Close client first (releases HTTP sessions), then DB
+        try:
+            client.close()
+        except Exception:
+            logging.getLogger("bt").exception("Failed to close LLM client")
         try:
             conn.close()
         except Exception:
