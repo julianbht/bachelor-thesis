@@ -21,7 +21,7 @@ class Settings:
     audit_schema: str = "passagev2"
 
     # Provider selection
-    provider: str = "ollama"  # "ollama" | "hf_endpoint"
+    provider: str = "ollama"  # "ollama" | "hf_hub" | "hf_endpoint"
 
     # Common LLM fields
     model: str = "deepseek-r1:14b"

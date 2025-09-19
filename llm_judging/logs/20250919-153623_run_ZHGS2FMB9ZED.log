@@ -1,0 +1,28 @@
+2025-09-19 15:36:23 INFO :: Logging initialized. File: logs\20250919-153623_run_ZHGS2FMB9ZED.log
+2025-09-19 15:36:23 INFO :: Connecting to database…
+2025-09-19 15:36:23 INFO :: Connecting to Postgres (host=localhost port=5432 db=bachelor-thesis user=postgres)
+2025-09-19 15:36:23 DEBUG :: Connection established; autocommit=False
+2025-09-19 15:36:23 INFO :: Ensuring audit schema exists: passagev2
+2025-09-19 15:36:23 DEBUG :: Audit schema ensured and committed: passagev2
+2025-09-19 15:36:23 DEBUG :: Counting available qrels in schema=passagev2…
+2025-09-19 15:36:23 INFO :: Available qrels: 1000 (schema=passagev2)
+2025-09-19 15:36:23 INFO :: Code version: 4bf3fe3 (main) +dirty
+2025-09-19 15:36:23 INFO :: Run started: key=ZHGS2FMB9ZED | model=hf_hub:deepseek-ai/DeepSeek-R1-Distill-Qwen-32B data=passagev2 audit=passagev2
+2025-09-19 15:36:23 INFO :: Fetching qrels (schema=passagev2, limit=3)…
+2025-09-19 15:36:23 INFO :: Fetched 3 qrels.
+2025-09-19 15:36:23 INFO :: Processing item 1/3 | qid=2082 doc=msmarco_passage_05_398000222
+2025-09-19 15:36:23 DEBUG :: LLM call attempt 1/2
+2025-09-19 15:36:32 DEBUG :: LLM call attempt 1/2 succeeded.
+2025-09-19 15:36:32 INFO :: Item 1/3 | qid=2082 doc=msmarco_passage_05_398000222 | gold=3 → pred=3 | HIT | ms=9320 | agree-so-far=1/1 (100.00%)
+2025-09-19 15:36:32 DEBUG :: Insert prediction | idx=1 qid=2082 doc=msmarco_passage_05_398000222 gold=3 pred=3 correct=True ms=9320
+2025-09-19 15:36:32 INFO :: Processing item 2/3 | qid=2082 doc=msmarco_passage_17_209244396
+2025-09-19 15:36:32 DEBUG :: LLM call attempt 1/2
+2025-09-19 15:36:49 DEBUG :: LLM call attempt 1/2 succeeded.
+2025-09-19 15:36:49 INFO :: Item 2/3 | qid=2082 doc=msmarco_passage_17_209244396 | gold=2 → pred=3 | MISS | ms=16712 | agree-so-far=1/2 (50.00%)
+2025-09-19 15:36:49 DEBUG :: Insert prediction | idx=2 qid=2082 doc=msmarco_passage_17_209244396 gold=2 pred=3 correct=False ms=16712
+2025-09-19 15:36:49 INFO :: Processing item 3/3 | qid=2082 doc=msmarco_passage_24_115356547
+2025-09-19 15:36:49 DEBUG :: LLM call attempt 1/2
+2025-09-19 15:36:55 DEBUG :: LLM call attempt 1/2 succeeded.
+2025-09-19 15:36:55 INFO :: Item 3/3 | qid=2082 doc=msmarco_passage_24_115356547 | gold=3 → pred=3 | HIT | ms=5635 | agree-so-far=2/3 (66.67%)
+2025-09-19 15:36:55 DEBUG :: Insert prediction | idx=3 qid=2082 doc=msmarco_passage_24_115356547 gold=3 pred=3 correct=True ms=5635
+2025-09-19 15:36:55 INFO :: Finalizing run key=ZHGS2FMB9ZED (computing invalid percentage)…

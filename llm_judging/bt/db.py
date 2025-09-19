@@ -29,8 +29,7 @@ def connect(pg: Pg = Pg()):
 
 def ensure_audit_schema(conn, audit_schema: str):
     """
-    Creates fresh tables using run_key (TEXT) as the sole primary key.
-    Safe to call after you dropped the old tables.
+    Creates/updates audit tables. Safe to call repeatedly.
     """
     log.info("Ensuring audit schema exists: %s", audit_schema)
     with conn.cursor() as cur:
@@ -58,7 +57,7 @@ def ensure_audit_schema(conn, audit_schema: str):
                 official          BOOLEAN DEFAULT FALSE,
                 user_notes        TEXT,
 
-                -- NEW: structured git metadata
+                -- structured git metadata
                 git_commit        TEXT,     -- e.g. 'a1b2c3d'
                 git_branch        TEXT,     -- e.g. 'main'
                 git_dirty         BOOLEAN NOT NULL DEFAULT FALSE,
@@ -70,7 +69,10 @@ def ensure_audit_schema(conn, audit_schema: str):
                 invalid_pct       DOUBLE PRECISION,
                 finished_at       TIMESTAMPTZ
             );
-            """)
+        """)
+
+        # 🔧 Back-compat: add 'finished' flag if an older table exists without it
+        cur.execute(f"ALTER TABLE {audit_schema}.llm_runs ADD COLUMN IF NOT EXISTS finished BOOLEAN NOT NULL DEFAULT FALSE;")
 
         cur.execute(f"CREATE INDEX IF NOT EXISTS llm_runs_created_at_idx ON {audit_schema}.llm_runs(created_at DESC);")
         cur.execute(f"CREATE INDEX IF NOT EXISTS llm_runs_model_idx      ON {audit_schema}.llm_runs(model);")

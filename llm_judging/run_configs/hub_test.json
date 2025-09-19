@@ -1,0 +1,15 @@
+{
+  "provider": "hf_hub",
+  "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
+  "hf_api_token": "xyz",
+  "temperature": 0.0,
+  "max_new_tokens": 400,
+  "llm_timeout_ms": 120000,
+  "data_schema": "passagev2",
+  "audit_schema": "passagev2",
+  "limit_qrels": 3,
+  "official": false,
+  "retry_enabled": true,
+  "retry_attempts": 2,
+  "retry_backoff_ms": 200
+}
