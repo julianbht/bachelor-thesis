@@ -71,8 +71,10 @@ def ensure_audit_schema(conn, audit_schema: str):
             );
         """)
 
-        # 🔧 Back-compat: add 'finished' flag if an older table exists without it
         cur.execute(f"ALTER TABLE {audit_schema}.llm_runs ADD COLUMN IF NOT EXISTS finished BOOLEAN NOT NULL DEFAULT FALSE;")
+        cur.execute(f"ALTER TABLE {audit_schema}.llm_runs ADD COLUMN IF NOT EXISTS start_qrel INTEGER;")
+        cur.execute(f"ALTER TABLE {audit_schema}.llm_runs ADD COLUMN IF NOT EXISTS end_qrel   INTEGER;")
+
 
         cur.execute(f"CREATE INDEX IF NOT EXISTS llm_runs_created_at_idx ON {audit_schema}.llm_runs(created_at DESC);")
         cur.execute(f"CREATE INDEX IF NOT EXISTS llm_runs_model_idx      ON {audit_schema}.llm_runs(model);")
@@ -155,6 +157,8 @@ def start_run(
     git_commit: str | None = None,
     git_branch: str | None = None,
     git_dirty: bool = False,
+    start_qrel: int | None = None,
+    end_qrel: int | None = None,
 ):
     with conn.cursor() as cur:
         cur.execute(
@@ -163,18 +167,21 @@ def start_run(
             (run_key, model, prompt_template, data_schema, audit_schema_name,
              max_text_chars, commit_every, limit_qrels, temperature,
              retry_enabled, retry_attempts, retry_backoff_ms, runner, official, user_notes,
-             git_commit, git_branch, git_dirty)
+             git_commit, git_branch, git_dirty,
+             start_qrel, end_qrel)
             VALUES
             (%s,%s,%s,%s,%s,
              %s,%s,%s,%s,
              %s,%s,%s,%s,%s,%s,
-             %s,%s,%s);
+             %s,%s,%s,
+             %s,%s);
             """,
             (
                 run_key, model, prompt_template, data_schema, audit_schema_name,
                 max_text_chars, commit_every, limit_qrels, temperature,
                 retry_enabled, retry_attempts, retry_backoff_ms, runner, official, user_notes,
                 git_commit, git_branch, git_dirty,
+                start_qrel, end_qrel,
             ),
         )
     conn.commit()
@@ -197,8 +204,31 @@ def count_available_qrels(conn, data_schema: str) -> int:
         return c
 
 
-def fetch_qrels(conn, data_schema: str, limit: int | None):
-    limit_clause = "LIMIT %s" if limit is not None else ""
+def fetch_qrels(conn, data_schema: str, *, start: int | None, end: int | None, limit: int | None):
+    """
+    Fetch qrels in the default ORDER BY (query_id, doc_id), applying
+    an inclusive 1-based [start, end] window and/or a hard limit.
+    """
+    # Compute OFFSET and LIMIT from start/end
+    # start/end are 1-based inclusive; OFFSET is 0-based
+    offset = max(0, (start - 1)) if (start and start > 0) else 0
+
+    window_count: int | None = None
+    if end and end > 0:
+        if start and start > 0:
+            window_count = max(0, end - start + 1)
+        else:
+            window_count = end  # "first end rows"
+
+    # Final LIMIT is the min of window_count and limit if both are given
+    if window_count is not None and limit is not None:
+        final_limit = min(window_count, limit)
+    else:
+        final_limit = window_count if window_count is not None else limit
+
+    limit_clause = "LIMIT %s" if final_limit is not None else ""
+    offset_clause = "OFFSET %s" if offset else ""
+
     sql = f"""
         SELECT
             qr.query_id,
@@ -210,14 +240,18 @@ def fetch_qrels(conn, data_schema: str, limit: int | None):
         JOIN {data_schema}.queries q ON q.query_id = qr.query_id
         JOIN {data_schema}.docs    d ON d.doc_id   = qr.doc_id
         ORDER BY qr.query_id, qr.doc_id
-        {limit_clause};
+        {limit_clause}
+        {offset_clause};
     """
-    log.info("Fetching qrels (schema=%s, limit=%s)…", data_schema, limit)
+    log.info("Fetching qrels (schema=%s, start=%s, end=%s, limit=%s → final_limit=%s, offset=%s)…",
+             data_schema, start, end, limit, final_limit, offset)
     with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur:
-        if limit is not None:
-            cur.execute(sql, (limit,))
-        else:
-            cur.execute(sql)
+        params = []
+        if final_limit is not None:
+            params.append(final_limit)
+        if offset:
+            params.append(offset)
+        cur.execute(sql, tuple(params))
         rows = cur.fetchall()
         log.info("Fetched %d qrels.", len(rows))
         return [dict(r) for r in rows]

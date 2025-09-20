@@ -3,6 +3,8 @@
   "limit_qrels": null,
   "official": true,
   "user_notes": "DeepSeek R1 14B full run to compare with other parameter sizes",
-  "llm_timeout_ms": 100000
+  "llm_timeout_ms": 100000,
+  "start_qrel": 3,
+  "end_qrel": 6
 }
 

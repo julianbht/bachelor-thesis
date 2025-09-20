@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from typing import Optional, List, Dict, Any
 import json
 import pathlib
-import os  # NEW
+import os
 
 @dataclass(frozen=True)
 class Pg:
@@ -21,18 +21,18 @@ class Settings:
     audit_schema: str = "passagev2"
 
     # Provider selection
-    provider: str = "ollama"  # "ollama" | "hf_hub" | "hf_endpoint"
+    provider: str = "ollama"
 
     # Common LLM fields
     model: str = "deepseek-r1:14b"
     temperature: float = 0.0
     reasoning_enabled: bool = False
-    llm_timeout_ms: Optional[int] = 120000  # 2 minutes
+    llm_timeout_ms: Optional[int] = 120000
 
-    # HF Inference Endpoint (used when provider == "hf_endpoint")
+    # HF Inference Endpoint…
     hf_endpoint_url: Optional[str] = None
-    hf_api_token: Optional[str] = None  # can be sourced from env
-    max_new_tokens: int = 256
+    hf_api_token: Optional[str] = None
+    max_new_tokens: int = 512
     top_p: Optional[float] = None
     top_k: Optional[int] = None
     repetition_penalty: Optional[float] = None
@@ -41,6 +41,9 @@ class Settings:
     max_text_chars: Optional[int] = None
     commit_every: int = 5
     limit_qrels: Optional[int] = 1000
+    start_qrel: Optional[int] = None
+    end_qrel: Optional[int] = None
+
     official: bool = False
     user_notes: Optional[str] = None
 
@@ -48,6 +51,7 @@ class Settings:
     retry_enabled: bool = True
     retry_attempts: int = 2
     retry_backoff_ms: int = 50
+
 
 def load_settings_file(path: str | pathlib.Path) -> List[Settings]:
     """

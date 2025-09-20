@@ -13,6 +13,15 @@ from bt.prompts import PROMPT_TMPL, PROMPT_TMPL_WITH_REASON, build_prompt
 from bt.llm.factory import build_llm_client  
 from bt.util.git import get_git_info
 
+from bt.util.helpers import (
+    validate_range_and_limit,
+    compute_qrel_window,
+    log_qrel_banner,
+    ensure_official_guard,
+    choose_prompt_template,
+    start_run_from_cfg,
+    fetch_items_with_window,
+)
 
 def _hms(seconds: float) -> str:
     seconds = int(max(0, seconds))
@@ -46,46 +55,47 @@ def run_once(cfg: Settings, *, run_key: str, non_interactive: bool = True) -> No
         ensure_audit_schema(conn, cfg.audit_schema)
 
         total_available = count_available_qrels(conn, cfg.data_schema)
-        if cfg.limit_qrels is not None:
-            if cfg.limit_qrels <= 0:
-                raise ValueError("limit_qrels must be positive or None")
-            if cfg.official and cfg.limit_qrels < total_available:
-                raise ValueError("Cannot mark run 'official' when processing only a subset of qrels.")
 
-        prompt_template = PROMPT_TMPL_WITH_REASON if cfg.reasoning_enabled else PROMPT_TMPL
+        # Range & limit validation + window computation
+        validate_range_and_limit(cfg.start_qrel, cfg.end_qrel, cfg.limit_qrels)
+        window = compute_qrel_window(
+            total_available=total_available,
+            start_qrel=cfg.start_qrel,
+            end_qrel=cfg.end_qrel,
+            limit_qrels=cfg.limit_qrels,
+        )
+        ensure_official_guard(cfg.official, window.is_subset)
+
+        prompt_template = choose_prompt_template(
+            cfg.reasoning_enabled, PROMPT_TMPL_WITH_REASON, PROMPT_TMPL
+        )
 
         git = get_git_info()
         if git:
             log.info("Code version: %s (%s)%s",
                      git.commit, git.branch, " +dirty" if git.dirty else "")
 
-        start_run(
-            conn,
-            cfg.audit_schema,
+        log_qrel_banner(log, cfg, window, total_available)
+
+        # Persist run metadata (incl. range)
+        start_run_from_cfg(
+            conn=conn,
+            audit_schema=cgf.audit_schema if False else cfg.audit_schema,  # keep mypy calm if you use it
             run_key=run_key,
-            model=client.model_label,  
+            client=client,
             prompt_template=prompt_template,
-            data_schema=cfg.data_schema,
-            audit_schema_name=cfg.audit_schema,
-            max_text_chars=cfg.max_text_chars if cfg.max_text_chars is not None else None,
-            commit_every=cfg.commit_every,
-            limit_qrels=cfg.limit_qrels,
-            temperature=cfg.temperature,
-            retry_enabled=cfg.retry_enabled,
-            retry_attempts=cfg.retry_attempts,
-            retry_backoff_ms=cfg.retry_backoff_ms,
-            runner="pipeline.run_once",
-            official=cfg.official,
-            user_notes=cfg.user_notes,
-            git_commit=(git.commit if git else None),
-            git_branch=(git.branch if git else None),
-            git_dirty=(git.dirty if git else False),
+            cfg=cfg,
+            git=git,
         )
 
-        items = fetch_qrels(conn, cfg.data_schema, limit=cfg.limit_qrels)
+        # Fetch items with start/end/limit applied
+        items = fetch_items_with_window(
+            conn, cfg.data_schema, cfg.start_qrel, cfg.end_qrel, cfg.limit_qrels
+        )
+
         n = len(items)
         if n == 0:
-            log.warning("No qrels found. Finalizing empty run.")
+            log.warning("No qrels found for the requested window. Finalizing empty run.")
             finalize_run(conn, cfg.audit_schema, run_key)
             log.info("Run %s finished (empty). Detailed log at: %s", run_key, log_path)
             return
