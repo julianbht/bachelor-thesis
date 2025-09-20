@@ -104,7 +104,7 @@ def run_once(cfg: Settings, *, run_key: str, non_interactive: bool = True) -> No
             log.info("Processing item %d/%d | qid=%s doc=%s", i, n, row["query_id"], row["doc_id"])
 
             try:
-                pred, reason, raw, ms_total = client.judge(prompt)  # <— single, unified call
+                pred, reason, raw, ms_total = client.judge(prompt)
             except Exception:
                 log.exception("LLM call failed for qid=%s doc=%s", row["query_id"], row["doc_id"])
                 pred, reason, raw, ms_total = None, None, {"error": "exception during LLM call"}, 0

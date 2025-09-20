@@ -1,4 +1,0 @@
-2025-09-19 15:30:09 INFO :: Logging initialized. File: logs\20250919-153009_run_5C345Z42VEK6.log
-2025-09-19 15:30:09 INFO :: Connecting to database…
-2025-09-19 15:30:09 INFO :: Connecting to Postgres (host=localhost port=5432 db=bachelor-thesis user=postgres)
-2025-09-19 15:30:09 DEBUG :: Connection established; autocommit=False

@@ -2,3 +2,5 @@
 data/ms_marco_doc_v2_csv_subsets/docs.csv
 data/ms_marco_doc_v2_postgres_subset_csv/docs.csv
 
+llm_judging/logs_unofficial
+
