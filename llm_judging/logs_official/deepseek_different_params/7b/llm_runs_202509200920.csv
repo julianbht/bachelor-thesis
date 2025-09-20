@@ -1,0 +1,19 @@
+"run_key","created_at","model","prompt_template","data_schema","audit_schema_name","max_text_chars","commit_every","limit_qrels","temperature","retry_enabled","retry_attempts","retry_backoff_ms","runner","official","user_notes","git_commit","git_branch","git_dirty","total_items","valid_predictions","agreement_pct","invalid_pct","finished_at","finished"
+HWVT2RXN7N6V,2025-09-17 19:59:16.979 -0700,deepseek-r1:7b,"You are a relevance judge for document retrieval.
+Rate how relevant the DOCUMENT is to the user QUERY on a 0–3 scale:
+
+0 = Irrelevant: The passage has nothing to do with the query.
+1 = Related: The passage seems related to the query but does not answer it.
+2 = Highly relevant: The passage has some answer for the query, but the answer may be a bit unclear, or hidden amongst extraneous information.
+3 = Perfectly relevant: The passage is dedicated to the query and contains the exact answer.
+
+Return strict JSON ONLY with keys:
+- score (0,1,2,3)
+- reason (short string explaining the score)
+
+QUERY:
+{query}
+
+DOCUMENT (passage text):
+{text}
+",passagev2,passagev2,,5,,0.0,true,3,50,pipeline.run_once,true,DeepSeek R1 7B full run to compare with other parameter sizes,bdacc54,main,true,0,0,,,,false
