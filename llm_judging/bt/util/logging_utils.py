@@ -15,7 +15,7 @@ class _InjectRunKey(logging.Filter):
 def setup_run_logger(
     run_key: str,
     *,
-    log_dir: str = "logs_unnofficial",
+    log_dir: str = "logs_unofficial",
     console_level: int = logging.INFO,
     file_level: int = logging.DEBUG,
     logger_name: str = "bt.run",  # kept for signature compatibility; no longer used for hierarchy
