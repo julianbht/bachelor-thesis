@@ -2,18 +2,20 @@
   "provider": "hf_endpoint",
   "model": "deepseek-r1:32b",
   "hf_endpoint_url": "https://edzch696ybcckfsg.us-east-1.aws.endpoints.huggingface.cloud",
-  "hf_api_token": "xyz",                     
+  "hf_api_token": "x",                     
   "temperature": 0.1,
-  "max_new_tokens": 1024,
-  "llm_timeout_ms": 180000,                 
+  "max_new_tokens": 512,
+  "llm_timeout_ms": 45000,              
 
   "data_schema": "passagev2",
   "audit_schema": "passagev2",                 
   "commit_every": 5,
   "official": true,
-  "user_notes": "DeepSeek R1 32B full run to compare with other parameter sizes",
+  "user_notes": "DeepSeek R1 32B full run to compare with other parameter sizes (qrel 306 to 1000)",
 
   "retry_enabled": true,
   "retry_attempts": 2,
-  "retry_backoff_ms": 500
+  "retry_backoff_ms": 500,
+  "start_qrel" : 306,
+  "end_qrel" : 1000
 }

@@ -4,12 +4,10 @@
   "reasoning_enabled": true,
   "max_text_chars": null,
   "commit_every": 5,
-  "limit_qrels": 50,
+  "limit_qrels": 1000,
   "official": false,
   "user_notes": "test run",
   "retry_enabled": true,
-  "retry_attempts": 3,
-  "retry_backoff_ms": 50,
-  "start_qrel": 3,
-  "end_qrel": 6
+  "retry_attempts": 2,
+  "retry_backoff_ms": 50
 }

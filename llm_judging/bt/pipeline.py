@@ -80,7 +80,7 @@ def run_once(cfg: Settings, *, run_key: str, non_interactive: bool = True) -> No
         # Persist run metadata (incl. range)
         start_run_from_cfg(
             conn=conn,
-            audit_schema=cgf.audit_schema if False else cfg.audit_schema,  # keep mypy calm if you use it
+            audit_schema=cfg.audit_schema if False else cfg.audit_schema,  
             run_key=run_key,
             client=client,
             prompt_template=prompt_template,

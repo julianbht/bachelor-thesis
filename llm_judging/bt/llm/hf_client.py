@@ -44,6 +44,7 @@ class HFEndpointClient:
             "parameters": {
                 "temperature": float(self.s.temperature),
                 "max_new_tokens": int(self.s.max_new_tokens),
+                "return_full_text": False,
             }
         }
         p = payload["parameters"]
