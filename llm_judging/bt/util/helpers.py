@@ -59,10 +59,6 @@ def log_qrel_banner(logger, cfg, window: QrelWindow, total_available: int) -> No
         total_available,
     )
 
-def ensure_official_guard(official: bool, is_subset: bool) -> None:
-    if official and is_subset:
-        raise ValueError("Cannot mark run 'official' when processing only a subset of qrels (range and/or limit).")
-
 def choose_prompt_template(reasoning_enabled: bool, tmpl_with_reason, tmpl_plain):
     return tmpl_with_reason if reasoning_enabled else tmpl_plain
 

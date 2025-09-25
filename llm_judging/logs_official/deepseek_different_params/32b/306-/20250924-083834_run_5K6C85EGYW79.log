@@ -1,0 +1,1051 @@
+2025-09-24 08:38:34 INFO :: Logging initialized. File: logs_unofficial\20250924-083834_run_5K6C85EGYW79.log
+2025-09-24 08:38:34 INFO :: Run settings:
+{
+  "data_schema": "passagev2",
+  "audit_schema": "passagev2",
+  "provider": "hf_endpoint",
+  "model": "deepseek-r1:32b",
+  "temperature": 0.1,
+  "reasoning_enabled": false,
+  "llm_timeout_ms": 120000,
+  "hf_endpoint_url": "https://edzch696ybcckfsg.us-east-1.aws.endpoints.huggingface.cloud",
+  "hf_api_token": "",
+  "max_new_tokens": 512,
+  "top_p": null,
+  "top_k": null,
+  "repetition_penalty": null,
+  "max_text_chars": null,
+  "commit_every": 5,
+  "limit_qrels": 1000,
+  "start_qrel": 306,
+  "end_qrel": 1000,
+  "official": true,
+  "user_notes": "DeepSeek R1 32B full run to compare with other parameter sizes (qrel 306 to 1000)",
+  "retry_enabled": false,
+  "retry_attempts": 1,
+  "retry_backoff_ms": 500
+}
+2025-09-24 08:38:34 INFO :: Connecting to Postgres (host=localhost port=5432 db=bachelor-thesis user=postgres)
+2025-09-24 08:38:34 DEBUG :: Connection established; autocommit=False
+2025-09-24 08:38:34 INFO :: Ensuring audit schema exists: passagev2
+2025-09-24 08:38:34 DEBUG :: Audit schema ensured and committed: passagev2
+2025-09-24 08:38:34 DEBUG :: Counting available qrels in schema=passagev2…
+2025-09-24 08:38:34 INFO :: Available qrels: 1000
+2025-09-24 08:38:35 INFO :: Code version: b3a7e64 (main) +dirty
+2025-09-24 08:38:35 INFO :: QREL window: start=306 end=1000 limit=1000 → target=695 (intended=695) of total=1000
+2025-09-24 08:38:35 INFO :: Run started: key=5K6C85EGYW79
+2025-09-24 08:38:35 INFO :: Fetching qrels (schema=passagev2, start=306, end=1000, limit=1000 → final_limit=695, offset=305)…
+2025-09-24 08:38:35 INFO :: Fetched 695 qrels.
+2025-09-24 08:38:35 INFO :: Processing item 1/695 | qid=2013306 doc=msmarco_passage_11_827747206
+2025-09-24 08:38:35 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:38:45 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:38:45 INFO :: Item 1/695 | qid=2013306 doc=msmarco_passage_11_827747206 | gold=2 → pred=3 | MISS | ms=10286 | agree-so-far=0/1 (0.00%)
+2025-09-24 08:38:45 DEBUG :: Insert prediction | idx=1 qid=2013306 doc=msmarco_passage_11_827747206 gold=2 pred=3 correct=False ms=10286
+2025-09-24 08:38:45 INFO :: Processing item 2/695 | qid=2013306 doc=msmarco_passage_12_121567797
+2025-09-24 08:38:45 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:39:09 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:39:09 INFO :: Item 2/695 | qid=2013306 doc=msmarco_passage_12_121567797 | gold=2 → pred=0 | MISS | ms=24277 | agree-so-far=0/2 (0.00%)
+2025-09-24 08:39:09 DEBUG :: Insert prediction | idx=2 qid=2013306 doc=msmarco_passage_12_121567797 gold=2 pred=0 correct=False ms=24277
+2025-09-24 08:39:09 INFO :: Processing item 3/695 | qid=2013306 doc=msmarco_passage_12_369279640
+2025-09-24 08:39:09 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:39:10 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:39:10 INFO :: Item 3/695 | qid=2013306 doc=msmarco_passage_12_369279640 | gold=0 → pred=0 | HIT | ms=1252 | agree-so-far=1/3 (33.33%)
+2025-09-24 08:39:10 DEBUG :: Insert prediction | idx=3 qid=2013306 doc=msmarco_passage_12_369279640 gold=0 pred=0 correct=True ms=1252
+2025-09-24 08:39:10 INFO :: Processing item 4/695 | qid=2013306 doc=msmarco_passage_12_777342695
+2025-09-24 08:39:10 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:39:40 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 08:39:40 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 08:39:40 INFO :: Item 4/695 | qid=2013306 doc=msmarco_passage_12_777342695 | gold=2 → pred=None | N/A | ms=29629 | agree-so-far=1/3 (33.33%)
+2025-09-24 08:39:40 DEBUG :: Insert prediction | idx=4 qid=2013306 doc=msmarco_passage_12_777342695 gold=2 pred=None correct=None ms=29629
+2025-09-24 08:39:40 INFO :: Processing item 5/695 | qid=2013306 doc=msmarco_passage_13_818037361
+2025-09-24 08:39:40 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:39:47 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:39:47 INFO :: Item 5/695 | qid=2013306 doc=msmarco_passage_13_818037361 | gold=2 → pred=3 | MISS | ms=6567 | agree-so-far=1/4 (25.00%)
+2025-09-24 08:39:47 DEBUG :: Insert prediction | idx=5 qid=2013306 doc=msmarco_passage_13_818037361 gold=2 pred=3 correct=False ms=6567
+2025-09-24 08:39:47 DEBUG :: Committed batch at item 5
+2025-09-24 08:39:47 INFO :: Processing item 6/695 | qid=2013306 doc=msmarco_passage_14_157012608
+2025-09-24 08:39:47 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:40:11 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:40:11 INFO :: Item 6/695 | qid=2013306 doc=msmarco_passage_14_157012608 | gold=2 → pred=0 | MISS | ms=24571 | agree-so-far=1/5 (20.00%)
+2025-09-24 08:40:11 DEBUG :: Insert prediction | idx=6 qid=2013306 doc=msmarco_passage_14_157012608 gold=2 pred=0 correct=False ms=24571
+2025-09-24 08:40:11 INFO :: Processing item 7/695 | qid=2013306 doc=msmarco_passage_14_290629220
+2025-09-24 08:40:11 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:40:21 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:40:21 INFO :: Item 7/695 | qid=2013306 doc=msmarco_passage_14_290629220 | gold=2 → pred=0 | MISS | ms=10292 | agree-so-far=1/6 (16.67%)
+2025-09-24 08:40:21 DEBUG :: Insert prediction | idx=7 qid=2013306 doc=msmarco_passage_14_290629220 gold=2 pred=0 correct=False ms=10292
+2025-09-24 08:40:21 INFO :: Processing item 8/695 | qid=2013306 doc=msmarco_passage_14_299533306
+2025-09-24 08:40:21 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:40:58 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 08:40:58 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 08:40:58 INFO :: Item 8/695 | qid=2013306 doc=msmarco_passage_14_299533306 | gold=2 → pred=None | N/A | ms=36443 | agree-so-far=1/6 (16.67%)
+2025-09-24 08:40:58 DEBUG :: Insert prediction | idx=8 qid=2013306 doc=msmarco_passage_14_299533306 gold=2 pred=None correct=None ms=36443
+2025-09-24 08:40:58 INFO :: Processing item 9/695 | qid=2013306 doc=msmarco_passage_14_420558618
+2025-09-24 08:40:58 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:40:59 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:40:59 INFO :: Item 9/695 | qid=2013306 doc=msmarco_passage_14_420558618 | gold=2 → pred=0 | MISS | ms=1252 | agree-so-far=1/7 (14.29%)
+2025-09-24 08:40:59 DEBUG :: Insert prediction | idx=9 qid=2013306 doc=msmarco_passage_14_420558618 gold=2 pred=0 correct=False ms=1252
+2025-09-24 08:40:59 INFO :: Processing item 10/695 | qid=2013306 doc=msmarco_passage_14_570868366
+2025-09-24 08:40:59 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:41:10 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:41:10 INFO :: Item 10/695 | qid=2013306 doc=msmarco_passage_14_570868366 | gold=2 → pred=3 | MISS | ms=11170 | agree-so-far=1/8 (12.50%)
+2025-09-24 08:41:10 DEBUG :: Insert prediction | idx=10 qid=2013306 doc=msmarco_passage_14_570868366 gold=2 pred=3 correct=False ms=11170
+2025-09-24 08:41:10 DEBUG :: Committed batch at item 10
+2025-09-24 08:41:10 INFO :: Processing item 11/695 | qid=2013306 doc=msmarco_passage_15_222581128
+2025-09-24 08:41:10 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:41:17 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:41:17 INFO :: Item 11/695 | qid=2013306 doc=msmarco_passage_15_222581128 | gold=2 → pred=2 | HIT | ms=6601 | agree-so-far=2/9 (22.22%)
+2025-09-24 08:41:17 DEBUG :: Insert prediction | idx=11 qid=2013306 doc=msmarco_passage_15_222581128 gold=2 pred=2 correct=True ms=6601
+2025-09-24 08:41:17 INFO :: Processing item 12/695 | qid=2013306 doc=msmarco_passage_15_78630988
+2025-09-24 08:41:17 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:41:22 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:41:22 INFO :: Item 12/695 | qid=2013306 doc=msmarco_passage_15_78630988 | gold=2 → pred=0 | MISS | ms=5185 | agree-so-far=2/10 (20.00%)
+2025-09-24 08:41:22 DEBUG :: Insert prediction | idx=12 qid=2013306 doc=msmarco_passage_15_78630988 gold=2 pred=0 correct=False ms=5185
+2025-09-24 08:41:22 INFO :: Processing item 13/695 | qid=2013306 doc=msmarco_passage_16_292704902
+2025-09-24 08:41:22 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:41:27 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:41:27 INFO :: Item 13/695 | qid=2013306 doc=msmarco_passage_16_292704902 | gold=2 → pred=3 | MISS | ms=4522 | agree-so-far=2/11 (18.18%)
+2025-09-24 08:41:27 DEBUG :: Insert prediction | idx=13 qid=2013306 doc=msmarco_passage_16_292704902 gold=2 pred=3 correct=False ms=4522
+2025-09-24 08:41:27 INFO :: Processing item 14/695 | qid=2013306 doc=msmarco_passage_16_691528386
+2025-09-24 08:41:27 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:41:37 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:41:37 INFO :: Item 14/695 | qid=2013306 doc=msmarco_passage_16_691528386 | gold=2 → pred=3 | MISS | ms=9935 | agree-so-far=2/12 (16.67%)
+2025-09-24 08:41:37 DEBUG :: Insert prediction | idx=14 qid=2013306 doc=msmarco_passage_16_691528386 gold=2 pred=3 correct=False ms=9935
+2025-09-24 08:41:37 INFO :: Processing item 15/695 | qid=2013306 doc=msmarco_passage_16_691900723
+2025-09-24 08:41:37 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:41:46 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:41:46 INFO :: Item 15/695 | qid=2013306 doc=msmarco_passage_16_691900723 | gold=2 → pred=3 | MISS | ms=9831 | agree-so-far=2/13 (15.38%)
+2025-09-24 08:41:46 DEBUG :: Insert prediction | idx=15 qid=2013306 doc=msmarco_passage_16_691900723 gold=2 pred=3 correct=False ms=9831
+2025-09-24 08:41:46 DEBUG :: Committed batch at item 15
+2025-09-24 08:41:46 INFO :: Processing item 16/695 | qid=2013306 doc=msmarco_passage_17_607667286
+2025-09-24 08:41:46 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:41:56 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:41:56 INFO :: Item 16/695 | qid=2013306 doc=msmarco_passage_17_607667286 | gold=2 → pred=3 | MISS | ms=9620 | agree-so-far=2/14 (14.29%)
+2025-09-24 08:41:56 DEBUG :: Insert prediction | idx=16 qid=2013306 doc=msmarco_passage_17_607667286 gold=2 pred=3 correct=False ms=9620
+2025-09-24 08:41:56 INFO :: Processing item 17/695 | qid=2013306 doc=msmarco_passage_17_683146204
+2025-09-24 08:41:56 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:42:10 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:42:10 INFO :: Item 17/695 | qid=2013306 doc=msmarco_passage_17_683146204 | gold=2 → pred=0 | MISS | ms=14099 | agree-so-far=2/15 (13.33%)
+2025-09-24 08:42:10 DEBUG :: Insert prediction | idx=17 qid=2013306 doc=msmarco_passage_17_683146204 gold=2 pred=0 correct=False ms=14099
+2025-09-24 08:42:10 INFO :: Processing item 18/695 | qid=2013306 doc=msmarco_passage_18_772120164
+2025-09-24 08:42:10 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:42:19 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:42:19 INFO :: Item 18/695 | qid=2013306 doc=msmarco_passage_18_772120164 | gold=2 → pred=2 | HIT | ms=9261 | agree-so-far=3/16 (18.75%)
+2025-09-24 08:42:19 DEBUG :: Insert prediction | idx=18 qid=2013306 doc=msmarco_passage_18_772120164 gold=2 pred=2 correct=True ms=9261
+2025-09-24 08:42:19 INFO :: Processing item 19/695 | qid=2013306 doc=msmarco_passage_20_147622143
+2025-09-24 08:42:19 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:42:34 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:42:34 INFO :: Item 19/695 | qid=2013306 doc=msmarco_passage_20_147622143 | gold=2 → pred=0 | MISS | ms=14579 | agree-so-far=3/17 (17.65%)
+2025-09-24 08:42:34 DEBUG :: Insert prediction | idx=19 qid=2013306 doc=msmarco_passage_20_147622143 gold=2 pred=0 correct=False ms=14579
+2025-09-24 08:42:34 INFO :: Processing item 20/695 | qid=2013306 doc=msmarco_passage_20_252581744
+2025-09-24 08:42:34 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:42:35 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:42:35 INFO :: Item 20/695 | qid=2013306 doc=msmarco_passage_20_252581744 | gold=2 → pred=0 | MISS | ms=1291 | agree-so-far=3/18 (16.67%)
+2025-09-24 08:42:35 DEBUG :: Insert prediction | idx=20 qid=2013306 doc=msmarco_passage_20_252581744 gold=2 pred=0 correct=False ms=1291
+2025-09-24 08:42:35 DEBUG :: Committed batch at item 20
+2025-09-24 08:42:35 INFO :: Processing item 21/695 | qid=2013306 doc=msmarco_passage_22_277755285
+2025-09-24 08:42:35 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:43:12 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 08:43:12 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 08:43:12 INFO :: Item 21/695 | qid=2013306 doc=msmarco_passage_22_277755285 | gold=2 → pred=None | N/A | ms=36438 | agree-so-far=3/18 (16.67%)
+2025-09-24 08:43:12 DEBUG :: Insert prediction | idx=21 qid=2013306 doc=msmarco_passage_22_277755285 gold=2 pred=None correct=None ms=36438
+2025-09-24 08:43:12 INFO :: Processing item 22/695 | qid=2013306 doc=msmarco_passage_22_355252925
+2025-09-24 08:43:12 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:43:22 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:43:22 INFO :: Item 22/695 | qid=2013306 doc=msmarco_passage_22_355252925 | gold=2 → pred=0 | MISS | ms=10170 | agree-so-far=3/19 (15.79%)
+2025-09-24 08:43:22 DEBUG :: Insert prediction | idx=22 qid=2013306 doc=msmarco_passage_22_355252925 gold=2 pred=0 correct=False ms=10170
+2025-09-24 08:43:22 INFO :: Processing item 23/695 | qid=2013306 doc=msmarco_passage_22_401513550
+2025-09-24 08:43:22 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:43:28 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:43:28 INFO :: Item 23/695 | qid=2013306 doc=msmarco_passage_22_401513550 | gold=2 → pred=0 | MISS | ms=6162 | agree-so-far=3/20 (15.00%)
+2025-09-24 08:43:28 DEBUG :: Insert prediction | idx=23 qid=2013306 doc=msmarco_passage_22_401513550 gold=2 pred=0 correct=False ms=6162
+2025-09-24 08:43:28 INFO :: Processing item 24/695 | qid=2013306 doc=msmarco_passage_22_594816920
+2025-09-24 08:43:28 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:43:33 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:43:33 INFO :: Item 24/695 | qid=2013306 doc=msmarco_passage_22_594816920 | gold=2 → pred=3 | MISS | ms=5149 | agree-so-far=3/21 (14.29%)
+2025-09-24 08:43:33 DEBUG :: Insert prediction | idx=24 qid=2013306 doc=msmarco_passage_22_594816920 gold=2 pred=3 correct=False ms=5149
+2025-09-24 08:43:33 INFO :: Processing item 25/695 | qid=2013306 doc=msmarco_passage_23_134371688
+2025-09-24 08:43:33 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:43:47 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:43:47 INFO :: Item 25/695 | qid=2013306 doc=msmarco_passage_23_134371688 | gold=2 → pred=0 | MISS | ms=13260 | agree-so-far=3/22 (13.64%)
+2025-09-24 08:43:47 DEBUG :: Insert prediction | idx=25 qid=2013306 doc=msmarco_passage_23_134371688 gold=2 pred=0 correct=False ms=13260
+2025-09-24 08:43:47 DEBUG :: Committed batch at item 25
+2025-09-24 08:43:47 INFO :: Processing item 26/695 | qid=2013306 doc=msmarco_passage_23_153979706
+2025-09-24 08:43:47 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:43:59 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:43:59 INFO :: Item 26/695 | qid=2013306 doc=msmarco_passage_23_153979706 | gold=2 → pred=0 | MISS | ms=12438 | agree-so-far=3/23 (13.04%)
+2025-09-24 08:43:59 DEBUG :: Insert prediction | idx=26 qid=2013306 doc=msmarco_passage_23_153979706 gold=2 pred=0 correct=False ms=12438
+2025-09-24 08:43:59 INFO :: Processing item 27/695 | qid=2013306 doc=msmarco_passage_23_759817002
+2025-09-24 08:43:59 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:44:24 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:44:24 INFO :: Item 27/695 | qid=2013306 doc=msmarco_passage_23_759817002 | gold=2 → pred=0 | MISS | ms=25162 | agree-so-far=3/24 (12.50%)
+2025-09-24 08:44:24 DEBUG :: Insert prediction | idx=27 qid=2013306 doc=msmarco_passage_23_759817002 gold=2 pred=0 correct=False ms=25162
+2025-09-24 08:44:24 INFO :: Processing item 28/695 | qid=2013306 doc=msmarco_passage_24_252471660
+2025-09-24 08:44:24 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:44:37 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 08:44:37 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 08:44:37 INFO :: Item 28/695 | qid=2013306 doc=msmarco_passage_24_252471660 | gold=2 → pred=None | N/A | ms=13051 | agree-so-far=3/24 (12.50%)
+2025-09-24 08:44:37 DEBUG :: Insert prediction | idx=28 qid=2013306 doc=msmarco_passage_24_252471660 gold=2 pred=None correct=None ms=13051
+2025-09-24 08:44:37 INFO :: Processing item 29/695 | qid=2013306 doc=msmarco_passage_24_253878167
+2025-09-24 08:44:37 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:44:52 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:44:52 INFO :: Item 29/695 | qid=2013306 doc=msmarco_passage_24_253878167 | gold=2 → pred=0 | MISS | ms=14612 | agree-so-far=3/25 (12.00%)
+2025-09-24 08:44:52 DEBUG :: Insert prediction | idx=29 qid=2013306 doc=msmarco_passage_24_253878167 gold=2 pred=0 correct=False ms=14612
+2025-09-24 08:44:52 INFO :: Processing item 30/695 | qid=2013306 doc=msmarco_passage_25_175485031
+2025-09-24 08:44:52 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:45:01 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:45:01 INFO :: Item 30/695 | qid=2013306 doc=msmarco_passage_25_175485031 | gold=2 → pred=0 | MISS | ms=8888 | agree-so-far=3/26 (11.54%)
+2025-09-24 08:45:01 DEBUG :: Insert prediction | idx=30 qid=2013306 doc=msmarco_passage_25_175485031 gold=2 pred=0 correct=False ms=8888
+2025-09-24 08:45:01 DEBUG :: Committed batch at item 30
+2025-09-24 08:45:01 INFO :: Processing item 31/695 | qid=2013306 doc=msmarco_passage_25_232615646
+2025-09-24 08:45:01 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:45:12 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:45:12 INFO :: Item 31/695 | qid=2013306 doc=msmarco_passage_25_232615646 | gold=2 → pred=0 | MISS | ms=11258 | agree-so-far=3/27 (11.11%)
+2025-09-24 08:45:12 DEBUG :: Insert prediction | idx=31 qid=2013306 doc=msmarco_passage_25_232615646 gold=2 pred=0 correct=False ms=11258
+2025-09-24 08:45:12 INFO :: Processing item 32/695 | qid=2013306 doc=msmarco_passage_25_308852826
+2025-09-24 08:45:12 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:45:19 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:45:19 INFO :: Item 32/695 | qid=2013306 doc=msmarco_passage_25_308852826 | gold=2 → pred=0 | MISS | ms=7089 | agree-so-far=3/28 (10.71%)
+2025-09-24 08:45:19 DEBUG :: Insert prediction | idx=32 qid=2013306 doc=msmarco_passage_25_308852826 gold=2 pred=0 correct=False ms=7089
+2025-09-24 08:45:19 INFO :: Processing item 33/695 | qid=2013306 doc=msmarco_passage_25_315027822
+2025-09-24 08:45:19 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:45:31 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:45:31 INFO :: Item 33/695 | qid=2013306 doc=msmarco_passage_25_315027822 | gold=2 → pred=0 | MISS | ms=11567 | agree-so-far=3/29 (10.34%)
+2025-09-24 08:45:31 DEBUG :: Insert prediction | idx=33 qid=2013306 doc=msmarco_passage_25_315027822 gold=2 pred=0 correct=False ms=11567
+2025-09-24 08:45:31 INFO :: Processing item 34/695 | qid=2013306 doc=msmarco_passage_25_325013547
+2025-09-24 08:45:31 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:46:07 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 08:46:07 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 08:46:07 INFO :: Item 34/695 | qid=2013306 doc=msmarco_passage_25_325013547 | gold=2 → pred=None | N/A | ms=36500 | agree-so-far=3/29 (10.34%)
+2025-09-24 08:46:07 DEBUG :: Insert prediction | idx=34 qid=2013306 doc=msmarco_passage_25_325013547 gold=2 pred=None correct=None ms=36500
+2025-09-24 08:46:07 INFO :: Processing item 35/695 | qid=2013306 doc=msmarco_passage_25_325286414
+2025-09-24 08:46:07 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:46:16 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:46:16 INFO :: Item 35/695 | qid=2013306 doc=msmarco_passage_25_325286414 | gold=2 → pred=0 | MISS | ms=9098 | agree-so-far=3/30 (10.00%)
+2025-09-24 08:46:16 DEBUG :: Insert prediction | idx=35 qid=2013306 doc=msmarco_passage_25_325286414 gold=2 pred=0 correct=False ms=9098
+2025-09-24 08:46:16 DEBUG :: Committed batch at item 35
+2025-09-24 08:46:16 INFO :: Processing item 36/695 | qid=2013306 doc=msmarco_passage_25_343910276
+2025-09-24 08:46:16 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:46:53 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 08:46:53 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 08:46:53 INFO :: Item 36/695 | qid=2013306 doc=msmarco_passage_25_343910276 | gold=2 → pred=None | N/A | ms=36496 | agree-so-far=3/30 (10.00%)
+2025-09-24 08:46:53 DEBUG :: Insert prediction | idx=36 qid=2013306 doc=msmarco_passage_25_343910276 gold=2 pred=None correct=None ms=36496
+2025-09-24 08:46:53 INFO :: Processing item 37/695 | qid=2013306 doc=msmarco_passage_25_518273066
+2025-09-24 08:46:53 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:46:59 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:46:59 INFO :: Item 37/695 | qid=2013306 doc=msmarco_passage_25_518273066 | gold=2 → pred=0 | MISS | ms=5956 | agree-so-far=3/31 (9.68%)
+2025-09-24 08:46:59 DEBUG :: Insert prediction | idx=37 qid=2013306 doc=msmarco_passage_25_518273066 gold=2 pred=0 correct=False ms=5956
+2025-09-24 08:46:59 INFO :: Processing item 38/695 | qid=2013306 doc=msmarco_passage_26_165530325
+2025-09-24 08:46:59 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:47:00 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:47:00 INFO :: Item 38/695 | qid=2013306 doc=msmarco_passage_26_165530325 | gold=2 → pred=0 | MISS | ms=1369 | agree-so-far=3/32 (9.38%)
+2025-09-24 08:47:00 DEBUG :: Insert prediction | idx=38 qid=2013306 doc=msmarco_passage_26_165530325 gold=2 pred=0 correct=False ms=1369
+2025-09-24 08:47:00 INFO :: Processing item 39/695 | qid=2013306 doc=msmarco_passage_26_51510981
+2025-09-24 08:47:00 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:47:10 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:47:10 INFO :: Item 39/695 | qid=2013306 doc=msmarco_passage_26_51510981 | gold=2 → pred=3 | MISS | ms=9647 | agree-so-far=3/33 (9.09%)
+2025-09-24 08:47:10 DEBUG :: Insert prediction | idx=39 qid=2013306 doc=msmarco_passage_26_51510981 gold=2 pred=3 correct=False ms=9647
+2025-09-24 08:47:10 INFO :: Processing item 40/695 | qid=2013306 doc=msmarco_passage_26_675688350
+2025-09-24 08:47:10 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:47:17 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:47:17 INFO :: Item 40/695 | qid=2013306 doc=msmarco_passage_26_675688350 | gold=2 → pred=0 | MISS | ms=7060 | agree-so-far=3/34 (8.82%)
+2025-09-24 08:47:17 DEBUG :: Insert prediction | idx=40 qid=2013306 doc=msmarco_passage_26_675688350 gold=2 pred=0 correct=False ms=7060
+2025-09-24 08:47:17 DEBUG :: Committed batch at item 40
+2025-09-24 08:47:17 INFO :: Processing item 41/695 | qid=2013306 doc=msmarco_passage_28_411871954
+2025-09-24 08:47:17 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:47:18 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:47:18 INFO :: Item 41/695 | qid=2013306 doc=msmarco_passage_28_411871954 | gold=2 → pred=0 | MISS | ms=1424 | agree-so-far=3/35 (8.57%)
+2025-09-24 08:47:18 DEBUG :: Insert prediction | idx=41 qid=2013306 doc=msmarco_passage_28_411871954 gold=2 pred=0 correct=False ms=1424
+2025-09-24 08:47:18 INFO :: Processing item 42/695 | qid=2013306 doc=msmarco_passage_28_413033351
+2025-09-24 08:47:18 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:47:20 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:47:20 INFO :: Item 42/695 | qid=2013306 doc=msmarco_passage_28_413033351 | gold=2 → pred=0 | MISS | ms=1263 | agree-so-far=3/36 (8.33%)
+2025-09-24 08:47:20 DEBUG :: Insert prediction | idx=42 qid=2013306 doc=msmarco_passage_28_413033351 gold=2 pred=0 correct=False ms=1263
+2025-09-24 08:47:20 INFO :: Processing item 43/695 | qid=2013306 doc=msmarco_passage_28_453446653
+2025-09-24 08:47:20 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:47:26 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:47:26 INFO :: Item 43/695 | qid=2013306 doc=msmarco_passage_28_453446653 | gold=2 → pred=3 | MISS | ms=6682 | agree-so-far=3/37 (8.11%)
+2025-09-24 08:47:26 DEBUG :: Insert prediction | idx=43 qid=2013306 doc=msmarco_passage_28_453446653 gold=2 pred=3 correct=False ms=6682
+2025-09-24 08:47:26 INFO :: Processing item 44/695 | qid=2013306 doc=msmarco_passage_28_641155809
+2025-09-24 08:47:26 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:48:03 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 08:48:03 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 08:48:03 INFO :: Item 44/695 | qid=2013306 doc=msmarco_passage_28_641155809 | gold=2 → pred=None | N/A | ms=36500 | agree-so-far=3/37 (8.11%)
+2025-09-24 08:48:03 DEBUG :: Insert prediction | idx=44 qid=2013306 doc=msmarco_passage_28_641155809 gold=2 pred=None correct=None ms=36500
+2025-09-24 08:48:03 INFO :: Processing item 45/695 | qid=2013306 doc=msmarco_passage_28_745888223
+2025-09-24 08:48:03 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:48:09 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:48:09 INFO :: Item 45/695 | qid=2013306 doc=msmarco_passage_28_745888223 | gold=2 → pred=2 | HIT | ms=6618 | agree-so-far=4/38 (10.53%)
+2025-09-24 08:48:09 DEBUG :: Insert prediction | idx=45 qid=2013306 doc=msmarco_passage_28_745888223 gold=2 pred=2 correct=True ms=6618
+2025-09-24 08:48:09 DEBUG :: Committed batch at item 45
+2025-09-24 08:48:09 INFO :: Processing item 46/695 | qid=2013306 doc=msmarco_passage_29_45664144
+2025-09-24 08:48:09 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:48:23 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:48:23 INFO :: Item 46/695 | qid=2013306 doc=msmarco_passage_29_45664144 | gold=2 → pred=0 | MISS | ms=14046 | agree-so-far=4/39 (10.26%)
+2025-09-24 08:48:23 DEBUG :: Insert prediction | idx=46 qid=2013306 doc=msmarco_passage_29_45664144 gold=2 pred=0 correct=False ms=14046
+2025-09-24 08:48:23 INFO :: Processing item 47/695 | qid=2013306 doc=msmarco_passage_29_746645686
+2025-09-24 08:48:23 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:48:32 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:48:32 INFO :: Item 47/695 | qid=2013306 doc=msmarco_passage_29_746645686 | gold=2 → pred=3 | MISS | ms=8613 | agree-so-far=4/40 (10.00%)
+2025-09-24 08:48:32 DEBUG :: Insert prediction | idx=47 qid=2013306 doc=msmarco_passage_29_746645686 gold=2 pred=3 correct=False ms=8613
+2025-09-24 08:48:32 INFO :: Processing item 48/695 | qid=2013306 doc=msmarco_passage_29_873505016
+2025-09-24 08:48:32 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:49:09 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 08:49:09 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 08:49:09 INFO :: Item 48/695 | qid=2013306 doc=msmarco_passage_29_873505016 | gold=2 → pred=None | N/A | ms=36560 | agree-so-far=4/40 (10.00%)
+2025-09-24 08:49:09 DEBUG :: Insert prediction | idx=48 qid=2013306 doc=msmarco_passage_29_873505016 gold=2 pred=None correct=None ms=36560
+2025-09-24 08:49:09 INFO :: Processing item 49/695 | qid=2013306 doc=msmarco_passage_30_694892822
+2025-09-24 08:49:09 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:49:18 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:49:18 INFO :: Item 49/695 | qid=2013306 doc=msmarco_passage_30_694892822 | gold=2 → pred=3 | MISS | ms=9348 | agree-so-far=4/41 (9.76%)
+2025-09-24 08:49:18 DEBUG :: Insert prediction | idx=49 qid=2013306 doc=msmarco_passage_30_694892822 gold=2 pred=3 correct=False ms=9348
+2025-09-24 08:49:18 INFO :: Processing item 50/695 | qid=2013306 doc=msmarco_passage_30_875663400
+2025-09-24 08:49:18 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:49:25 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:49:25 INFO :: Item 50/695 | qid=2013306 doc=msmarco_passage_30_875663400 | gold=2 → pred=3 | MISS | ms=7036 | agree-so-far=4/42 (9.52%)
+2025-09-24 08:49:25 DEBUG :: Insert prediction | idx=50 qid=2013306 doc=msmarco_passage_30_875663400 gold=2 pred=3 correct=False ms=7036
+2025-09-24 08:49:25 DEBUG :: Committed batch at item 50
+2025-09-24 08:49:25 INFO :: Processing item 51/695 | qid=2013306 doc=msmarco_passage_31_259237056
+2025-09-24 08:49:25 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:49:34 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:49:34 INFO :: Item 51/695 | qid=2013306 doc=msmarco_passage_31_259237056 | gold=2 → pred=0 | MISS | ms=9521 | agree-so-far=4/43 (9.30%)
+2025-09-24 08:49:34 DEBUG :: Insert prediction | idx=51 qid=2013306 doc=msmarco_passage_31_259237056 gold=2 pred=0 correct=False ms=9521
+2025-09-24 08:49:34 INFO :: Processing item 52/695 | qid=2013306 doc=msmarco_passage_31_294828943
+2025-09-24 08:49:34 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:50:11 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 08:50:11 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 08:50:11 INFO :: Item 52/695 | qid=2013306 doc=msmarco_passage_31_294828943 | gold=2 → pred=None | N/A | ms=36543 | agree-so-far=4/43 (9.30%)
+2025-09-24 08:50:11 DEBUG :: Insert prediction | idx=52 qid=2013306 doc=msmarco_passage_31_294828943 gold=2 pred=None correct=None ms=36543
+2025-09-24 08:50:11 INFO :: Processing item 53/695 | qid=2013306 doc=msmarco_passage_31_686213212
+2025-09-24 08:50:11 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:50:37 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:50:37 INFO :: Item 53/695 | qid=2013306 doc=msmarco_passage_31_686213212 | gold=2 → pred=0 | MISS | ms=26237 | agree-so-far=4/44 (9.09%)
+2025-09-24 08:50:37 DEBUG :: Insert prediction | idx=53 qid=2013306 doc=msmarco_passage_31_686213212 gold=2 pred=0 correct=False ms=26237
+2025-09-24 08:50:37 INFO :: Processing item 54/695 | qid=2013306 doc=msmarco_passage_32_539777194
+2025-09-24 08:50:37 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:50:39 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:50:39 INFO :: Item 54/695 | qid=2013306 doc=msmarco_passage_32_539777194 | gold=2 → pred=0 | MISS | ms=1453 | agree-so-far=4/45 (8.89%)
+2025-09-24 08:50:39 DEBUG :: Insert prediction | idx=54 qid=2013306 doc=msmarco_passage_32_539777194 gold=2 pred=0 correct=False ms=1453
+2025-09-24 08:50:39 INFO :: Processing item 55/695 | qid=2013306 doc=msmarco_passage_32_660600973
+2025-09-24 08:50:39 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:50:47 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:50:47 INFO :: Item 55/695 | qid=2013306 doc=msmarco_passage_32_660600973 | gold=2 → pred=0 | MISS | ms=8280 | agree-so-far=4/46 (8.70%)
+2025-09-24 08:50:47 DEBUG :: Insert prediction | idx=55 qid=2013306 doc=msmarco_passage_32_660600973 gold=2 pred=0 correct=False ms=8280
+2025-09-24 08:50:47 DEBUG :: Committed batch at item 55
+2025-09-24 08:50:47 INFO :: Processing item 56/695 | qid=2013306 doc=msmarco_passage_32_74970664
+2025-09-24 08:50:47 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:50:53 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:50:53 INFO :: Item 56/695 | qid=2013306 doc=msmarco_passage_32_74970664 | gold=2 → pred=0 | MISS | ms=6320 | agree-so-far=4/47 (8.51%)
+2025-09-24 08:50:53 DEBUG :: Insert prediction | idx=56 qid=2013306 doc=msmarco_passage_32_74970664 gold=2 pred=0 correct=False ms=6320
+2025-09-24 08:50:53 INFO :: Processing item 57/695 | qid=2013306 doc=msmarco_passage_32_847481872
+2025-09-24 08:50:53 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:50:55 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:50:55 INFO :: Item 57/695 | qid=2013306 doc=msmarco_passage_32_847481872 | gold=2 → pred=0 | MISS | ms=1324 | agree-so-far=4/48 (8.33%)
+2025-09-24 08:50:55 DEBUG :: Insert prediction | idx=57 qid=2013306 doc=msmarco_passage_32_847481872 gold=2 pred=0 correct=False ms=1324
+2025-09-24 08:50:55 INFO :: Processing item 58/695 | qid=2013306 doc=msmarco_passage_33_186512031
+2025-09-24 08:50:55 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:51:31 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 08:51:31 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 08:51:31 INFO :: Item 58/695 | qid=2013306 doc=msmarco_passage_33_186512031 | gold=2 → pred=None | N/A | ms=36512 | agree-so-far=4/48 (8.33%)
+2025-09-24 08:51:31 DEBUG :: Insert prediction | idx=58 qid=2013306 doc=msmarco_passage_33_186512031 gold=2 pred=None correct=None ms=36512
+2025-09-24 08:51:31 INFO :: Processing item 59/695 | qid=2013306 doc=msmarco_passage_33_187514391
+2025-09-24 08:51:31 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:52:08 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 08:52:08 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 08:52:08 INFO :: Item 59/695 | qid=2013306 doc=msmarco_passage_33_187514391 | gold=2 → pred=None | N/A | ms=36540 | agree-so-far=4/48 (8.33%)
+2025-09-24 08:52:08 DEBUG :: Insert prediction | idx=59 qid=2013306 doc=msmarco_passage_33_187514391 gold=2 pred=None correct=None ms=36540
+2025-09-24 08:52:08 INFO :: Processing item 60/695 | qid=2013306 doc=msmarco_passage_33_188196811
+2025-09-24 08:52:08 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:52:44 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 08:52:44 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 08:52:44 INFO :: Item 60/695 | qid=2013306 doc=msmarco_passage_33_188196811 | gold=2 → pred=None | N/A | ms=36547 | agree-so-far=4/48 (8.33%)
+2025-09-24 08:52:44 DEBUG :: Insert prediction | idx=60 qid=2013306 doc=msmarco_passage_33_188196811 gold=2 pred=None correct=None ms=36547
+2025-09-24 08:52:44 DEBUG :: Committed batch at item 60
+2025-09-24 08:52:44 INFO :: Processing item 61/695 | qid=2013306 doc=msmarco_passage_33_189193404
+2025-09-24 08:52:44 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:53:21 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 08:53:21 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 08:53:21 INFO :: Item 61/695 | qid=2013306 doc=msmarco_passage_33_189193404 | gold=2 → pred=None | N/A | ms=36495 | agree-so-far=4/48 (8.33%)
+2025-09-24 08:53:21 DEBUG :: Insert prediction | idx=61 qid=2013306 doc=msmarco_passage_33_189193404 gold=2 pred=None correct=None ms=36495
+2025-09-24 08:53:21 INFO :: Processing item 62/695 | qid=2013306 doc=msmarco_passage_33_645667341
+2025-09-24 08:53:21 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:53:40 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:53:40 INFO :: Item 62/695 | qid=2013306 doc=msmarco_passage_33_645667341 | gold=2 → pred=0 | MISS | ms=18982 | agree-so-far=4/49 (8.16%)
+2025-09-24 08:53:40 DEBUG :: Insert prediction | idx=62 qid=2013306 doc=msmarco_passage_33_645667341 gold=2 pred=0 correct=False ms=18982
+2025-09-24 08:53:40 INFO :: Processing item 63/695 | qid=2013306 doc=msmarco_passage_33_693254293
+2025-09-24 08:53:40 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:53:48 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:53:48 INFO :: Item 63/695 | qid=2013306 doc=msmarco_passage_33_693254293 | gold=2 → pred=3 | MISS | ms=7835 | agree-so-far=4/50 (8.00%)
+2025-09-24 08:53:48 DEBUG :: Insert prediction | idx=63 qid=2013306 doc=msmarco_passage_33_693254293 gold=2 pred=3 correct=False ms=7835
+2025-09-24 08:53:48 INFO :: Processing item 64/695 | qid=2013306 doc=msmarco_passage_33_736740100
+2025-09-24 08:53:48 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:53:56 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:53:56 INFO :: Item 64/695 | qid=2013306 doc=msmarco_passage_33_736740100 | gold=2 → pred=0 | MISS | ms=8409 | agree-so-far=4/51 (7.84%)
+2025-09-24 08:53:56 DEBUG :: Insert prediction | idx=64 qid=2013306 doc=msmarco_passage_33_736740100 gold=2 pred=0 correct=False ms=8409
+2025-09-24 08:53:56 INFO :: Processing item 65/695 | qid=2013306 doc=msmarco_passage_34_369374931
+2025-09-24 08:53:56 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:54:05 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:54:05 INFO :: Item 65/695 | qid=2013306 doc=msmarco_passage_34_369374931 | gold=2 → pred=0 | MISS | ms=8713 | agree-so-far=4/52 (7.69%)
+2025-09-24 08:54:05 DEBUG :: Insert prediction | idx=65 qid=2013306 doc=msmarco_passage_34_369374931 gold=2 pred=0 correct=False ms=8713
+2025-09-24 08:54:05 DEBUG :: Committed batch at item 65
+2025-09-24 08:54:05 INFO :: Processing item 66/695 | qid=2013306 doc=msmarco_passage_34_502054687
+2025-09-24 08:54:05 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:54:13 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:54:13 INFO :: Item 66/695 | qid=2013306 doc=msmarco_passage_34_502054687 | gold=2 → pred=2 | HIT | ms=8581 | agree-so-far=5/53 (9.43%)
+2025-09-24 08:54:13 DEBUG :: Insert prediction | idx=66 qid=2013306 doc=msmarco_passage_34_502054687 gold=2 pred=2 correct=True ms=8581
+2025-09-24 08:54:13 INFO :: Processing item 67/695 | qid=2013306 doc=msmarco_passage_34_852218642
+2025-09-24 08:54:13 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:54:23 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:54:23 INFO :: Item 67/695 | qid=2013306 doc=msmarco_passage_34_852218642 | gold=2 → pred=0 | MISS | ms=9711 | agree-so-far=5/54 (9.26%)
+2025-09-24 08:54:23 DEBUG :: Insert prediction | idx=67 qid=2013306 doc=msmarco_passage_34_852218642 gold=2 pred=0 correct=False ms=9711
+2025-09-24 08:54:23 INFO :: Processing item 68/695 | qid=2013306 doc=msmarco_passage_35_137814305
+2025-09-24 08:54:23 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:55:00 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 08:55:00 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 08:55:00 INFO :: Item 68/695 | qid=2013306 doc=msmarco_passage_35_137814305 | gold=2 → pred=None | N/A | ms=36531 | agree-so-far=5/54 (9.26%)
+2025-09-24 08:55:00 DEBUG :: Insert prediction | idx=68 qid=2013306 doc=msmarco_passage_35_137814305 gold=2 pred=None correct=None ms=36531
+2025-09-24 08:55:00 INFO :: Processing item 69/695 | qid=2013306 doc=msmarco_passage_35_175048267
+2025-09-24 08:55:00 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:55:20 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:55:20 INFO :: Item 69/695 | qid=2013306 doc=msmarco_passage_35_175048267 | gold=2 → pred=3 | MISS | ms=20614 | agree-so-far=5/55 (9.09%)
+2025-09-24 08:55:20 DEBUG :: Insert prediction | idx=69 qid=2013306 doc=msmarco_passage_35_175048267 gold=2 pred=3 correct=False ms=20614
+2025-09-24 08:55:20 INFO :: Processing item 70/695 | qid=2013306 doc=msmarco_passage_35_345554589
+2025-09-24 08:55:20 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:55:39 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:55:39 INFO :: Item 70/695 | qid=2013306 doc=msmarco_passage_35_345554589 | gold=2 → pred=0 | MISS | ms=19073 | agree-so-far=5/56 (8.93%)
+2025-09-24 08:55:39 DEBUG :: Insert prediction | idx=70 qid=2013306 doc=msmarco_passage_35_345554589 gold=2 pred=0 correct=False ms=19073
+2025-09-24 08:55:39 DEBUG :: Committed batch at item 70
+2025-09-24 08:55:39 INFO :: Processing item 71/695 | qid=2013306 doc=msmarco_passage_36_56224328
+2025-09-24 08:55:39 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:55:43 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:55:43 INFO :: Item 71/695 | qid=2013306 doc=msmarco_passage_36_56224328 | gold=2 → pred=0 | MISS | ms=3506 | agree-so-far=5/57 (8.77%)
+2025-09-24 08:55:43 DEBUG :: Insert prediction | idx=71 qid=2013306 doc=msmarco_passage_36_56224328 gold=2 pred=0 correct=False ms=3506
+2025-09-24 08:55:43 INFO :: Processing item 72/695 | qid=2013306 doc=msmarco_passage_36_683980548
+2025-09-24 08:55:43 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:55:44 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:55:44 INFO :: Item 72/695 | qid=2013306 doc=msmarco_passage_36_683980548 | gold=2 → pred=0 | MISS | ms=1309 | agree-so-far=5/58 (8.62%)
+2025-09-24 08:55:44 DEBUG :: Insert prediction | idx=72 qid=2013306 doc=msmarco_passage_36_683980548 gold=2 pred=0 correct=False ms=1309
+2025-09-24 08:55:44 INFO :: Processing item 73/695 | qid=2013306 doc=msmarco_passage_38_382845174
+2025-09-24 08:55:44 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:56:21 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 08:56:21 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 08:56:21 INFO :: Item 73/695 | qid=2013306 doc=msmarco_passage_38_382845174 | gold=2 → pred=None | N/A | ms=36523 | agree-so-far=5/58 (8.62%)
+2025-09-24 08:56:21 DEBUG :: Insert prediction | idx=73 qid=2013306 doc=msmarco_passage_38_382845174 gold=2 pred=None correct=None ms=36523
+2025-09-24 08:56:21 INFO :: Processing item 74/695 | qid=2013306 doc=msmarco_passage_38_490687937
+2025-09-24 08:56:21 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:56:42 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:56:42 INFO :: Item 74/695 | qid=2013306 doc=msmarco_passage_38_490687937 | gold=2 → pred=0 | MISS | ms=20923 | agree-so-far=5/59 (8.47%)
+2025-09-24 08:56:42 DEBUG :: Insert prediction | idx=74 qid=2013306 doc=msmarco_passage_38_490687937 gold=2 pred=0 correct=False ms=20923
+2025-09-24 08:56:42 INFO :: Processing item 75/695 | qid=2013306 doc=msmarco_passage_38_569162434
+2025-09-24 08:56:42 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:56:50 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:56:50 INFO :: Item 75/695 | qid=2013306 doc=msmarco_passage_38_569162434 | gold=2 → pred=3 | MISS | ms=8008 | agree-so-far=5/60 (8.33%)
+2025-09-24 08:56:50 DEBUG :: Insert prediction | idx=75 qid=2013306 doc=msmarco_passage_38_569162434 gold=2 pred=3 correct=False ms=8008
+2025-09-24 08:56:50 DEBUG :: Committed batch at item 75
+2025-09-24 08:56:50 INFO :: Processing item 76/695 | qid=2013306 doc=msmarco_passage_38_571570875
+2025-09-24 08:56:50 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:56:57 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:56:57 INFO :: Item 76/695 | qid=2013306 doc=msmarco_passage_38_571570875 | gold=2 → pred=3 | MISS | ms=7616 | agree-so-far=5/61 (8.20%)
+2025-09-24 08:56:57 DEBUG :: Insert prediction | idx=76 qid=2013306 doc=msmarco_passage_38_571570875 gold=2 pred=3 correct=False ms=7616
+2025-09-24 08:56:57 INFO :: Processing item 77/695 | qid=2013306 doc=msmarco_passage_38_572269596
+2025-09-24 08:56:57 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:57:34 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 08:57:34 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 08:57:34 INFO :: Item 77/695 | qid=2013306 doc=msmarco_passage_38_572269596 | gold=2 → pred=None | N/A | ms=36515 | agree-so-far=5/61 (8.20%)
+2025-09-24 08:57:34 DEBUG :: Insert prediction | idx=77 qid=2013306 doc=msmarco_passage_38_572269596 gold=2 pred=None correct=None ms=36515
+2025-09-24 08:57:34 INFO :: Processing item 78/695 | qid=2013306 doc=msmarco_passage_38_706909284
+2025-09-24 08:57:34 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:57:43 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:57:43 INFO :: Item 78/695 | qid=2013306 doc=msmarco_passage_38_706909284 | gold=2 → pred=3 | MISS | ms=9118 | agree-so-far=5/62 (8.06%)
+2025-09-24 08:57:43 DEBUG :: Insert prediction | idx=78 qid=2013306 doc=msmarco_passage_38_706909284 gold=2 pred=3 correct=False ms=9118
+2025-09-24 08:57:43 INFO :: Processing item 79/695 | qid=2013306 doc=msmarco_passage_38_841712467
+2025-09-24 08:57:43 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:58:19 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 08:58:19 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 08:58:19 INFO :: Item 79/695 | qid=2013306 doc=msmarco_passage_38_841712467 | gold=2 → pred=None | N/A | ms=36521 | agree-so-far=5/62 (8.06%)
+2025-09-24 08:58:19 DEBUG :: Insert prediction | idx=79 qid=2013306 doc=msmarco_passage_38_841712467 gold=2 pred=None correct=None ms=36521
+2025-09-24 08:58:19 INFO :: Processing item 80/695 | qid=2013306 doc=msmarco_passage_39_127163102
+2025-09-24 08:58:19 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:58:28 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:58:28 INFO :: Item 80/695 | qid=2013306 doc=msmarco_passage_39_127163102 | gold=2 → pred=3 | MISS | ms=9036 | agree-so-far=5/63 (7.94%)
+2025-09-24 08:58:28 DEBUG :: Insert prediction | idx=80 qid=2013306 doc=msmarco_passage_39_127163102 gold=2 pred=3 correct=False ms=9036
+2025-09-24 08:58:28 DEBUG :: Committed batch at item 80
+2025-09-24 08:58:28 INFO :: Processing item 81/695 | qid=2013306 doc=msmarco_passage_39_562890970
+2025-09-24 08:58:28 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:59:05 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 08:59:05 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 08:59:05 INFO :: Item 81/695 | qid=2013306 doc=msmarco_passage_39_562890970 | gold=2 → pred=None | N/A | ms=36523 | agree-so-far=5/63 (7.94%)
+2025-09-24 08:59:05 DEBUG :: Insert prediction | idx=81 qid=2013306 doc=msmarco_passage_39_562890970 gold=2 pred=None correct=None ms=36523
+2025-09-24 08:59:05 INFO :: Processing item 82/695 | qid=2013306 doc=msmarco_passage_39_633698301
+2025-09-24 08:59:05 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:59:06 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:59:06 INFO :: Item 82/695 | qid=2013306 doc=msmarco_passage_39_633698301 | gold=2 → pred=0 | MISS | ms=1328 | agree-so-far=5/64 (7.81%)
+2025-09-24 08:59:06 DEBUG :: Insert prediction | idx=82 qid=2013306 doc=msmarco_passage_39_633698301 gold=2 pred=0 correct=False ms=1328
+2025-09-24 08:59:06 INFO :: Processing item 83/695 | qid=2013306 doc=msmarco_passage_39_68565708
+2025-09-24 08:59:06 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:59:43 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 08:59:43 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 08:59:43 INFO :: Item 83/695 | qid=2013306 doc=msmarco_passage_39_68565708 | gold=2 → pred=None | N/A | ms=36500 | agree-so-far=5/64 (7.81%)
+2025-09-24 08:59:43 DEBUG :: Insert prediction | idx=83 qid=2013306 doc=msmarco_passage_39_68565708 gold=2 pred=None correct=None ms=36500
+2025-09-24 08:59:43 INFO :: Processing item 84/695 | qid=2013306 doc=msmarco_passage_40_219123882
+2025-09-24 08:59:43 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:59:51 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:59:51 INFO :: Item 84/695 | qid=2013306 doc=msmarco_passage_40_219123882 | gold=2 → pred=3 | MISS | ms=8046 | agree-so-far=5/65 (7.69%)
+2025-09-24 08:59:51 DEBUG :: Insert prediction | idx=84 qid=2013306 doc=msmarco_passage_40_219123882 gold=2 pred=3 correct=False ms=8046
+2025-09-24 08:59:51 INFO :: Processing item 85/695 | qid=2013306 doc=msmarco_passage_40_585727306
+2025-09-24 08:59:51 DEBUG :: LLM call attempt 1/1
+2025-09-24 08:59:59 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 08:59:59 INFO :: Item 85/695 | qid=2013306 doc=msmarco_passage_40_585727306 | gold=2 → pred=0 | MISS | ms=8413 | agree-so-far=5/66 (7.58%)
+2025-09-24 08:59:59 DEBUG :: Insert prediction | idx=85 qid=2013306 doc=msmarco_passage_40_585727306 gold=2 pred=0 correct=False ms=8413
+2025-09-24 08:59:59 DEBUG :: Committed batch at item 85
+2025-09-24 08:59:59 INFO :: Processing item 86/695 | qid=2013306 doc=msmarco_passage_40_835821667
+2025-09-24 08:59:59 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:00:05 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:00:05 INFO :: Item 86/695 | qid=2013306 doc=msmarco_passage_40_835821667 | gold=2 → pred=3 | MISS | ms=5854 | agree-so-far=5/67 (7.46%)
+2025-09-24 09:00:05 DEBUG :: Insert prediction | idx=86 qid=2013306 doc=msmarco_passage_40_835821667 gold=2 pred=3 correct=False ms=5854
+2025-09-24 09:00:05 INFO :: Processing item 87/695 | qid=2013306 doc=msmarco_passage_41_243788390
+2025-09-24 09:00:05 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:00:29 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:00:29 INFO :: Item 87/695 | qid=2013306 doc=msmarco_passage_41_243788390 | gold=2 → pred=0 | MISS | ms=23559 | agree-so-far=5/68 (7.35%)
+2025-09-24 09:00:29 DEBUG :: Insert prediction | idx=87 qid=2013306 doc=msmarco_passage_41_243788390 gold=2 pred=0 correct=False ms=23559
+2025-09-24 09:00:29 INFO :: Processing item 88/695 | qid=2013306 doc=msmarco_passage_41_246637078
+2025-09-24 09:00:29 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:00:44 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:00:44 INFO :: Item 88/695 | qid=2013306 doc=msmarco_passage_41_246637078 | gold=2 → pred=0 | MISS | ms=15673 | agree-so-far=5/69 (7.25%)
+2025-09-24 09:00:44 DEBUG :: Insert prediction | idx=88 qid=2013306 doc=msmarco_passage_41_246637078 gold=2 pred=0 correct=False ms=15673
+2025-09-24 09:00:44 INFO :: Processing item 89/695 | qid=2013306 doc=msmarco_passage_41_249683186
+2025-09-24 09:00:44 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:01:04 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:01:04 INFO :: Item 89/695 | qid=2013306 doc=msmarco_passage_41_249683186 | gold=2 → pred=0 | MISS | ms=19820 | agree-so-far=5/70 (7.14%)
+2025-09-24 09:01:04 DEBUG :: Insert prediction | idx=89 qid=2013306 doc=msmarco_passage_41_249683186 gold=2 pred=0 correct=False ms=19820
+2025-09-24 09:01:04 INFO :: Processing item 90/695 | qid=2013306 doc=msmarco_passage_41_252281408
+2025-09-24 09:01:04 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:01:41 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:01:41 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:01:41 INFO :: Item 90/695 | qid=2013306 doc=msmarco_passage_41_252281408 | gold=2 → pred=None | N/A | ms=36754 | agree-so-far=5/70 (7.14%)
+2025-09-24 09:01:41 DEBUG :: Insert prediction | idx=90 qid=2013306 doc=msmarco_passage_41_252281408 gold=2 pred=None correct=None ms=36754
+2025-09-24 09:01:41 DEBUG :: Committed batch at item 90
+2025-09-24 09:01:41 INFO :: Processing item 91/695 | qid=2013306 doc=msmarco_passage_41_316367868
+2025-09-24 09:01:41 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:01:48 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:01:48 INFO :: Item 91/695 | qid=2013306 doc=msmarco_passage_41_316367868 | gold=2 → pred=3 | MISS | ms=7382 | agree-so-far=5/71 (7.04%)
+2025-09-24 09:01:48 DEBUG :: Insert prediction | idx=91 qid=2013306 doc=msmarco_passage_41_316367868 gold=2 pred=3 correct=False ms=7382
+2025-09-24 09:01:48 INFO :: Processing item 92/695 | qid=2013306 doc=msmarco_passage_41_698054536
+2025-09-24 09:01:48 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:01:58 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:01:58 INFO :: Item 92/695 | qid=2013306 doc=msmarco_passage_41_698054536 | gold=2 → pred=0 | MISS | ms=10014 | agree-so-far=5/72 (6.94%)
+2025-09-24 09:01:58 DEBUG :: Insert prediction | idx=92 qid=2013306 doc=msmarco_passage_41_698054536 gold=2 pred=0 correct=False ms=10014
+2025-09-24 09:01:58 INFO :: Processing item 93/695 | qid=2013306 doc=msmarco_passage_41_768035706
+2025-09-24 09:01:58 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:02:13 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:02:13 INFO :: Item 93/695 | qid=2013306 doc=msmarco_passage_41_768035706 | gold=2 → pred=0 | MISS | ms=14964 | agree-so-far=5/73 (6.85%)
+2025-09-24 09:02:13 DEBUG :: Insert prediction | idx=93 qid=2013306 doc=msmarco_passage_41_768035706 gold=2 pred=0 correct=False ms=14964
+2025-09-24 09:02:13 INFO :: Processing item 94/695 | qid=2013306 doc=msmarco_passage_41_812191962
+2025-09-24 09:02:13 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:02:19 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:02:19 INFO :: Item 94/695 | qid=2013306 doc=msmarco_passage_41_812191962 | gold=2 → pred=0 | MISS | ms=5459 | agree-so-far=5/74 (6.76%)
+2025-09-24 09:02:19 DEBUG :: Insert prediction | idx=94 qid=2013306 doc=msmarco_passage_41_812191962 gold=2 pred=0 correct=False ms=5459
+2025-09-24 09:02:19 INFO :: Processing item 95/695 | qid=2013306 doc=msmarco_passage_42_236021177
+2025-09-24 09:02:19 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:02:37 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:02:37 INFO :: Item 95/695 | qid=2013306 doc=msmarco_passage_42_236021177 | gold=2 → pred=0 | MISS | ms=18349 | agree-so-far=5/75 (6.67%)
+2025-09-24 09:02:37 DEBUG :: Insert prediction | idx=95 qid=2013306 doc=msmarco_passage_42_236021177 gold=2 pred=0 correct=False ms=18349
+2025-09-24 09:02:37 DEBUG :: Committed batch at item 95
+2025-09-24 09:02:37 INFO :: Processing item 96/695 | qid=2013306 doc=msmarco_passage_42_315569199
+2025-09-24 09:02:37 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:02:43 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:02:43 INFO :: Item 96/695 | qid=2013306 doc=msmarco_passage_42_315569199 | gold=2 → pred=3 | MISS | ms=5603 | agree-so-far=5/76 (6.58%)
+2025-09-24 09:02:43 DEBUG :: Insert prediction | idx=96 qid=2013306 doc=msmarco_passage_42_315569199 gold=2 pred=3 correct=False ms=5603
+2025-09-24 09:02:43 INFO :: Processing item 97/695 | qid=2013306 doc=msmarco_passage_42_321601404
+2025-09-24 09:02:43 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:03:07 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:03:07 INFO :: Item 97/695 | qid=2013306 doc=msmarco_passage_42_321601404 | gold=2 → pred=0 | MISS | ms=24592 | agree-so-far=5/77 (6.49%)
+2025-09-24 09:03:07 DEBUG :: Insert prediction | idx=97 qid=2013306 doc=msmarco_passage_42_321601404 gold=2 pred=0 correct=False ms=24592
+2025-09-24 09:03:07 INFO :: Processing item 98/695 | qid=2013306 doc=msmarco_passage_42_453452112
+2025-09-24 09:03:07 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:03:14 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:03:14 INFO :: Item 98/695 | qid=2013306 doc=msmarco_passage_42_453452112 | gold=2 → pred=3 | MISS | ms=6244 | agree-so-far=5/78 (6.41%)
+2025-09-24 09:03:14 DEBUG :: Insert prediction | idx=98 qid=2013306 doc=msmarco_passage_42_453452112 gold=2 pred=3 correct=False ms=6244
+2025-09-24 09:03:14 INFO :: Processing item 99/695 | qid=2013306 doc=msmarco_passage_42_523957714
+2025-09-24 09:03:14 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:03:25 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:03:25 INFO :: Item 99/695 | qid=2013306 doc=msmarco_passage_42_523957714 | gold=2 → pred=0 | MISS | ms=11454 | agree-so-far=5/79 (6.33%)
+2025-09-24 09:03:25 DEBUG :: Insert prediction | idx=99 qid=2013306 doc=msmarco_passage_42_523957714 gold=2 pred=0 correct=False ms=11454
+2025-09-24 09:03:25 INFO :: Processing item 100/695 | qid=2013306 doc=msmarco_passage_42_59675803
+2025-09-24 09:03:25 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:03:26 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:03:26 INFO :: Item 100/695 | qid=2013306 doc=msmarco_passage_42_59675803 | gold=2 → pred=0 | MISS | ms=1390 | agree-so-far=5/80 (6.25%)
+2025-09-24 09:03:26 DEBUG :: Insert prediction | idx=100 qid=2013306 doc=msmarco_passage_42_59675803 gold=2 pred=0 correct=False ms=1390
+2025-09-24 09:03:26 DEBUG :: Committed batch at item 100
+2025-09-24 09:03:26 INFO :: Processing item 101/695 | qid=2013306 doc=msmarco_passage_42_736078479
+2025-09-24 09:03:26 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:03:36 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:03:36 INFO :: Item 101/695 | qid=2013306 doc=msmarco_passage_42_736078479 | gold=2 → pred=0 | MISS | ms=9446 | agree-so-far=5/81 (6.17%)
+2025-09-24 09:03:36 DEBUG :: Insert prediction | idx=101 qid=2013306 doc=msmarco_passage_42_736078479 gold=2 pred=0 correct=False ms=9446
+2025-09-24 09:03:36 INFO :: Processing item 102/695 | qid=2013306 doc=msmarco_passage_43_100987402
+2025-09-24 09:03:36 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:04:07 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:04:07 INFO :: Item 102/695 | qid=2013306 doc=msmarco_passage_43_100987402 | gold=2 → pred=3 | MISS | ms=30619 | agree-so-far=5/82 (6.10%)
+2025-09-24 09:04:07 DEBUG :: Insert prediction | idx=102 qid=2013306 doc=msmarco_passage_43_100987402 gold=2 pred=3 correct=False ms=30619
+2025-09-24 09:04:07 INFO :: Processing item 103/695 | qid=2013306 doc=msmarco_passage_44_173117059
+2025-09-24 09:04:07 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:04:15 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:04:15 INFO :: Item 103/695 | qid=2013306 doc=msmarco_passage_44_173117059 | gold=2 → pred=0 | MISS | ms=8158 | agree-so-far=5/83 (6.02%)
+2025-09-24 09:04:15 DEBUG :: Insert prediction | idx=103 qid=2013306 doc=msmarco_passage_44_173117059 gold=2 pred=0 correct=False ms=8158
+2025-09-24 09:04:15 INFO :: Processing item 104/695 | qid=2013306 doc=msmarco_passage_44_441748684
+2025-09-24 09:04:15 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:04:23 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:04:23 INFO :: Item 104/695 | qid=2013306 doc=msmarco_passage_44_441748684 | gold=2 → pred=0 | MISS | ms=8059 | agree-so-far=5/84 (5.95%)
+2025-09-24 09:04:23 DEBUG :: Insert prediction | idx=104 qid=2013306 doc=msmarco_passage_44_441748684 gold=2 pred=0 correct=False ms=8059
+2025-09-24 09:04:23 INFO :: Processing item 105/695 | qid=2013306 doc=msmarco_passage_44_621988575
+2025-09-24 09:04:23 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:04:35 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:04:35 INFO :: Item 105/695 | qid=2013306 doc=msmarco_passage_44_621988575 | gold=2 → pred=0 | MISS | ms=11985 | agree-so-far=5/85 (5.88%)
+2025-09-24 09:04:35 DEBUG :: Insert prediction | idx=105 qid=2013306 doc=msmarco_passage_44_621988575 gold=2 pred=0 correct=False ms=11985
+2025-09-24 09:04:35 DEBUG :: Committed batch at item 105
+2025-09-24 09:04:35 INFO :: Processing item 106/695 | qid=2013306 doc=msmarco_passage_44_664814301
+2025-09-24 09:04:35 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:04:51 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:04:51 INFO :: Item 106/695 | qid=2013306 doc=msmarco_passage_44_664814301 | gold=2 → pred=0 | MISS | ms=16603 | agree-so-far=5/86 (5.81%)
+2025-09-24 09:04:51 DEBUG :: Insert prediction | idx=106 qid=2013306 doc=msmarco_passage_44_664814301 gold=2 pred=0 correct=False ms=16603
+2025-09-24 09:04:51 INFO :: Processing item 107/695 | qid=2013306 doc=msmarco_passage_44_72968929
+2025-09-24 09:04:51 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:04:59 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:04:59 INFO :: Item 107/695 | qid=2013306 doc=msmarco_passage_44_72968929 | gold=2 → pred=2 | HIT | ms=7305 | agree-so-far=6/87 (6.90%)
+2025-09-24 09:04:59 DEBUG :: Insert prediction | idx=107 qid=2013306 doc=msmarco_passage_44_72968929 gold=2 pred=2 correct=True ms=7305
+2025-09-24 09:04:59 INFO :: Processing item 108/695 | qid=2013306 doc=msmarco_passage_45_183937216
+2025-09-24 09:04:59 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:05:06 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:05:06 INFO :: Item 108/695 | qid=2013306 doc=msmarco_passage_45_183937216 | gold=2 → pred=3 | MISS | ms=7064 | agree-so-far=6/88 (6.82%)
+2025-09-24 09:05:06 DEBUG :: Insert prediction | idx=108 qid=2013306 doc=msmarco_passage_45_183937216 gold=2 pred=3 correct=False ms=7064
+2025-09-24 09:05:06 INFO :: Processing item 109/695 | qid=2013306 doc=msmarco_passage_45_74047882
+2025-09-24 09:05:06 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:05:12 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:05:12 INFO :: Item 109/695 | qid=2013306 doc=msmarco_passage_45_74047882 | gold=2 → pred=3 | MISS | ms=5830 | agree-so-far=6/89 (6.74%)
+2025-09-24 09:05:12 DEBUG :: Insert prediction | idx=109 qid=2013306 doc=msmarco_passage_45_74047882 gold=2 pred=3 correct=False ms=5830
+2025-09-24 09:05:12 INFO :: Processing item 110/695 | qid=2013306 doc=msmarco_passage_46_426775145
+2025-09-24 09:05:12 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:05:19 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:05:19 INFO :: Item 110/695 | qid=2013306 doc=msmarco_passage_46_426775145 | gold=2 → pred=0 | MISS | ms=7024 | agree-so-far=6/90 (6.67%)
+2025-09-24 09:05:19 DEBUG :: Insert prediction | idx=110 qid=2013306 doc=msmarco_passage_46_426775145 gold=2 pred=0 correct=False ms=7024
+2025-09-24 09:05:19 DEBUG :: Committed batch at item 110
+2025-09-24 09:05:19 INFO :: Processing item 111/695 | qid=2013306 doc=msmarco_passage_46_497175232
+2025-09-24 09:05:19 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:05:24 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:05:24 INFO :: Item 111/695 | qid=2013306 doc=msmarco_passage_46_497175232 | gold=2 → pred=3 | MISS | ms=5686 | agree-so-far=6/91 (6.59%)
+2025-09-24 09:05:24 DEBUG :: Insert prediction | idx=111 qid=2013306 doc=msmarco_passage_46_497175232 gold=2 pred=3 correct=False ms=5686
+2025-09-24 09:05:24 INFO :: Processing item 112/695 | qid=2013306 doc=msmarco_passage_46_69106902
+2025-09-24 09:05:24 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:05:33 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:05:33 INFO :: Item 112/695 | qid=2013306 doc=msmarco_passage_46_69106902 | gold=2 → pred=3 | MISS | ms=8409 | agree-so-far=6/92 (6.52%)
+2025-09-24 09:05:33 DEBUG :: Insert prediction | idx=112 qid=2013306 doc=msmarco_passage_46_69106902 gold=2 pred=3 correct=False ms=8409
+2025-09-24 09:05:33 INFO :: Processing item 113/695 | qid=2013306 doc=msmarco_passage_47_344553240
+2025-09-24 09:05:33 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:05:40 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:05:40 INFO :: Item 113/695 | qid=2013306 doc=msmarco_passage_47_344553240 | gold=2 → pred=0 | MISS | ms=7388 | agree-so-far=6/93 (6.45%)
+2025-09-24 09:05:40 DEBUG :: Insert prediction | idx=113 qid=2013306 doc=msmarco_passage_47_344553240 gold=2 pred=0 correct=False ms=7388
+2025-09-24 09:05:40 INFO :: Processing item 114/695 | qid=2013306 doc=msmarco_passage_47_493124530
+2025-09-24 09:05:40 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:05:41 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:05:41 INFO :: Item 114/695 | qid=2013306 doc=msmarco_passage_47_493124530 | gold=2 → pred=0 | MISS | ms=1284 | agree-so-far=6/94 (6.38%)
+2025-09-24 09:05:41 DEBUG :: Insert prediction | idx=114 qid=2013306 doc=msmarco_passage_47_493124530 gold=2 pred=0 correct=False ms=1284
+2025-09-24 09:05:41 INFO :: Processing item 115/695 | qid=2013306 doc=msmarco_passage_47_493159635
+2025-09-24 09:05:41 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:05:43 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:05:43 INFO :: Item 115/695 | qid=2013306 doc=msmarco_passage_47_493159635 | gold=2 → pred=0 | MISS | ms=1282 | agree-so-far=6/95 (6.32%)
+2025-09-24 09:05:43 DEBUG :: Insert prediction | idx=115 qid=2013306 doc=msmarco_passage_47_493159635 gold=2 pred=0 correct=False ms=1282
+2025-09-24 09:05:43 DEBUG :: Committed batch at item 115
+2025-09-24 09:05:43 INFO :: Processing item 116/695 | qid=2013306 doc=msmarco_passage_47_493314356
+2025-09-24 09:05:43 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:05:44 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:05:44 INFO :: Item 116/695 | qid=2013306 doc=msmarco_passage_47_493314356 | gold=2 → pred=0 | MISS | ms=1301 | agree-so-far=6/96 (6.25%)
+2025-09-24 09:05:44 DEBUG :: Insert prediction | idx=116 qid=2013306 doc=msmarco_passage_47_493314356 gold=2 pred=0 correct=False ms=1301
+2025-09-24 09:05:44 INFO :: Processing item 117/695 | qid=2013306 doc=msmarco_passage_47_493326677
+2025-09-24 09:05:44 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:05:45 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:05:45 INFO :: Item 117/695 | qid=2013306 doc=msmarco_passage_47_493326677 | gold=2 → pred=0 | MISS | ms=1307 | agree-so-far=6/97 (6.19%)
+2025-09-24 09:05:45 DEBUG :: Insert prediction | idx=117 qid=2013306 doc=msmarco_passage_47_493326677 gold=2 pred=0 correct=False ms=1307
+2025-09-24 09:05:45 INFO :: Processing item 118/695 | qid=2013306 doc=msmarco_passage_47_493708793
+2025-09-24 09:05:45 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:05:47 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:05:47 INFO :: Item 118/695 | qid=2013306 doc=msmarco_passage_47_493708793 | gold=2 → pred=0 | MISS | ms=1335 | agree-so-far=6/98 (6.12%)
+2025-09-24 09:05:47 DEBUG :: Insert prediction | idx=118 qid=2013306 doc=msmarco_passage_47_493708793 gold=2 pred=0 correct=False ms=1335
+2025-09-24 09:05:47 INFO :: Processing item 119/695 | qid=2013306 doc=msmarco_passage_47_526386618
+2025-09-24 09:05:47 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:05:59 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:05:59 INFO :: Item 119/695 | qid=2013306 doc=msmarco_passage_47_526386618 | gold=2 → pred=0 | MISS | ms=12777 | agree-so-far=6/99 (6.06%)
+2025-09-24 09:05:59 DEBUG :: Insert prediction | idx=119 qid=2013306 doc=msmarco_passage_47_526386618 gold=2 pred=0 correct=False ms=12777
+2025-09-24 09:05:59 INFO :: Processing item 120/695 | qid=2013306 doc=msmarco_passage_47_603178953
+2025-09-24 09:05:59 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:06:01 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:06:01 INFO :: Item 120/695 | qid=2013306 doc=msmarco_passage_47_603178953 | gold=3 → pred=1 | MISS | ms=1309 | agree-so-far=6/100 (6.00%)
+2025-09-24 09:06:01 DEBUG :: Insert prediction | idx=120 qid=2013306 doc=msmarco_passage_47_603178953 gold=3 pred=1 correct=False ms=1309
+2025-09-24 09:06:01 DEBUG :: Committed batch at item 120
+2025-09-24 09:06:01 INFO :: Processing item 121/695 | qid=2013306 doc=msmarco_passage_48_172932935
+2025-09-24 09:06:01 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:06:09 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:06:09 INFO :: Item 121/695 | qid=2013306 doc=msmarco_passage_48_172932935 | gold=2 → pred=0 | MISS | ms=7900 | agree-so-far=6/101 (5.94%)
+2025-09-24 09:06:09 DEBUG :: Insert prediction | idx=121 qid=2013306 doc=msmarco_passage_48_172932935 gold=2 pred=0 correct=False ms=7900
+2025-09-24 09:06:09 INFO :: Processing item 122/695 | qid=2013306 doc=msmarco_passage_48_506872249
+2025-09-24 09:06:09 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:06:45 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:06:45 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:06:45 INFO :: Item 122/695 | qid=2013306 doc=msmarco_passage_48_506872249 | gold=2 → pred=None | N/A | ms=36531 | agree-so-far=6/101 (5.94%)
+2025-09-24 09:06:45 DEBUG :: Insert prediction | idx=122 qid=2013306 doc=msmarco_passage_48_506872249 gold=2 pred=None correct=None ms=36531
+2025-09-24 09:06:45 INFO :: Processing item 123/695 | qid=2013306 doc=msmarco_passage_48_577788045
+2025-09-24 09:06:45 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:06:53 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:06:53 INFO :: Item 123/695 | qid=2013306 doc=msmarco_passage_48_577788045 | gold=2 → pred=0 | MISS | ms=8054 | agree-so-far=6/102 (5.88%)
+2025-09-24 09:06:53 DEBUG :: Insert prediction | idx=123 qid=2013306 doc=msmarco_passage_48_577788045 gold=2 pred=0 correct=False ms=8054
+2025-09-24 09:06:53 INFO :: Processing item 124/695 | qid=2013306 doc=msmarco_passage_48_646807029
+2025-09-24 09:06:53 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:07:00 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:07:00 INFO :: Item 124/695 | qid=2013306 doc=msmarco_passage_48_646807029 | gold=2 → pred=3 | MISS | ms=6872 | agree-so-far=6/103 (5.83%)
+2025-09-24 09:07:00 DEBUG :: Insert prediction | idx=124 qid=2013306 doc=msmarco_passage_48_646807029 gold=2 pred=3 correct=False ms=6872
+2025-09-24 09:07:00 INFO :: Processing item 125/695 | qid=2013306 doc=msmarco_passage_48_67340798
+2025-09-24 09:07:00 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:07:08 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:07:08 INFO :: Item 125/695 | qid=2013306 doc=msmarco_passage_48_67340798 | gold=2 → pred=3 | MISS | ms=7451 | agree-so-far=6/104 (5.77%)
+2025-09-24 09:07:08 DEBUG :: Insert prediction | idx=125 qid=2013306 doc=msmarco_passage_48_67340798 gold=2 pred=3 correct=False ms=7451
+2025-09-24 09:07:08 DEBUG :: Committed batch at item 125
+2025-09-24 09:07:08 INFO :: Processing item 126/695 | qid=2013306 doc=msmarco_passage_48_67496255
+2025-09-24 09:07:08 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:07:44 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:07:44 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:07:44 INFO :: Item 126/695 | qid=2013306 doc=msmarco_passage_48_67496255 | gold=2 → pred=None | N/A | ms=36532 | agree-so-far=6/104 (5.77%)
+2025-09-24 09:07:44 DEBUG :: Insert prediction | idx=126 qid=2013306 doc=msmarco_passage_48_67496255 gold=2 pred=None correct=None ms=36532
+2025-09-24 09:07:44 INFO :: Processing item 127/695 | qid=2013306 doc=msmarco_passage_49_543708359
+2025-09-24 09:07:44 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:07:52 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:07:52 INFO :: Item 127/695 | qid=2013306 doc=msmarco_passage_49_543708359 | gold=2 → pred=0 | MISS | ms=7733 | agree-so-far=6/105 (5.71%)
+2025-09-24 09:07:52 DEBUG :: Insert prediction | idx=127 qid=2013306 doc=msmarco_passage_49_543708359 gold=2 pred=0 correct=False ms=7733
+2025-09-24 09:07:52 INFO :: Processing item 128/695 | qid=2013306 doc=msmarco_passage_49_66464484
+2025-09-24 09:07:52 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:07:53 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:07:53 INFO :: Item 128/695 | qid=2013306 doc=msmarco_passage_49_66464484 | gold=2 → pred=0 | MISS | ms=1408 | agree-so-far=6/106 (5.66%)
+2025-09-24 09:07:53 DEBUG :: Insert prediction | idx=128 qid=2013306 doc=msmarco_passage_49_66464484 gold=2 pred=0 correct=False ms=1408
+2025-09-24 09:07:53 INFO :: Processing item 129/695 | qid=2013306 doc=msmarco_passage_50_213218262
+2025-09-24 09:07:53 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:08:05 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:08:05 INFO :: Item 129/695 | qid=2013306 doc=msmarco_passage_50_213218262 | gold=2 → pred=0 | MISS | ms=11309 | agree-so-far=6/107 (5.61%)
+2025-09-24 09:08:05 DEBUG :: Insert prediction | idx=129 qid=2013306 doc=msmarco_passage_50_213218262 gold=2 pred=0 correct=False ms=11309
+2025-09-24 09:08:05 INFO :: Processing item 130/695 | qid=2013306 doc=msmarco_passage_50_449909777
+2025-09-24 09:08:05 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:08:12 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:08:12 INFO :: Item 130/695 | qid=2013306 doc=msmarco_passage_50_449909777 | gold=2 → pred=3 | MISS | ms=7764 | agree-so-far=6/108 (5.56%)
+2025-09-24 09:08:12 DEBUG :: Insert prediction | idx=130 qid=2013306 doc=msmarco_passage_50_449909777 gold=2 pred=3 correct=False ms=7764
+2025-09-24 09:08:12 DEBUG :: Committed batch at item 130
+2025-09-24 09:08:12 INFO :: Processing item 131/695 | qid=2013306 doc=msmarco_passage_51_592839389
+2025-09-24 09:08:12 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:08:18 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:08:18 INFO :: Item 131/695 | qid=2013306 doc=msmarco_passage_51_592839389 | gold=2 → pred=0 | MISS | ms=5662 | agree-so-far=6/109 (5.50%)
+2025-09-24 09:08:18 DEBUG :: Insert prediction | idx=131 qid=2013306 doc=msmarco_passage_51_592839389 gold=2 pred=0 correct=False ms=5662
+2025-09-24 09:08:18 INFO :: Processing item 132/695 | qid=2013306 doc=msmarco_passage_51_856349134
+2025-09-24 09:08:18 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:08:24 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:08:24 INFO :: Item 132/695 | qid=2013306 doc=msmarco_passage_51_856349134 | gold=2 → pred=3 | MISS | ms=6307 | agree-so-far=6/110 (5.45%)
+2025-09-24 09:08:24 DEBUG :: Insert prediction | idx=132 qid=2013306 doc=msmarco_passage_51_856349134 gold=2 pred=3 correct=False ms=6307
+2025-09-24 09:08:24 INFO :: Processing item 133/695 | qid=2013306 doc=msmarco_passage_52_545350787
+2025-09-24 09:08:24 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:08:33 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:08:33 INFO :: Item 133/695 | qid=2013306 doc=msmarco_passage_52_545350787 | gold=2 → pred=3 | MISS | ms=9010 | agree-so-far=6/111 (5.41%)
+2025-09-24 09:08:33 DEBUG :: Insert prediction | idx=133 qid=2013306 doc=msmarco_passage_52_545350787 gold=2 pred=3 correct=False ms=9010
+2025-09-24 09:08:33 INFO :: Processing item 134/695 | qid=2013306 doc=msmarco_passage_53_281625060
+2025-09-24 09:08:33 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:08:41 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:08:41 INFO :: Item 134/695 | qid=2013306 doc=msmarco_passage_53_281625060 | gold=2 → pred=3 | MISS | ms=7366 | agree-so-far=6/112 (5.36%)
+2025-09-24 09:08:41 DEBUG :: Insert prediction | idx=134 qid=2013306 doc=msmarco_passage_53_281625060 gold=2 pred=3 correct=False ms=7366
+2025-09-24 09:08:41 INFO :: Processing item 135/695 | qid=2013306 doc=msmarco_passage_53_56463321
+2025-09-24 09:08:41 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:09:17 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:09:17 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:09:17 INFO :: Item 135/695 | qid=2013306 doc=msmarco_passage_53_56463321 | gold=2 → pred=None | N/A | ms=36503 | agree-so-far=6/112 (5.36%)
+2025-09-24 09:09:17 DEBUG :: Insert prediction | idx=135 qid=2013306 doc=msmarco_passage_53_56463321 gold=2 pred=None correct=None ms=36503
+2025-09-24 09:09:17 DEBUG :: Committed batch at item 135
+2025-09-24 09:09:17 INFO :: Processing item 136/695 | qid=2013306 doc=msmarco_passage_54_12776485
+2025-09-24 09:09:17 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:09:28 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:09:28 INFO :: Item 136/695 | qid=2013306 doc=msmarco_passage_54_12776485 | gold=2 → pred=0 | MISS | ms=10676 | agree-so-far=6/113 (5.31%)
+2025-09-24 09:09:28 DEBUG :: Insert prediction | idx=136 qid=2013306 doc=msmarco_passage_54_12776485 gold=2 pred=0 correct=False ms=10676
+2025-09-24 09:09:28 INFO :: Processing item 137/695 | qid=2013306 doc=msmarco_passage_54_772786179
+2025-09-24 09:09:28 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:09:29 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:09:29 INFO :: Item 137/695 | qid=2013306 doc=msmarco_passage_54_772786179 | gold=2 → pred=0 | MISS | ms=1388 | agree-so-far=6/114 (5.26%)
+2025-09-24 09:09:29 DEBUG :: Insert prediction | idx=137 qid=2013306 doc=msmarco_passage_54_772786179 gold=2 pred=0 correct=False ms=1388
+2025-09-24 09:09:29 INFO :: Processing item 138/695 | qid=2013306 doc=msmarco_passage_55_256164475
+2025-09-24 09:09:29 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:09:42 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:09:42 INFO :: Item 138/695 | qid=2013306 doc=msmarco_passage_55_256164475 | gold=2 → pred=0 | MISS | ms=12202 | agree-so-far=6/115 (5.22%)
+2025-09-24 09:09:42 DEBUG :: Insert prediction | idx=138 qid=2013306 doc=msmarco_passage_55_256164475 gold=2 pred=0 correct=False ms=12202
+2025-09-24 09:09:42 INFO :: Processing item 139/695 | qid=2013306 doc=msmarco_passage_55_757282523
+2025-09-24 09:09:42 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:10:18 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:10:18 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:10:18 INFO :: Item 139/695 | qid=2013306 doc=msmarco_passage_55_757282523 | gold=2 → pred=None | N/A | ms=36536 | agree-so-far=6/115 (5.22%)
+2025-09-24 09:10:18 DEBUG :: Insert prediction | idx=139 qid=2013306 doc=msmarco_passage_55_757282523 gold=2 pred=None correct=None ms=36536
+2025-09-24 09:10:18 INFO :: Processing item 140/695 | qid=2013306 doc=msmarco_passage_55_861340136
+2025-09-24 09:10:18 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:10:55 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:10:55 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:10:55 INFO :: Item 140/695 | qid=2013306 doc=msmarco_passage_55_861340136 | gold=2 → pred=None | N/A | ms=36502 | agree-so-far=6/115 (5.22%)
+2025-09-24 09:10:55 DEBUG :: Insert prediction | idx=140 qid=2013306 doc=msmarco_passage_55_861340136 gold=2 pred=None correct=None ms=36502
+2025-09-24 09:10:55 DEBUG :: Committed batch at item 140
+2025-09-24 09:10:55 INFO :: Processing item 141/695 | qid=2013306 doc=msmarco_passage_56_165279232
+2025-09-24 09:10:55 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:11:02 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:11:02 INFO :: Item 141/695 | qid=2013306 doc=msmarco_passage_56_165279232 | gold=2 → pred=3 | MISS | ms=7456 | agree-so-far=6/116 (5.17%)
+2025-09-24 09:11:02 DEBUG :: Insert prediction | idx=141 qid=2013306 doc=msmarco_passage_56_165279232 gold=2 pred=3 correct=False ms=7456
+2025-09-24 09:11:02 INFO :: Processing item 142/695 | qid=2013306 doc=msmarco_passage_56_494125701
+2025-09-24 09:11:02 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:11:11 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:11:11 INFO :: Item 142/695 | qid=2013306 doc=msmarco_passage_56_494125701 | gold=2 → pred=3 | MISS | ms=8843 | agree-so-far=6/117 (5.13%)
+2025-09-24 09:11:11 DEBUG :: Insert prediction | idx=142 qid=2013306 doc=msmarco_passage_56_494125701 gold=2 pred=3 correct=False ms=8843
+2025-09-24 09:11:11 INFO :: Processing item 143/695 | qid=2013306 doc=msmarco_passage_57_135613631
+2025-09-24 09:11:11 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:11:17 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:11:17 INFO :: Item 143/695 | qid=2013306 doc=msmarco_passage_57_135613631 | gold=2 → pred=3 | MISS | ms=5735 | agree-so-far=6/118 (5.08%)
+2025-09-24 09:11:17 DEBUG :: Insert prediction | idx=143 qid=2013306 doc=msmarco_passage_57_135613631 gold=2 pred=3 correct=False ms=5735
+2025-09-24 09:11:17 INFO :: Processing item 144/695 | qid=2013306 doc=msmarco_passage_57_170414700
+2025-09-24 09:11:17 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:11:18 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:11:18 INFO :: Item 144/695 | qid=2013306 doc=msmarco_passage_57_170414700 | gold=2 → pred=0 | MISS | ms=1352 | agree-so-far=6/119 (5.04%)
+2025-09-24 09:11:18 DEBUG :: Insert prediction | idx=144 qid=2013306 doc=msmarco_passage_57_170414700 gold=2 pred=0 correct=False ms=1352
+2025-09-24 09:11:18 INFO :: Processing item 145/695 | qid=2013306 doc=msmarco_passage_57_170664257
+2025-09-24 09:11:18 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:11:19 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:11:19 INFO :: Item 145/695 | qid=2013306 doc=msmarco_passage_57_170664257 | gold=2 → pred=0 | MISS | ms=1358 | agree-so-far=6/120 (5.00%)
+2025-09-24 09:11:19 DEBUG :: Insert prediction | idx=145 qid=2013306 doc=msmarco_passage_57_170664257 gold=2 pred=0 correct=False ms=1358
+2025-09-24 09:11:19 DEBUG :: Committed batch at item 145
+2025-09-24 09:11:19 INFO :: Processing item 146/695 | qid=2013306 doc=msmarco_passage_57_530946227
+2025-09-24 09:11:19 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:11:26 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:11:26 INFO :: Item 146/695 | qid=2013306 doc=msmarco_passage_57_530946227 | gold=2 → pred=3 | MISS | ms=6768 | agree-so-far=6/121 (4.96%)
+2025-09-24 09:11:26 DEBUG :: Insert prediction | idx=146 qid=2013306 doc=msmarco_passage_57_530946227 gold=2 pred=3 correct=False ms=6768
+2025-09-24 09:11:26 INFO :: Processing item 147/695 | qid=2013306 doc=msmarco_passage_57_76069808
+2025-09-24 09:11:26 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:11:34 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:11:34 INFO :: Item 147/695 | qid=2013306 doc=msmarco_passage_57_76069808 | gold=2 → pred=0 | MISS | ms=7656 | agree-so-far=6/122 (4.92%)
+2025-09-24 09:11:34 DEBUG :: Insert prediction | idx=147 qid=2013306 doc=msmarco_passage_57_76069808 gold=2 pred=0 correct=False ms=7656
+2025-09-24 09:11:34 INFO :: Processing item 148/695 | qid=2013306 doc=msmarco_passage_58_627666346
+2025-09-24 09:11:34 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:12:01 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:12:01 INFO :: Item 148/695 | qid=2013306 doc=msmarco_passage_58_627666346 | gold=2 → pred=3 | MISS | ms=27454 | agree-so-far=6/123 (4.88%)
+2025-09-24 09:12:01 DEBUG :: Insert prediction | idx=148 qid=2013306 doc=msmarco_passage_58_627666346 gold=2 pred=3 correct=False ms=27454
+2025-09-24 09:12:01 INFO :: Processing item 149/695 | qid=2013306 doc=msmarco_passage_59_291073626
+2025-09-24 09:12:01 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:12:26 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:12:26 INFO :: Item 149/695 | qid=2013306 doc=msmarco_passage_59_291073626 | gold=2 → pred=0 | MISS | ms=24827 | agree-so-far=6/124 (4.84%)
+2025-09-24 09:12:26 DEBUG :: Insert prediction | idx=149 qid=2013306 doc=msmarco_passage_59_291073626 gold=2 pred=0 correct=False ms=24827
+2025-09-24 09:12:26 INFO :: Processing item 150/695 | qid=2013306 doc=msmarco_passage_59_323399588
+2025-09-24 09:12:26 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:12:35 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:12:35 INFO :: Item 150/695 | qid=2013306 doc=msmarco_passage_59_323399588 | gold=2 → pred=0 | MISS | ms=9143 | agree-so-far=6/125 (4.80%)
+2025-09-24 09:12:35 DEBUG :: Insert prediction | idx=150 qid=2013306 doc=msmarco_passage_59_323399588 gold=2 pred=0 correct=False ms=9143
+2025-09-24 09:12:35 DEBUG :: Committed batch at item 150
+2025-09-24 09:12:35 INFO :: Processing item 151/695 | qid=2013306 doc=msmarco_passage_59_527443738
+2025-09-24 09:12:35 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:12:42 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:12:42 INFO :: Item 151/695 | qid=2013306 doc=msmarco_passage_59_527443738 | gold=2 → pred=3 | MISS | ms=6557 | agree-so-far=6/126 (4.76%)
+2025-09-24 09:12:42 DEBUG :: Insert prediction | idx=151 qid=2013306 doc=msmarco_passage_59_527443738 gold=2 pred=3 correct=False ms=6557
+2025-09-24 09:12:42 INFO :: Processing item 152/695 | qid=2013306 doc=msmarco_passage_60_350872199
+2025-09-24 09:12:42 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:12:48 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:12:48 INFO :: Item 152/695 | qid=2013306 doc=msmarco_passage_60_350872199 | gold=2 → pred=3 | MISS | ms=6088 | agree-so-far=6/127 (4.72%)
+2025-09-24 09:12:48 DEBUG :: Insert prediction | idx=152 qid=2013306 doc=msmarco_passage_60_350872199 gold=2 pred=3 correct=False ms=6088
+2025-09-24 09:12:48 INFO :: Processing item 153/695 | qid=2013306 doc=msmarco_passage_60_353242627
+2025-09-24 09:12:48 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:12:52 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:12:52 INFO :: Item 153/695 | qid=2013306 doc=msmarco_passage_60_353242627 | gold=2 → pred=0 | MISS | ms=4484 | agree-so-far=6/128 (4.69%)
+2025-09-24 09:12:52 DEBUG :: Insert prediction | idx=153 qid=2013306 doc=msmarco_passage_60_353242627 gold=2 pred=0 correct=False ms=4484
+2025-09-24 09:12:52 INFO :: Processing item 154/695 | qid=2013306 doc=msmarco_passage_60_375095258
+2025-09-24 09:12:52 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:12:54 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:12:54 INFO :: Item 154/695 | qid=2013306 doc=msmarco_passage_60_375095258 | gold=2 → pred=0 | MISS | ms=1276 | agree-so-far=6/129 (4.65%)
+2025-09-24 09:12:54 DEBUG :: Insert prediction | idx=154 qid=2013306 doc=msmarco_passage_60_375095258 gold=2 pred=0 correct=False ms=1276
+2025-09-24 09:12:54 INFO :: Processing item 155/695 | qid=2013306 doc=msmarco_passage_60_785495286
+2025-09-24 09:12:54 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:13:03 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:13:03 INFO :: Item 155/695 | qid=2013306 doc=msmarco_passage_60_785495286 | gold=2 → pred=0 | MISS | ms=9312 | agree-so-far=6/130 (4.62%)
+2025-09-24 09:13:03 DEBUG :: Insert prediction | idx=155 qid=2013306 doc=msmarco_passage_60_785495286 gold=2 pred=0 correct=False ms=9312
+2025-09-24 09:13:03 DEBUG :: Committed batch at item 155
+2025-09-24 09:13:03 INFO :: Processing item 156/695 | qid=2013306 doc=msmarco_passage_61_136032094
+2025-09-24 09:13:03 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:13:04 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:13:04 INFO :: Item 156/695 | qid=2013306 doc=msmarco_passage_61_136032094 | gold=2 → pred=0 | MISS | ms=1334 | agree-so-far=6/131 (4.58%)
+2025-09-24 09:13:04 DEBUG :: Insert prediction | idx=156 qid=2013306 doc=msmarco_passage_61_136032094 gold=2 pred=0 correct=False ms=1334
+2025-09-24 09:13:04 INFO :: Processing item 157/695 | qid=2013306 doc=msmarco_passage_61_494424990
+2025-09-24 09:13:04 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:13:06 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:13:06 INFO :: Item 157/695 | qid=2013306 doc=msmarco_passage_61_494424990 | gold=2 → pred=0 | MISS | ms=1395 | agree-so-far=6/132 (4.55%)
+2025-09-24 09:13:06 DEBUG :: Insert prediction | idx=157 qid=2013306 doc=msmarco_passage_61_494424990 gold=2 pred=0 correct=False ms=1395
+2025-09-24 09:13:06 INFO :: Processing item 158/695 | qid=2013306 doc=msmarco_passage_62_153843610
+2025-09-24 09:13:06 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:13:42 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:13:42 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:13:42 INFO :: Item 158/695 | qid=2013306 doc=msmarco_passage_62_153843610 | gold=2 → pred=None | N/A | ms=36506 | agree-so-far=6/132 (4.55%)
+2025-09-24 09:13:42 DEBUG :: Insert prediction | idx=158 qid=2013306 doc=msmarco_passage_62_153843610 gold=2 pred=None correct=None ms=36506
+2025-09-24 09:13:42 INFO :: Processing item 159/695 | qid=2013306 doc=msmarco_passage_62_48305927
+2025-09-24 09:13:42 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:13:44 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:13:44 INFO :: Item 159/695 | qid=2013306 doc=msmarco_passage_62_48305927 | gold=2 → pred=0 | MISS | ms=1358 | agree-so-far=6/133 (4.51%)
+2025-09-24 09:13:44 DEBUG :: Insert prediction | idx=159 qid=2013306 doc=msmarco_passage_62_48305927 gold=2 pred=0 correct=False ms=1358
+2025-09-24 09:13:44 INFO :: Processing item 160/695 | qid=2013306 doc=msmarco_passage_64_299796282
+2025-09-24 09:13:44 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:13:55 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:13:55 INFO :: Item 160/695 | qid=2013306 doc=msmarco_passage_64_299796282 | gold=2 → pred=0 | MISS | ms=10982 | agree-so-far=6/134 (4.48%)
+2025-09-24 09:13:55 DEBUG :: Insert prediction | idx=160 qid=2013306 doc=msmarco_passage_64_299796282 gold=2 pred=0 correct=False ms=10982
+2025-09-24 09:13:55 DEBUG :: Committed batch at item 160
+2025-09-24 09:13:55 INFO :: Processing item 161/695 | qid=2013306 doc=msmarco_passage_64_42792675
+2025-09-24 09:13:55 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:13:56 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:13:56 INFO :: Item 161/695 | qid=2013306 doc=msmarco_passage_64_42792675 | gold=2 → pred=0 | MISS | ms=1450 | agree-so-far=6/135 (4.44%)
+2025-09-24 09:13:56 DEBUG :: Insert prediction | idx=161 qid=2013306 doc=msmarco_passage_64_42792675 gold=2 pred=0 correct=False ms=1450
+2025-09-24 09:13:56 INFO :: Processing item 162/695 | qid=2013306 doc=msmarco_passage_64_469431826
+2025-09-24 09:13:56 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:14:33 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:14:33 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:14:33 INFO :: Item 162/695 | qid=2013306 doc=msmarco_passage_64_469431826 | gold=2 → pred=None | N/A | ms=36494 | agree-so-far=6/135 (4.44%)
+2025-09-24 09:14:33 DEBUG :: Insert prediction | idx=162 qid=2013306 doc=msmarco_passage_64_469431826 gold=2 pred=None correct=None ms=36494
+2025-09-24 09:14:33 INFO :: Processing item 163/695 | qid=2013306 doc=msmarco_passage_64_552275770
+2025-09-24 09:14:33 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:14:40 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:14:40 INFO :: Item 163/695 | qid=2013306 doc=msmarco_passage_64_552275770 | gold=2 → pred=3 | MISS | ms=7010 | agree-so-far=6/136 (4.41%)
+2025-09-24 09:14:40 DEBUG :: Insert prediction | idx=163 qid=2013306 doc=msmarco_passage_64_552275770 gold=2 pred=3 correct=False ms=7010
+2025-09-24 09:14:40 INFO :: Processing item 164/695 | qid=2013306 doc=msmarco_passage_64_780524992
+2025-09-24 09:14:40 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:14:50 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:14:50 INFO :: Item 164/695 | qid=2013306 doc=msmarco_passage_64_780524992 | gold=2 → pred=3 | MISS | ms=10279 | agree-so-far=6/137 (4.38%)
+2025-09-24 09:14:50 DEBUG :: Insert prediction | idx=164 qid=2013306 doc=msmarco_passage_64_780524992 gold=2 pred=3 correct=False ms=10279
+2025-09-24 09:14:50 INFO :: Processing item 165/695 | qid=2013306 doc=msmarco_passage_64_780890801
+2025-09-24 09:14:50 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:15:26 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:15:26 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:15:26 INFO :: Item 165/695 | qid=2013306 doc=msmarco_passage_64_780890801 | gold=2 → pred=None | N/A | ms=36474 | agree-so-far=6/137 (4.38%)
+2025-09-24 09:15:26 DEBUG :: Insert prediction | idx=165 qid=2013306 doc=msmarco_passage_64_780890801 gold=2 pred=None correct=None ms=36474
+2025-09-24 09:15:26 DEBUG :: Committed batch at item 165
+2025-09-24 09:15:26 INFO :: Processing item 166/695 | qid=2013306 doc=msmarco_passage_64_781733167
+2025-09-24 09:15:26 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:16:03 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:16:03 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:16:03 INFO :: Item 166/695 | qid=2013306 doc=msmarco_passage_64_781733167 | gold=2 → pred=None | N/A | ms=36502 | agree-so-far=6/137 (4.38%)
+2025-09-24 09:16:03 DEBUG :: Insert prediction | idx=166 qid=2013306 doc=msmarco_passage_64_781733167 gold=2 pred=None correct=None ms=36502
+2025-09-24 09:16:03 INFO :: Processing item 167/695 | qid=2013306 doc=msmarco_passage_64_782523071
+2025-09-24 09:16:03 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:16:16 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:16:16 INFO :: Item 167/695 | qid=2013306 doc=msmarco_passage_64_782523071 | gold=2 → pred=0 | MISS | ms=13011 | agree-so-far=6/138 (4.35%)
+2025-09-24 09:16:16 DEBUG :: Insert prediction | idx=167 qid=2013306 doc=msmarco_passage_64_782523071 gold=2 pred=0 correct=False ms=13011
+2025-09-24 09:16:16 INFO :: Processing item 168/695 | qid=2013306 doc=msmarco_passage_64_783079361
+2025-09-24 09:16:16 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:16:21 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:16:21 INFO :: Item 168/695 | qid=2013306 doc=msmarco_passage_64_783079361 | gold=2 → pred=3 | MISS | ms=4861 | agree-so-far=6/139 (4.32%)
+2025-09-24 09:16:21 DEBUG :: Insert prediction | idx=168 qid=2013306 doc=msmarco_passage_64_783079361 gold=2 pred=3 correct=False ms=4861
+2025-09-24 09:16:21 INFO :: Processing item 169/695 | qid=2013306 doc=msmarco_passage_64_783406419
+2025-09-24 09:16:21 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:16:40 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:16:40 INFO :: Item 169/695 | qid=2013306 doc=msmarco_passage_64_783406419 | gold=2 → pred=3 | MISS | ms=19402 | agree-so-far=6/140 (4.29%)
+2025-09-24 09:16:40 DEBUG :: Insert prediction | idx=169 qid=2013306 doc=msmarco_passage_64_783406419 gold=2 pred=3 correct=False ms=19402
+2025-09-24 09:16:40 INFO :: Processing item 170/695 | qid=2013306 doc=msmarco_passage_64_803829084
+2025-09-24 09:16:40 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:16:46 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:16:46 INFO :: Item 170/695 | qid=2013306 doc=msmarco_passage_64_803829084 | gold=2 → pred=3 | MISS | ms=6308 | agree-so-far=6/141 (4.26%)
+2025-09-24 09:16:46 DEBUG :: Insert prediction | idx=170 qid=2013306 doc=msmarco_passage_64_803829084 gold=2 pred=3 correct=False ms=6308
+2025-09-24 09:16:46 DEBUG :: Committed batch at item 170
+2025-09-24 09:16:46 INFO :: Processing item 171/695 | qid=2013306 doc=msmarco_passage_64_810746413
+2025-09-24 09:16:46 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:16:51 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:16:51 INFO :: Item 171/695 | qid=2013306 doc=msmarco_passage_64_810746413 | gold=2 → pred=0 | MISS | ms=4318 | agree-so-far=6/142 (4.23%)
+2025-09-24 09:16:51 DEBUG :: Insert prediction | idx=171 qid=2013306 doc=msmarco_passage_64_810746413 gold=2 pred=0 correct=False ms=4318
+2025-09-24 09:16:51 INFO :: Processing item 172/695 | qid=2013306 doc=msmarco_passage_65_334290127
+2025-09-24 09:16:51 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:16:56 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:16:56 INFO :: Item 172/695 | qid=2013306 doc=msmarco_passage_65_334290127 | gold=2 → pred=3 | MISS | ms=5249 | agree-so-far=6/143 (4.20%)
+2025-09-24 09:16:56 DEBUG :: Insert prediction | idx=172 qid=2013306 doc=msmarco_passage_65_334290127 gold=2 pred=3 correct=False ms=5249
+2025-09-24 09:16:56 INFO :: Processing item 173/695 | qid=2013306 doc=msmarco_passage_65_579574461
+2025-09-24 09:16:56 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:17:15 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:17:15 INFO :: Item 173/695 | qid=2013306 doc=msmarco_passage_65_579574461 | gold=2 → pred=0 | MISS | ms=19105 | agree-so-far=6/144 (4.17%)
+2025-09-24 09:17:15 DEBUG :: Insert prediction | idx=173 qid=2013306 doc=msmarco_passage_65_579574461 gold=2 pred=0 correct=False ms=19105
+2025-09-24 09:17:15 INFO :: Processing item 174/695 | qid=2013306 doc=msmarco_passage_66_266954917
+2025-09-24 09:17:15 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:17:22 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:17:22 INFO :: Item 174/695 | qid=2013306 doc=msmarco_passage_66_266954917 | gold=2 → pred=3 | MISS | ms=7155 | agree-so-far=6/145 (4.14%)
+2025-09-24 09:17:22 DEBUG :: Insert prediction | idx=174 qid=2013306 doc=msmarco_passage_66_266954917 gold=2 pred=3 correct=False ms=7155
+2025-09-24 09:17:22 INFO :: Processing item 175/695 | qid=2013306 doc=msmarco_passage_66_665088892
+2025-09-24 09:17:22 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:17:29 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:17:29 INFO :: Item 175/695 | qid=2013306 doc=msmarco_passage_66_665088892 | gold=2 → pred=0 | MISS | ms=6627 | agree-so-far=6/146 (4.11%)
+2025-09-24 09:17:29 DEBUG :: Insert prediction | idx=175 qid=2013306 doc=msmarco_passage_66_665088892 gold=2 pred=0 correct=False ms=6627
+2025-09-24 09:17:29 DEBUG :: Committed batch at item 175
+2025-09-24 09:17:29 INFO :: Processing item 176/695 | qid=2013306 doc=msmarco_passage_68_275087345
+2025-09-24 09:17:29 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:18:06 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:18:06 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:18:06 INFO :: Item 176/695 | qid=2013306 doc=msmarco_passage_68_275087345 | gold=2 → pred=None | N/A | ms=36537 | agree-so-far=6/146 (4.11%)
+2025-09-24 09:18:06 DEBUG :: Insert prediction | idx=176 qid=2013306 doc=msmarco_passage_68_275087345 gold=2 pred=None correct=None ms=36537
+2025-09-24 09:18:06 INFO :: Processing item 177/695 | qid=2013306 doc=msmarco_passage_68_601355218
+2025-09-24 09:18:06 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:18:12 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:18:12 INFO :: Item 177/695 | qid=2013306 doc=msmarco_passage_68_601355218 | gold=2 → pred=0 | MISS | ms=6092 | agree-so-far=6/147 (4.08%)
+2025-09-24 09:18:12 DEBUG :: Insert prediction | idx=177 qid=2013306 doc=msmarco_passage_68_601355218 gold=2 pred=0 correct=False ms=6092
+2025-09-24 09:18:12 INFO :: Processing item 178/695 | qid=2013306 doc=msmarco_passage_68_737600998
+2025-09-24 09:18:12 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:18:18 DEBUG :: LLM call attempt 1/1 succeeded.
+2025-09-24 09:18:18 INFO :: Item 178/695 | qid=2013306 doc=msmarco_passage_68_737600998 | gold=2 → pred=0 | MISS | ms=6692 | agree-so-far=6/148 (4.05%)
+2025-09-24 09:18:18 DEBUG :: Insert prediction | idx=178 qid=2013306 doc=msmarco_passage_68_737600998 gold=2 pred=0 correct=False ms=6692
+2025-09-24 09:18:18 INFO :: Processing item 179/695 | qid=2013306 doc=msmarco_passage_68_748644481
+2025-09-24 09:18:18 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:18:55 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:18:55 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:18:55 INFO :: Item 179/695 | qid=2013306 doc=msmarco_passage_68_748644481 | gold=2 → pred=None | N/A | ms=36511 | agree-so-far=6/148 (4.05%)
+2025-09-24 09:18:55 DEBUG :: Insert prediction | idx=179 qid=2013306 doc=msmarco_passage_68_748644481 gold=2 pred=None correct=None ms=36511
+2025-09-24 09:18:55 INFO :: Processing item 180/695 | qid=2013306 doc=msmarco_passage_68_749457569
+2025-09-24 09:18:55 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:19:31 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:19:31 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:19:31 INFO :: Item 180/695 | qid=2013306 doc=msmarco_passage_68_749457569 | gold=2 → pred=None | N/A | ms=36531 | agree-so-far=6/148 (4.05%)
+2025-09-24 09:19:31 DEBUG :: Insert prediction | idx=180 qid=2013306 doc=msmarco_passage_68_749457569 gold=2 pred=None correct=None ms=36531
+2025-09-24 09:19:31 DEBUG :: Committed batch at item 180
+2025-09-24 09:19:31 INFO :: Processing item 181/695 | qid=2013306 doc=msmarco_passage_68_750723217
+2025-09-24 09:19:31 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:20:08 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:20:08 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:20:08 INFO :: Item 181/695 | qid=2013306 doc=msmarco_passage_68_750723217 | gold=2 → pred=None | N/A | ms=36547 | agree-so-far=6/148 (4.05%)
+2025-09-24 09:20:08 DEBUG :: Insert prediction | idx=181 qid=2013306 doc=msmarco_passage_68_750723217 gold=2 pred=None correct=None ms=36547
+2025-09-24 09:20:08 INFO :: Processing item 182/695 | qid=2013306 doc=msmarco_passage_68_750847657
+2025-09-24 09:20:08 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:20:44 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:20:44 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:20:44 INFO :: Item 182/695 | qid=2013306 doc=msmarco_passage_68_750847657 | gold=2 → pred=None | N/A | ms=36509 | agree-so-far=6/148 (4.05%)
+2025-09-24 09:20:44 DEBUG :: Insert prediction | idx=182 qid=2013306 doc=msmarco_passage_68_750847657 gold=2 pred=None correct=None ms=36509
+2025-09-24 09:20:44 INFO :: Processing item 183/695 | qid=2013306 doc=msmarco_passage_68_751002107
+2025-09-24 09:20:44 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:21:21 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:21:21 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:21:21 INFO :: Item 183/695 | qid=2013306 doc=msmarco_passage_68_751002107 | gold=2 → pred=None | N/A | ms=36527 | agree-so-far=6/148 (4.05%)
+2025-09-24 09:21:21 DEBUG :: Insert prediction | idx=183 qid=2013306 doc=msmarco_passage_68_751002107 gold=2 pred=None correct=None ms=36527
+2025-09-24 09:21:21 INFO :: Processing item 184/695 | qid=2013306 doc=msmarco_passage_68_751321350
+2025-09-24 09:21:21 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:21:58 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:21:58 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:21:58 INFO :: Item 184/695 | qid=2013306 doc=msmarco_passage_68_751321350 | gold=2 → pred=None | N/A | ms=36539 | agree-so-far=6/148 (4.05%)
+2025-09-24 09:21:58 DEBUG :: Insert prediction | idx=184 qid=2013306 doc=msmarco_passage_68_751321350 gold=2 pred=None correct=None ms=36539
+2025-09-24 09:21:58 INFO :: Processing item 185/695 | qid=2013306 doc=msmarco_passage_68_751921759
+2025-09-24 09:21:58 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:22:34 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:22:34 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:22:34 INFO :: Item 185/695 | qid=2013306 doc=msmarco_passage_68_751921759 | gold=2 → pred=None | N/A | ms=36507 | agree-so-far=6/148 (4.05%)
+2025-09-24 09:22:34 DEBUG :: Insert prediction | idx=185 qid=2013306 doc=msmarco_passage_68_751921759 gold=2 pred=None correct=None ms=36507
+2025-09-24 09:22:34 DEBUG :: Committed batch at item 185
+2025-09-24 09:22:34 INFO :: Processing item 186/695 | qid=2013306 doc=msmarco_passage_68_752120615
+2025-09-24 09:22:34 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:23:11 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:23:11 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:23:11 INFO :: Item 186/695 | qid=2013306 doc=msmarco_passage_68_752120615 | gold=2 → pred=None | N/A | ms=36532 | agree-so-far=6/148 (4.05%)
+2025-09-24 09:23:11 DEBUG :: Insert prediction | idx=186 qid=2013306 doc=msmarco_passage_68_752120615 gold=2 pred=None correct=None ms=36532
+2025-09-24 09:23:11 INFO :: Processing item 187/695 | qid=2013306 doc=msmarco_passage_68_752459725
+2025-09-24 09:23:11 DEBUG :: LLM call attempt 1/1
+2025-09-24 09:23:47 WARNING :: LLM (hf_endpoint) call returned no prediction on attempt 1/1
+2025-09-24 09:23:47 WARNING :: LLM call failed after 1 attempts; returning None
+2025-09-24 09:23:47 INFO :: Item 187/695 | qid=2013306 doc=msmarco_passage_68_752459725 | gold=2 → pred=None | N/A | ms=36583 | agree-so-far=6/148 (4.05%)
+2025-09-24 09:23:47 DEBUG :: Insert prediction | idx=187 qid=2013306 doc=msmarco_passage_68_752459725 gold=2 pred=None correct=None ms=36583
+2025-09-24 09:23:47 INFO :: Processing item 188/695 | qid=2013306 doc=msmarco_passage_68_752637314
+2025-09-24 09:23:47 DEBUG :: LLM call attempt 1/1

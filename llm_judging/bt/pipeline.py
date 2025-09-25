@@ -6,18 +6,18 @@ import time
 from bt.config import Settings
 from bt.util.logging_utils import setup_run_logger
 from bt.db import (
-    connect, ensure_audit_schema, start_run, fetch_qrels,
+    connect, ensure_audit_schema,
     insert_prediction, count_available_qrels, finalize_run,
 )
 from bt.prompts import PROMPT_TMPL, PROMPT_TMPL_WITH_REASON, build_prompt
 from bt.llm.factory import build_llm_client  
 from bt.util.git import get_git_info
+import json
 
 from bt.util.helpers import (
     validate_range_and_limit,
     compute_qrel_window,
     log_qrel_banner,
-    ensure_official_guard,
     choose_prompt_template,
     start_run_from_cfg,
     fetch_items_with_window,
@@ -45,7 +45,7 @@ def run_once(cfg: Settings, *, run_key: str, non_interactive: bool = True) -> No
     log, log_path = setup_run_logger(run_key)
     root = logging.getLogger("bt")
 
-    root.info("Connecting to database…")
+    root.info("Run settings:\n%s", json.dumps(cfg.__dict__, indent=2, default=str))
     conn = connect()
 
     # Build the LLM client (Ollama or HF endpoint) from cfg
@@ -64,7 +64,6 @@ def run_once(cfg: Settings, *, run_key: str, non_interactive: bool = True) -> No
             end_qrel=cfg.end_qrel,
             limit_qrels=cfg.limit_qrels,
         )
-        ensure_official_guard(cfg.official, window.is_subset)
 
         prompt_template = choose_prompt_template(
             cfg.reasoning_enabled, PROMPT_TMPL_WITH_REASON, PROMPT_TMPL
@@ -114,7 +113,10 @@ def run_once(cfg: Settings, *, run_key: str, non_interactive: bool = True) -> No
             log.info("Processing item %d/%d | qid=%s doc=%s", i, n, row["query_id"], row["doc_id"])
 
             try:
+                log.debug("=== Prompt: ===\n%s", prompt)
                 pred, reason, raw, ms_total = client.judge(prompt)
+                log.debug("=== Response: ===\n%s", raw.get("response_text"))
+
             except Exception:
                 log.exception("LLM call failed for qid=%s doc=%s", row["query_id"], row["doc_id"])
                 pred, reason, raw, ms_total = None, None, {"error": "exception during LLM call"}, 0

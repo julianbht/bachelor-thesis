@@ -185,7 +185,7 @@ def start_run(
             ),
         )
     conn.commit()
-    log.info("Run started: key=%s | model=%s data=%s audit=%s", run_key, model, data_schema, audit_schema)
+    log.info("Run started: key=%s", run_key)
     return run_key
 
 
@@ -200,7 +200,7 @@ def count_available_qrels(conn, data_schema: str) -> int:
     with conn.cursor() as cur:
         cur.execute(sql)
         c = int(cur.fetchone()[0])
-        log.info("Available qrels: %d (schema=%s)", c, data_schema)
+        log.info("Available qrels: %d", c)
         return c
 
 

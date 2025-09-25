@@ -5,9 +5,11 @@
   "max_text_chars": null,
   "commit_every": 5,
   "limit_qrels": 1000,
+  "start_qrel": 300,
+  "end_qrel": 1000,
   "official": false,
   "user_notes": "test run",
-  "retry_enabled": true,
+  "retry_enabled": false,
   "retry_attempts": 2,
   "retry_backoff_ms": 50
 }

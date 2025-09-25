@@ -5,8 +5,8 @@ data/ms_marco_doc_v2_postgres_subset_csv/docs.csv
 # logs that are not official runs
 llm_judging/logs_unofficial
 
-# python bytecode & cache
+# python cache
 **/__pycache__/
-*.py[cod]
-*$py.class
+__pycache__/
+*.pyc
 
