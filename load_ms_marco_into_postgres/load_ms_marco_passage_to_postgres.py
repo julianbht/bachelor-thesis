@@ -1,11 +1,19 @@
 from __future__ import annotations
+
+import os
+import io
+import csv
+import tarfile
+import gzip
+import shutil
+import pathlib
+import random
 from dataclasses import dataclass
 from typing import Iterable, Iterator, Optional, Tuple, List, Set, Dict
-import random
 
+import requests
 import psycopg2
 import psycopg2.extras
-import ir_datasets
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -21,38 +29,178 @@ class Pg:
     password: str = "123"
     schema: str = "passage"
 
+# Data sources (official)
+QUERIES_URL = "https://msmarco.z22.web.core.windows.net/msmarcoranking/msmarco-test2019-queries.tsv.gz"
+QRELS_PASS_URL = "https://trec.nist.gov/data/deep/2019qrels-pass.txt"
+COLLECTION_URL = "https://msmarco.z22.web.core.windows.net/msmarcoranking/collection.tar.gz"  # contains collection.tsv
 
-DATASET_ID = "msmarco-passage/trec-dl-2019/judged"   # queries + qrels
-DOC_DATASET_ID = "msmarco-passage"                   # docs via doc_store
-PER_CLASS = 250                                      # per relevance class
+# Local cache
+BASE = pathlib.Path(__file__).resolve().parent
+CACHE = BASE / ".msmarco_cache"
+CACHE.mkdir(exist_ok=True)
+
+QUERIES_GZ = CACHE / "msmarco-test2019-queries.tsv.gz"
+QRELS_TXT = CACHE / "2019qrels-pass.txt"
+COLLECTION_TAR = CACHE / "collection.tar.gz"
+
+# Balanced sampling
+PER_CLASS = 250
 RELEVANCE_CLASSES = (0, 1, 2, 3)
-RANDOM_SEED = 42                                     # deterministic sampling
+RANDOM_SEED = 42  # deterministic sampling
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# DB utils
+# Download helpers
+# ──────────────────────────────────────────────────────────────────────────────
+
+def download(url: str, dest: pathlib.Path) -> None:
+    """Stream download to a temp file then atomic rename (project-local, avoids %TEMP%)."""
+    if dest.exists():
+        return
+    tmp = dest.with_suffix(dest.suffix + ".tmp")
+    with requests.get(url, stream=True, timeout=60) as r:
+        r.raise_for_status()
+        with open(tmp, "wb") as f:
+            for chunk in r.iter_content(chunk_size=1 << 20):
+                if chunk:
+                    f.write(chunk)
+    tmp.replace(dest)
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Parsers
+# ──────────────────────────────────────────────────────────────────────────────
+
+def parse_queries_tsv_gz(path: pathlib.Path) -> Dict[str, str]:
+    """Return {query_id: text} from gzipped TSV with columns: qid<TAB>query."""
+    out: Dict[str, str] = {}
+    with gzip.open(path, "rt", encoding="utf-8", newline="") as f:
+        reader = csv.reader(f, delimiter="\t")
+        for row in reader:
+            if len(row) >= 2:
+                qid, text = row[0].strip(), row[1]
+                if qid and qid.isdigit():
+                    out[qid] = text
+    return out
+
+
+def parse_qrels_file(path: pathlib.Path) -> List[Tuple[str, str, int]]:
+    """
+    TREC qrels format (passage): qid 0 docid relevance
+    Returns list of (query_id, doc_id, relevance).
+    """
+    items: List[Tuple[str, str, int]] = []
+    with open(path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            p = line.split()
+            if len(p) < 4:
+                continue
+            qid, docid, rel = p[0], p[2], p[3]
+            if qid.isdigit() and docid and rel.lstrip("-").isdigit():
+                items.append((qid, docid, int(rel)))
+    return items
+
+
+def balanced_sample_qrels(all_qrels: List[Tuple[str, str, int]],
+                          per_class: int,
+                          classes: Iterable[int]) -> List[Tuple[str, str, int]]:
+    buckets: Dict[int, List[Tuple[str, str, int]]] = {c: [] for c in classes}
+    for qid, did, rel in all_qrels:
+        if rel in buckets:
+            buckets[rel].append((qid, did, rel))
+
+    shortages = {rel: len(lst) for rel, lst in buckets.items() if len(lst) < per_class}
+    if shortages:
+        details = ", ".join(f"rel={rel}: have {cnt}, need {per_class}" for rel, cnt in shortages.items())
+        raise RuntimeError(f"Not enough judged qrels for balanced sampling: {details}")
+
+    rng = random.Random(RANDOM_SEED)
+    out: List[Tuple[str, str, int]] = []
+    for rel, lst in buckets.items():
+        rng.shuffle(lst)
+        out.extend(lst[:per_class])
+
+    out.sort(key=lambda t: (t[2], t[0], t[1]))
+    return out
+
+
+def iter_collection_tsv_from_tar_gz(tar_path: pathlib.Path) -> Iterator[Tuple[str, str]]:
+    """
+    Yield (doc_id, text) rows from collection.tsv contained in collection.tar.gz.
+    Streams without extracting to disk.
+    """
+    # Open streaming; there is usually a single member named 'collection.tsv'
+    with tarfile.open(tar_path, mode="r:gz") as tf:
+        member = None
+        for m in tf.getmembers():
+            if m.name.endswith("collection.tsv"):
+                member = m
+                break
+        if member is None:
+            # fallback: pick first *.tsv inside
+            for m in tf.getmembers():
+                if m.name.lower().endswith(".tsv"):
+                    member = m
+                    break
+        if member is None:
+            raise RuntimeError("Could not find collection.tsv inside collection.tar.gz")
+
+        fobj = tf.extractfile(member)
+        if fobj is None:
+            raise RuntimeError("Failed to open collection.tsv from tar")
+
+        # Each line: doc_id<TAB>text
+        with io.TextIOWrapper(fobj, encoding="utf-8", newline="") as f:
+            reader = csv.reader(f, delimiter="\t")
+            for row in reader:
+                if not row:
+                    continue
+                doc_id = row[0].strip()
+                text = row[1] if len(row) > 1 else ""
+                if doc_id:
+                    yield (doc_id, text)
+
+
+def collect_docs_subset_from_collection(tar_path: pathlib.Path,
+                                        needed_ids: Set[str]) -> List[Tuple[str, str]]:
+    """
+    Scan collection.tsv in the tarball and return [(doc_id, text)] for needed_ids only.
+    Stops early once all are found.
+    """
+    found: Dict[str, str] = {}
+    total_needed = len(needed_ids)
+    for doc_id, text in iter_collection_tsv_from_tar_gz(tar_path):
+        if doc_id in needed_ids and doc_id not in found:
+            found[doc_id] = text
+            if len(found) == total_needed:
+                break
+
+    missing = needed_ids - set(found.keys())
+    if missing:
+        raise RuntimeError(f"Missing {len(missing)} documents from collection; first few: {sorted(list(missing))[:10]}")
+    # Keep insertion order stable matching the first-seen in needed_ids
+    return [(did, found[did]) for did in needed_ids]
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# DB utils (match bt/db.py)
 # ──────────────────────────────────────────────────────────────────────────────
 
 def connect(pg: Pg):
-    dsn = (
-        f"host={pg.host} port={pg.port} dbname={pg.dbname} "
-        f"user={pg.user} password={pg.password}"
-    )
+    dsn = f"host={pg.host} port={pg.port} dbname={pg.dbname} user={pg.user} password={pg.password}"
     conn = psycopg2.connect(dsn)
     conn.autocommit = False
     return conn
 
 
 def ensure_schema_and_tables(conn, schema: str) -> None:
-    """
-    Create tables to match bt/db.py expectations:
-      queries(query_id TEXT, text TEXT)
-      docs(doc_id TEXT, text TEXT)
-      qrels(query_id TEXT, doc_id TEXT, relevance INT)
-    """
     with conn.cursor() as cur:
         cur.execute(f'CREATE SCHEMA IF NOT EXISTS "{schema}";')
 
+        # queries(query_id TEXT, text TEXT)
         cur.execute(f"""
             CREATE TABLE IF NOT EXISTS "{schema}".queries (
                 query_id TEXT PRIMARY KEY,
@@ -60,6 +208,7 @@ def ensure_schema_and_tables(conn, schema: str) -> None:
             );
         """)
 
+        # docs(doc_id TEXT, text TEXT)
         cur.execute(f"""
             CREATE TABLE IF NOT EXISTS "{schema}".docs (
                 doc_id TEXT PRIMARY KEY,
@@ -67,6 +216,7 @@ def ensure_schema_and_tables(conn, schema: str) -> None:
             );
         """)
 
+        # qrels(query_id TEXT, doc_id TEXT, relevance INT)
         cur.execute(f"""
             CREATE TABLE IF NOT EXISTS "{schema}".qrels (
                 query_id  TEXT NOT NULL REFERENCES "{schema}".queries(query_id) ON DELETE CASCADE,
@@ -118,73 +268,6 @@ def execute_values_upsert(
         conn.commit()
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# ir_datasets adapters
-# ──────────────────────────────────────────────────────────────────────────────
-
-def build_query_map(ds) -> Dict[str, str]:
-    """Return {query_id(str): text} for TREC DL 2019 queries (passage)."""
-    return {str(q.query_id): q.text for q in ds.queries_iter()}
-
-
-def balanced_qrels(ds, per_class: int, classes: Iterable[int]) -> List[Tuple[str, str, int]]:
-    """
-    Return exactly per_class items for each relevance in classes, as (query_id:str, doc_id:str, relevance:int).
-    Raises RuntimeError if any class has too few.
-    """
-    buckets: Dict[int, List[Tuple[str, str, int]]] = {c: [] for c in classes}
-
-    for r in ds.qrels_iter():
-        qid = str(r.query_id)
-        did = str(r.doc_id)
-        rel = int(r.relevance)
-        if rel in buckets:
-            buckets[rel].append((qid, did, rel))
-
-    shortages = {rel: len(items) for rel, items in buckets.items() if len(items) < per_class}
-    if shortages:
-        details = ", ".join(f"rel={rel}: have {count}, need {per_class}" for rel, count in shortages.items())
-        raise RuntimeError(f"Not enough judged qrels for balanced sampling: {details}")
-
-    rng = random.Random(RANDOM_SEED)
-    selected: List[Tuple[str, str, int]] = []
-    for rel, items in buckets.items():
-        rng.shuffle(items)
-        selected.extend(items[:per_class])
-
-    selected.sort(key=lambda t: (t[2], t[0], t[1]))  # stable order
-    return selected
-
-
-def fetch_passages_for_ids_list(doc_ds, doc_ids: List[str]) -> Tuple[List[Tuple[str, str]], Set[str]]:
-    """
-    Fetch (doc_id, text) for given doc_ids using doc_store ONLY (passage corpus).
-    Returns (rows, found_ids).
-    """
-    store = getattr(doc_ds, "docs_store", None)
-    if callable(store):
-        store = store()
-    if store is None:
-        raise RuntimeError("Document dataset has no doc_store. Use 'msmarco-passage'.")
-
-    rows: List[Tuple[str, str]] = []
-    found: Set[str] = set()
-
-    for did in doc_ids:
-        d = store.get(did)
-        if d is None:
-            continue
-        text = getattr(d, "text", None) or ""
-        rows.append((d.doc_id, text))
-        found.add(d.doc_id)
-
-    return rows, found
-
-
-# ──────────────────────────────────────────────────────────────────────────────
-# ETL stages
-# ──────────────────────────────────────────────────────────────────────────────
-
 def load_queries(conn, schema: str, it: Iterable[Tuple[str, str]]) -> None:
     execute_values_upsert(conn, schema, "queries", ["query_id", "text"], it,
                           conflict_cols=["query_id"], update_cols=["text"])
@@ -205,44 +288,40 @@ def load_qrels(conn, schema: str, it: Iterable[Tuple[str, str, int]]) -> None:
 # ──────────────────────────────────────────────────────────────────────────────
 
 def main():
-    # 1) Load datasets
-    ds = ir_datasets.load(DATASET_ID)     # queries + qrels (judged)
-    doc_ds = ir_datasets.load(DOC_DATASET_ID)  # passages with doc_store
+    # 0) Download sources into project-local cache
+    print("Downloading queries and qrels…")
+    download(QUERIES_URL, QUERIES_GZ)
+    download(QRELS_PASS_URL, QRELS_TXT)
+    if not COLLECTION_TAR.exists():
+        print("Downloading MS MARCO passage collection (large, one-time)…")
+        download(COLLECTION_URL, COLLECTION_TAR)
 
-    # 2) Balanced sample of qrels: 250 per class {0,1,2,3}
-    selected_qrels = balanced_qrels(ds, PER_CLASS, RELEVANCE_CLASSES)
-    assert len(selected_qrels) == PER_CLASS * len(RELEVANCE_CLASSES)  # 1000
+    # 1) Parse queries & qrels
+    qmap = parse_queries_tsv_gz(QUERIES_GZ)
+    all_qrels = parse_qrels_file(QRELS_TXT)
 
-    # 3) Collect referenced IDs
-    selected_qids: Set[str] = set()
-    selected_docids_ordered: List[str] = []
-    for qid, did, rel in selected_qrels:
-        selected_qids.add(qid)
-        selected_docids_ordered.append(did)
+    # 2) Balanced selection: 250 per relevance class
+    selected_qrels = balanced_sample_qrels(all_qrels, PER_CLASS, RELEVANCE_CLASSES)
+    assert len(selected_qrels) == PER_CLASS * len(RELEVANCE_CLASSES)
 
-    # Dedup doc_ids preserving order
-    seen: Set[str] = set()
-    unique_docids: List[str] = []
-    for did in selected_docids_ordered:
-        if did not in seen:
-            seen.add(did)
-            unique_docids.append(did)
+    # 3) Collect IDs
+    selected_qids: Set[str] = {qid for qid, _, _ in selected_qrels}
+    docids_in_order: List[str] = [did for _, did, _ in selected_qrels]
+    needed_docids: Set[str] = set(docids_in_order)
 
-    # 4) Build query map and slice to selected qids
-    qmap = build_query_map(ds)
+    # Verify queries available
     missing_q = [qid for qid in selected_qids if qid not in qmap]
     if missing_q:
         raise RuntimeError(f"Missing queries for qids: {missing_q[:10]} (+{max(0, len(missing_q)-10)} more)")
 
     selected_queries = ((qid, qmap[qid]) for qid in sorted(selected_qids))
 
-    # 5) Fetch passages from doc_store and verify all exist
-    doc_rows, found_ids = fetch_passages_for_ids_list(doc_ds, unique_docids)
-    missing_docs = [d for d in unique_docids if d not in found_ids]
-    if missing_docs:
-        raise RuntimeError(f"Missing {len(missing_docs)} passages in doc_store; first few: {missing_docs[:10]}")
+    # 4) Collect document texts from collection.tar.gz (only the needed ones)
+    print(f"Scanning collection for {len(needed_docids)} unique passages…")
+    doc_rows = collect_docs_subset_from_collection(COLLECTION_TAR, needed_docids)
+    print("✓ Passages collected.")
 
-    # 6) Load into Postgres (order: queries → docs → qrels)
+    # 5) Load into Postgres in FK-safe order
     pg = Pg()
     conn = connect(pg)
     ensure_schema_and_tables(conn, pg.schema)
@@ -252,11 +331,11 @@ def main():
     print("✓ Queries loaded.")
 
     print(f"Loading {len(doc_rows)} docs…")
-    load_docs(conn, pg.schema, iter(doc_rows))
+    load_docs(conn, pg.schema, doc_rows)
     print("✓ Docs loaded.")
 
     print("Loading 1,000 balanced qrels (250 per relevance 0/1/2/3)…")
-    load_qrels(conn, pg.schema, iter(selected_qrels))
+    load_qrels(conn, pg.schema, selected_qrels)
     print("✓ Qrels loaded.")
 
     conn.close()
