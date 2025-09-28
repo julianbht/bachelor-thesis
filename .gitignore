@@ -10,3 +10,6 @@ llm_judging/logs_unofficial
 __pycache__/
 *.pyc
 
+# temporary jupyter files
+.ipynb_checkpoints/
+*checkpoint.ipynb
