@@ -1,0 +1,82 @@
+\chapter{Related works}
+
+\section{A timeline of important developments}
+
+In 2016, Microsoft released the \gls{msmarco} data set featuring 100,000 anonymized search queries sent to the Bing search engine \cite{msmarco-original}. In 2018, \gls{msmarco} v2 was introduced, containing more than 1 million anonymized search queries with more than 8 million related passages extracted from approximately 3 million web documents \cite{msmarco-v2}. Due to it's large and diverse variety of real-world search examples, the dataset has been widely used for \gls{ir} benchmarking \cite{msmarco-github}.
+
+In 2019, the \gls{trec} started incorporating the \gls{msmarco} dataset, hosting a number of competitions with tasks such as document and passage retrieval. Moreover, the \gls{nist}, host of the \gls{trec}, reevaluated the binary relevance labels from \gls{msmarco} with the help of human assessors. They introduced a four-point relevance scale, which allows for more comprehensive metrics to be applied \cite{trec-2019}. 
+
+\begin{table}[ht]
+\centering
+\caption{\gls{trec} relevance scale for passages.}
+\label{tab:relevance-scale}
+\begin{tabularx}{\linewidth}{cX}
+\toprule
+\textbf{Score} & \textbf{Description} \\
+\midrule
+3 & \textbf{Perfectly relevant:} passage is dedicated to the query and contains the exact answer. \\
+2 & \textbf{Highly relevant:} passage contains an answer, but it may be unclear or obscured by extraneous information. \\
+1 & \textbf{Related:} passage is related to the query but does not provide an answer. \\
+0 & \textbf{Irrelevant:} passage has nothing to do with the query. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+An example instance illustrating the \gls{trec} Deep Learning Tracks can be found in \Cref{tab:example-doc,tab:example-qrel,tab:example-query}. This example is from the 2019 track.
+
+% Table: Query
+\begin{table}[H]
+\centering
+\caption{Query}
+\label{tab:example-query}
+\begin{tabularx}{\linewidth}{lX}
+\toprule
+\textbf{qid} & \textbf{text} \\
+\midrule
+2082 & At about what age do adults normally begin to lose bone mass? \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% Table: Qrel
+\begin{table}[H]
+\centering
+\caption{Qrel}
+\label{tab:example-qrel}
+\begin{tabularx}{\linewidth}{lll}
+\toprule
+\textbf{qid} & \textbf{docid} & \textbf{relevance} \\
+\midrule
+2082 & msmarco\_passage\_65\_397444052 & 3 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% Table: Document
+\begin{table}[H]
+\centering
+\caption{Document}
+\label{tab:example-doc}
+\begin{tabularx}{\linewidth}{lX}
+\toprule
+\textbf{docid} & \textbf{passage} \\
+\midrule
+msmarco\_passage\_65\_397444052 & After age 30, the rate at which your bone tissue dissolves and is absorbed by the body slowly increases, while the rate of bone building decreases. So overall you lose a small amount of bone each year after age 30. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+In 2024, Thomas et al. from Microsoft Bing reveal that Bing has turned to LLM labeling at scale. They presented their study titled \textit{Large Language Models Can Accurately Predict Searcher Preferences} at the \gls{acm} \gls{sigir} Conference on Research and Development in Information Retrieval. They write that \glspl{llm} "have proved more accurate than any third-party labeller, including staff; they are much faster end-to-end than any human judge, including crowd
+workers; they scale to much better throughput; and of course are many times cheaper." 
+
+In early 2025, the \textit{LLM-Judge challenge}, where eight international teams produced 42 runs using \glspl{llm} to generate synthetic \glspl{qrel} of the \gls{trec} Deep Learning Track 2023 concluded. It was organized as part of the \gls{llm4eval} workshop at \gls{sigir} conference in 2024. The idea was to create a large and diverse dataset of automatically generated relevance judgments in order to enable systematic analysis of biases, differences between models and trade-offs between human and computer assessors \cite{judgingthejudges}.
+Some particularly well performing approaches to generate \glspl{qrel} using \glspl{llm} include:
+\begin{itemize}
+  \item Using \gls{fewshot}. This approach ranked best regarding \nameref{sec:krippendorff-alpha}.
+  \item Fine-tuning a model for automatic relevance judgments. This approach ranked best regarding \nameref{sec:kendall-tau}.
+  \item Breaking up \textit{relevance} into the criteria of (i) exactness (ii) coverage (iii) topicality (iv) contextual fit and evaluating each criteria seperately for the given passage. This approach ranked best regarding \nameref{sec:spearman-rho}.
+  \item Using \gls{umbrela} \cite{umbrela}, a \gls{zeroshot} technique with a specialized DNA (Descriptive, Narrative, Aspects) prompt proposed by Thomas et. al at \gls{sigir} 2024 \cite{thomas2024}. This approach ranked best regarding \nameref{sec:cohen-kappa}.
+\end{itemize}
+
+
+
