@@ -1,0 +1,8 @@
+{
+  "model": "deepseek-r1:14b",
+  "limit_qrels": null,
+  "official": true,
+  "user_notes": "DeepSeek R1 14B full run to compare with other parameter sizes",
+  "llm_timeout_ms": 100000
+}
+

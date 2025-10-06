@@ -1,0 +1,15 @@
+# large dataset files
+data/ms_marco_doc_v2_csv_subsets/docs.csv
+data/ms_marco_doc_v2_postgres_subset_csv/docs.csv
+
+# logs that are not official runs
+llm_judging/logs_unofficial
+
+# python cache
+**/__pycache__/
+__pycache__/
+*.pyc
+
+# temporary jupyter files
+.ipynb_checkpoints/
+*checkpoint.ipynb

@@ -1,0 +1,18 @@
+{
+  "model": "deepseek-r1:1.5b",
+  "data_schema": "passage",
+  "audit_schema": "passage",
+  "llm_timeout_ms": 120000,
+  "temperature": 0.0,
+  "reasoning_enabled": false,
+  "max_text_chars": null,
+  "commit_every": 5,
+  "limit_qrels": 1000,
+  "start_qrel": 1,
+  "end_qrel": 1000,
+  "official": false,
+  "user_notes": "test run",
+  "retry_enabled": false,
+  "retry_attempts": 1,
+  "retry_backoff_ms": 50
+}

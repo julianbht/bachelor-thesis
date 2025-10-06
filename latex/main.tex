@@ -1,0 +1,63 @@
+\documentclass[11pt,a4paper]{report}
+\input{preamble/packages.tex}  
+\begin{document}
+\pagenumbering{roman}
+
+% =========================
+% Abstract
+% =========================
+
+\include{chapters/intro/abstract} 
+
+% =========================
+% Table of Contents
+% =========================
+
+\tableofcontents
+\cleardoublepage
+
+% =========================
+% Main Content
+% =========================
+
+\cleardoublepage
+\pagenumbering{arabic}
+
+\include{chapters/intro/introduction}
+
+% =========================
+% PART I: LLM Judging System
+% =========================
+
+\part{\textit{LLM Judging System}}
+\include{chapters/part1/related-works}
+
+% =========================
+% PART II: Fine-tuning the Vector Search Engine
+% =========================
+
+\part{\textit{Fine-tuning the Vector Search Engine}}
+\include{chapters/part2/related-works}
+\include{chapters/part2/typesense}
+
+% =========================
+% Appendix - Abbreviations, Glossary, Formulas
+% =========================
+
+\appendix
+\printglossary[title={Glossary}]
+\cleardoublepage
+\printglossary[type=abbreviations,title={List of Abbreviations}]
+\cleardoublepage
+\include{chapters/appendix/formulas}
+\cleardoublepage
+
+% =========================
+% Bibliography
+% =========================
+
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliographystyle{plain}
+\bibliography{bib/ms-marco,bib/metrics}
+
+\end{document}

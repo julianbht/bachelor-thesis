@@ -1,0 +1,59 @@
+% =========================
+% Encoding, language, quoting
+% =========================
+
+\usepackage[utf8]{inputenc}      % UTF-8 input encoding (pdflatex; not needed for Lua/XeLaTeX)
+\usepackage[T1]{fontenc}         % T1 font encoding (better hyphenation/accents in PDF)
+\usepackage[english]{babel}      % Language-specific hyphenation/typography
+\usepackage{csquotes}            % Context-aware quotation marks; integrates with babel/biblatex
+
+% =========================
+% Math
+% =========================
+
+\usepackage{amsmath, amssymb}    % Math environments and symbols
+
+% =========================
+% Figures, graphics, tables
+% =========================
+
+\usepackage{graphicx}            % Include images (PNG/JPG/PDF, etc.)
+\usepackage{svg}                 % Include SVGs (uses Inkscape by default)
+\usepackage{caption}             % Customize figure/table captions
+\usepackage{subcaption}          % Sub-figures and sub-tables (requires 'caption')
+\usepackage{booktabs}            % Professional-quality tables (\toprule etc.)
+\usepackage{tabularx}            % Tables with automatic column width (X columns)
+\usepackage{float}               % Improved float placement control (e.g., [H])
+\usepackage{tikz}                % Drawing/diagrams
+
+% =========================
+% PDF/output quality & links
+% =========================
+
+\usepackage[final]{microtype}    % Better character protrusion & font expansion
+\usepackage{hyperref}            % Clickable links and PDF metadata (load late)
+\hypersetup{hidelinks}           % subtle links indicated on hover
+\usepackage{cleveref}
+
+% =========================
+% Paragraph layout
+% =========================
+
+\setlength{\parskip}{0.8em}      % Space between paragraphs
+\setlength{\parindent}{0pt}      % No paragraph indentation
+
+% =========================
+% Glossaries
+% =========================
+
+\usepackage[abbreviations,toc,numberedsection]{glossaries-extra} % Glossaries with abbreviations
+\setabbreviationstyle{long-short}               % Show long form first time, short thereafter
+\makeglossaries                                 % Prepare glossaries data
+% Load entries (defs live in separate files):
+\loadglsentries{glossary/abbreviations}
+\loadglsentries{glossary/terms}
+
+
+
+
+

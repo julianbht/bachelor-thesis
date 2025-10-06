@@ -1,0 +1,12 @@
+[
+  {
+    "model": "deepseek-r1:1.5b",
+    "limit_qrels": 5,
+    "user_notes": "quick test run with 1.5B"
+  },
+  {
+    "model": "deepseek-r1:7b",
+    "limit_qrels": 5,
+    "user_notes": "quick test run with 7B"
+  }
+]

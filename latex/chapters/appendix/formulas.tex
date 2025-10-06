@@ -1,0 +1,45 @@
+% chapters/appendix/formulas.tex
+\chapter{Formulas \& Metrics}
+
+\section*{Cohen's Kappa ($\kappa$)}\label{sec:cohen-kappa}
+A metric used to measure the agreement (inter-rater reliability) between to raters. The possible values of Cohens $\kappa$ range from $-1 \leq \kappa \leq 1$ where 1 means perfect agreement, 0 means agreement as if labels where selected randomly and negative numbers mean worse agreement than random selection. Landis et. al proposed that $0.41 \leq \kappa \leq 0.60$ can be interpreted as moderate agreement, $0.41 \leq \kappa \leq 0.60$ as substantial agreement and $0.81 \leq \kappa \leq 1.00$ as almost perfect agreement \cite{landis1977}.
+
+\begin{equation}
+  \kappa = \frac{p_o - p_e}{1 - p_e}
+\end{equation}
+
+Here, $p_0$ is the agreement rate between the raters and $p_e$ is the probability for a random match.
+
+% ==================================== %
+
+\section*{Krippendorff's Alpha ($\alpha$)}\label{sec:krippendorff-alpha}
+A metric that measures the level of agreement among multiple raters. The possible values range from $-1 \leq \alpha \leq 1$, where 1 indicates perfect agreement, 0 indicates agreement at the level expected by chance, negative values indicates disagreement worse than chance. Krippendorf  gives the rough recommendation that a value of $\alpha > 0.8$ is a reliable agreement, $0.667 \leq \alpha \leq 0.8$ allows for tentative conclusions \cite{krippendorff2004}.
+
+\begin{equation}
+  \alpha = 1 - \frac{D_o}{D_e}
+\end{equation}
+
+Here, $D_o$ and $D_e$ represent observed and expected disagreement.
+
+% ==================================== %
+
+\section*{Kendall's Tau ($\tau$)}\label{sec:kendall-tau}
+A metric used to measure the rank correlation between two ranked variables. It evaluates how similar the orderings of two lists are by comparing the number of concordant and discordant pairs. The value of Kendall’s $\tau$ ranges from $-1 \leq \tau \leq 1$, where $\tau = 1$ indicates perfect agreement in ranking (all pairs are concordant), $\tau = -1$ indicates perfect disagreement (all pairs are discordant), and $\tau = 0$ suggests no correlation between the rankings \cite{kendall1938}.
+
+\begin{equation}
+  \tau = \frac{C - D}{\frac{1}{2} n (n - 1)}
+\end{equation}
+
+Here, $C$ is the number of concordant pairs, $D$ is the number of discordant pairs, and $n$ is the total number of ranked items.
+
+% ==================================== %
+
+\section*{Spearman's Rank Correlation ($\rho$)}\label{sec:spearman-rho}
+A metric that assesses the rank correlation of two sets. The value of $\rho$ ranges from $-1 \leq \rho \leq 1$, where $\rho = 1$ indicates a perfect positive monotonic relationship, $\rho = -1$ indicates a perfect negative monotonic relationship, and $\rho = 0$ suggests no monotonic correlation \cite{spearman1904}.
+
+\begin{equation}
+  \rho = 1 - \frac{6 \sum_{i=1}^{n} d_i^2}{n(n^2 - 1)}
+\end{equation}
+
+Here, $d_i$ is the difference between the ranks of the two variables for the $i$-th item, and $n$ is the total number of paired observations.
+
