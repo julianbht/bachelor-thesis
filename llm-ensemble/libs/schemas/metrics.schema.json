@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Evaluation Metrics",
+  "type": "object",
+  "properties": {
+    "accuracy": { "type": "number" },
+    "macro_f1": { "type": "number" },
+    "confusion_matrix": { "type": "array" }
+  }
+}

@@ -1,0 +1,14 @@
+# python
+__pycache__/
+*.pyc
+.venv/
+.env
+# artifacts & data
+artifacts/
+data/
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
+# caches
+*.cache

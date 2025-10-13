@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Normalized Judgement",
+  "type": "object",
+  "required": ["sample_id","model_id","label","confidence"],
+  "properties": {
+    "sample_id": { "type": "string" },
+    "model_id": { "type": "string" },
+    "provider": { "type": "string" },
+    "label": { "type": "string", "enum": ["relevant","partially","irrelevant"] },
+    "score": { "type": ["number","null"] },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "rationale": { "type": ["string","null"] },
+    "raw_text": { "type": ["string","null"] },
+    "latency_ms": { "type": ["number","null"] },
+    "attempts": { "type": ["integer","null"] },
+    "cache_hit": { "type": ["boolean","null"] },
+    "warnings": { "type": "array", "items": { "type": "string" } }
+  }
+}

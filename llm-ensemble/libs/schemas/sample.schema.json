@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Canonical Sample",
+  "type": "object",
+  "required": ["sample_id", "query", "candidate"],
+  "properties": {
+    "sample_id": { "type": "string" },
+    "query": { "type": "string" },
+    "candidate": { "type": ["string","object"] },
+    "references": { "type": ["array","object","null"] },
+    "gold_label": { "type": ["string","null"] },
+    "metadata": { "type": "object" }
+  }
+}

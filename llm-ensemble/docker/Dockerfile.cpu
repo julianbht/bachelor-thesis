@@ -1,0 +1,7 @@
+FROM python:3.11-slim
+WORKDIR /app
+COPY pyproject.toml README.md ./
+RUN pip install --no-cache-dir -e .
+COPY . .
+ENTRYPOINT ["bash","-lc"]
+CMD ["echo","Build successful. Use compose for dev runs."]

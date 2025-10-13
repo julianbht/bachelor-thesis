@@ -1,0 +1,7 @@
+artifacts/
+data/
+.vscode/
+.idea/
+__pycache__/
+*.pyc
+.venv/

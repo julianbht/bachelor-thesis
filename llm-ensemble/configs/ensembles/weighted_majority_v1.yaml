@@ -1,0 +1,6 @@
+strategy: weighted_majority
+params:
+  default_weight: 1.0
+  per_model_weights:
+    phi3-mini: 1.0
+    tinyllama: 1.0
