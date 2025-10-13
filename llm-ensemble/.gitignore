@@ -12,3 +12,10 @@ data/
 .idea/
 # caches
 *.cache
+# Packaging
+*.egg-info/
+dist/
+build/
+# Artifacts
+/out/
+artifacts/

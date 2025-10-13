@@ -1,0 +1,47 @@
+llm-ensemble/
+├─ README.md
+├─ pyproject.toml                  # root deps; per-CLI extras optional
+├─ .gitignore  .dockerignore  Makefile
+│
+├─ apps/
+│  ├─ ingest/
+│  │  ├─ cli/                      # thin entrypoints / argparse only
+│  │  │  └─ ingest_cli.py
+│  │  ├─ domain/                   # ingest-specific logic
+│  │  ├─ adapters/                 # loaders for datasets
+│  │  ├─ tests/
+│  │  └─ configs/                  # defaults for this CLI (optional)
+│  ├─ infer/
+│  │  ├─ cli/ infer_cli.py
+│  │  ├─ domain/                   # prompting, scheduling (local focus)
+│  │  ├─ adapters/                 # provider adapters (ollama/hf)
+│  │  ├─ tests/
+│  │  └─ configs/
+│  ├─ aggregate/
+│  │  ├─ cli/ aggregate_cli.py
+│  │  ├─ domain/                   # strategies, calibration
+│  │  ├─ tests/
+│  │  └─ configs/
+│  └─ evaluate/
+│     ├─ cli/ evaluate_cli.py
+│     ├─ domain/                   # metrics, reports
+│     ├─ tests/
+│     └─ configs/
+│
+├─ libs/
+│  ├─ io/                          # parquet/jsonl preview, schema I/O
+│  ├─ schemas/                     # JSON Schemas for artifacts (contract!)
+│  ├─ logging/                     # JSON logger, trace fields
+│  ├─ runtime/                     # env/config loading & validation
+│  ├─ cache/                       # fs/redis cache interface (optional later)
+│  └─ utils/                       # chunking, ids, timers
+│
+├─ configs/                        # cross-app: prompts, model registry, ensembles
+│  ├─ prompts/ relevance_v1.jinja
+│  ├─ models/  phi3-mini.yaml  tinyllama.yaml …
+│  ├─ ensembles/ weighted_majority_v1.yaml
+│  └─ datasets/ llm_judge_challenge.yaml
+│
+├─ data/                           # read-only mounts
+└─ artifacts/
+   └─ runs/                        # each CLI writes here

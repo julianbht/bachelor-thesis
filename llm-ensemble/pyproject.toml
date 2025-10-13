@@ -1,14 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "llm-ensemble"
-version = "0.0.1"
-description = "CLI-first LLM ensemble relevance judging system"
-readme = "README.md"
-requires-python = ">=3.10"
-dependencies = [
-  "pyarrow>=17.0.0",
-  "pandas>=2.2.2",
-  "polars>=1.5.0",
-  "jinja2>=3.1.4",
-  "pydantic>=2.7.4",
-  "rich>=13.7.1"
-]
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = ["typer>=0.12", "pydantic>=2.7"]
+
+[project.scripts]
+llm-ensemble-ingest = "llm_ensemble.ingest.cli.ingest_cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]          # only ships code from src/
+exclude = ["**/tests*"]  # optional
+
+[tool.pytest.ini_options]
+addopts = "-q"
