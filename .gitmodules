@@ -1,0 +1,3 @@
+[submodule "llm-ensemble"]
+	path = llm-ensemble
+	url = https://github.com/julianbht/llm-ensemble.git
