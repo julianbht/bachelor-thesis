@@ -1,8 +1,0 @@
-model_id: tinyllama
-provider: ollama
-context_window: 2048
-default_params:
-  temperature: 0.0
-  max_tokens: 256
-capabilities:
-  multilingual: false

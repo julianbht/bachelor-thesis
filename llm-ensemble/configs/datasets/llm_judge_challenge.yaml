@@ -1,7 +1,0 @@
-name: llm_judge_challenge
-version: "0.1"
-source: "local"
-splits:
-  train: "data/llm_judge_challenge/train.jsonl"
-  test: "data/llm_judge_challenge/test.jsonl"
-label_space: [relevant, partially, irrelevant]

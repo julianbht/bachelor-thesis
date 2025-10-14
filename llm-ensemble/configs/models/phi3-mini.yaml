@@ -1,8 +1,0 @@
-model_id: phi3-mini
-provider: hf
-context_window: 4096
-default_params:
-  temperature: 0.0
-  max_tokens: 256
-capabilities:
-  multilingual: true
