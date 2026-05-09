@@ -1,2 +1,7 @@
-# bachelor-thesis
-This repository is just a link to the repository containing the bachelor thesis. 
+# Bachelor Thesis
+
+This repository serves as an entry point to the actual thesis project.
+
+## Repository
+
+[Open the thesis repository](https://github.com/julianbht/llm-ensemble)
